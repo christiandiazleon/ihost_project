@@ -15,6 +15,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# which points to the folder containing the folder that contains the actual
+# file, i.e. the folder taskbuster
 
 
 # Quick-start development settings - unsuitable for production
@@ -66,7 +68,11 @@ ROOT_URLCONF = 'taskbuster.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+
+        # Like with the static files, Django will look for templates located
+        # at a folder named templates inside each app and inside the
+        # taskbuster/templates folder we just created
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,5 +134,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+# This line tells Django to look for static files in a folder named static
+# inside each of our apps.
 STATIC_URL = '/static/'
+
+# To tell Django to look for static files in the taskbuster/static directory
+# that we just created
+# With this configuration, Django will look for static files in a folder named
+# static inside each app and into the taskbuster/static folder we just created.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)

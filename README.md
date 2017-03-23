@@ -1,8 +1,8 @@
 # iHost Team
-Juan Jaime Arroyave_.
-Luisa Fernanda García Muriel_.
-Christian Andrés Diaz León_.
-Bernardo Augusto García Loaiza_.
+* Juan Jaime Arroyave
+* Luisa Fernanda García Muriel
+* Christian Andrés Diaz León
+* Bernardo Augusto García Loaiza
 
 
 # Todo

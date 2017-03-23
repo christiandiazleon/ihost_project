@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% load bootstrap3 %}
+
+{% block title_tag %}Sign Up | {{ block.super }}{% endblock %}
+
+{% block body_content %}
+<div class="container">
+    <h1>Join IHost for free</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {# equivalent to form.as_p #}
+        <input type="submit" value="Sign Up with email" class="btn btn-default">
+        <input type="submit" value="Sign Up with facebook" class="btn btn-default"> 
+        <br /><br />
+        Already member?
+      <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Log In &raquo;</a></p>
+
+    </form>
+    
+</div>
+    
+{% endblock %}

@@ -54,9 +54,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
+    # 'address',
+    'debug_toolbar',
     'bootstrap3',
     'django_countries',
-    'debug_toolbar',
+    'django_extensions',
+    'phonenumber_field',
 
     # Project apps
     'accounts.apps.AccountsConfig',

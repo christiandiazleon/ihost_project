@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.utils.translation import ugettext as _
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -14,9 +15,11 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django_countries.fields import CountryField
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Model Manager
+
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, username, display_name=None, password=None):
@@ -79,6 +82,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     country_of_origin = CountryField(blank_label='(select country)')
 
+    phone_number = PhoneNumberField(blank=True)
+
+    address = models.CharField(_("address"), max_length=128)
+
     bio = models.CharField(max_length=140, blank=True, default="")
 
     avatar = models.ImageField(blank=True, null=True)
@@ -90,6 +97,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         verbose_name='Fecha de nacimiento',
         help_text="Por favor use el siguiente formato: <em>DD/MM/YYYY</em>.",
+    )
+
+    is_student = models.BooleanField(
+        default=False,
+        verbose_name='Estudiante',
+        help_text='Usuario con perfil de estudiante'
+    )
+
+    is_professor = models.BooleanField(
+        default=False,
+        verbose_name='Profesor',
+        help_text='Usuario con perfil de profesor'
+    )
+
+    is_executive = models.BooleanField(
+        default=False,
+        verbose_name='Ejecutivo',
+        help_text='Usuario con perfil de ejecutivo',
     )
 
     is_active = models.BooleanField(default=True)
@@ -118,6 +143,37 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_long_name(self):
         return "{} (@{})".format(self.display_name, self.username)
+
+    # We get the profiles user according with their type
+
+    def get_student_profile(self):
+        student_profile = None
+        if hasattr(self, 'studentprofile'):
+            student_profile = self.studentprofile
+        return student_profile
+
+    def get_professor_profile(self):
+        professor_profile = None
+        if hasattr(self, 'professorprofile'):
+            professor_profile = self.professorprofile
+        return professor_profile
+
+    def get_executive_profile(self):
+        executive_profile = None
+        if hasattr(self, 'executiveprofile'):
+            executive_profile = self.executiveprofile
+        return executive_profile
+
+    def save(self, *args, **kwargs):
+        user = super(User,self).save(*args,**kwargs)
+
+
+        if self.is_student and not StudentProfile.objects.filter(user=self).exists() \
+            and self.is_professor and not ProfessorProfile.objects.filter(user=self).exists() \
+            and self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
+            student_profile = StudentProfile(user=self)
+            professor_profile = ProfessorProfile(user=self)
+            executive_profile = ExecutiveProfile(user=self)
 
 
 class StudentProfile(models.Model):

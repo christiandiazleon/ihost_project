@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
+from django.core.validators import RegexValidator
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -11,10 +12,12 @@ from django.contrib.auth.models import (
     # all benefits of them
 )
 
+# from languages_plus.models import Language
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django_countries.fields import CountryField
+# from countries_plus.models import Country
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Model Manager
@@ -28,7 +31,8 @@ class UserManager(BaseUserManager):
 
         # If the users don't have a user or display name
         # I set as display_name the username they've provided.
-        # If some reason signup some user without display_name, this will be the username
+        # If some reason signup some user without display_name, this will be
+        # the username
         if not display_name:
             display_name = username
 
@@ -67,9 +71,31 @@ class User(AbstractBaseUser, PermissionsMixin):
         (FEMALE, "Femenino"),
     )
 
+    SPANISH = 'SPA'
+    ENGLISH = 'ENG'
+    GERMAN = 'DEU'
+    FRENCH = 'FRA'
+    PORTUGUESE = 'POR'
+
+    LANGUAGES_CHOICES = (
+        (SPANISH, 'Spanish'),
+        (ENGLISH, 'English'),
+        (GERMAN, 'German'),
+        (FRENCH, 'French'),
+        (PORTUGUESE, 'Portuguese'),
+    )
+
     email = models.EmailField(unique=True)
 
-    username = models.CharField(max_length=40, unique=True)
+    #username = models.CharField(max_length=40, unique=True)
+
+    username = models.CharField(_('username'), max_length=30, unique=True,
+            help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
+        validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
+        ])
+
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
 
     display_name = models.CharField(max_length=140)
 
@@ -81,6 +107,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     country_of_origin = CountryField(blank_label='(select country)')
+
+    # speak_languages = Country.objects.get(iso3='USA')
+    speak_languages = models.CharField(
+        max_length=255,
+        # choices=LANGUAGES_CHOICES,
+        # verbose_name='Speak languages',
+        default = False,
+
+    )
 
     phone_number = PhoneNumberField(blank=True)
 
@@ -101,20 +136,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     is_student = models.BooleanField(
         default=False,
-        verbose_name='Estudiante',
-        help_text='Usuario con perfil de estudiante'
+        verbose_name='Student',
+        help_text='Student profile'
     )
 
     is_professor = models.BooleanField(
         default=False,
-        verbose_name='Profesor',
-        help_text='Usuario con perfil de profesor'
+        verbose_name='Professor',
+        help_text='Professor profile'
     )
 
     is_executive = models.BooleanField(
         default=False,
-        verbose_name='Ejecutivo',
-        help_text='Usuario con perfil de ejecutivo',
+        verbose_name='Executive',
+        help_text='Executive profile',
     )
 
     is_active = models.BooleanField(default=True)
@@ -139,7 +174,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return "@{}".format(self.username)
 
     def get_short_name(self):
-        return self.display_name
+        return self.first_name
+        #return self.display_name
 
     def get_long_name(self):
         return "{} (@{})".format(self.display_name, self.username)
@@ -167,7 +203,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         user = super(User,self).save(*args,**kwargs)
 
-
+        # Creating an user with student, professor and executive profiles
         if self.is_student and not StudentProfile.objects.filter(user=self).exists() \
             and self.is_professor and not ProfessorProfile.objects.filter(user=self).exists() \
             and self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
@@ -175,11 +211,42 @@ class User(AbstractBaseUser, PermissionsMixin):
             professor_profile = ProfessorProfile(user=self)
             executive_profile = ExecutiveProfile(user=self)
 
+            student_profile.save()
+            professor_profile.save()
+            executive_profile.save()
+
+        # Creating an user with student profile
+        elif self.is_student and not StudentProfile.objects.filter(user=self).exists():
+            student_profile = StudentProfile(user = self)
+            student_profile.save()
+
+        # Creating an user with professor profile
+        elif self.is_professor and not ProfessorProfile.objects.filter(user=self).exists():
+            professor_profile = ProfessorProfile(user=self)
+            professor_profile.save()
+
+        # Creating an user with executive profile
+        elif self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
+            executive_profile = ExecutiveProfile(user = self)
+            executive_profile.save()
+
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
+    )
+
+    origin_education_school = models.CharField(
+        _("origin education institute"), max_length=128
+    )
+
+    current_education_school = models.CharField(
+        _("current education institute"), max_length=128
+    )
+
+    extra_occupation = models.CharField(
+        _("extra occupation"), max_length=128
     )
 
     class Meta:

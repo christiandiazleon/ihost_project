@@ -1,14 +1,19 @@
 from __future__ import unicode_literals
 
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 # form that handles authenticating the user
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
+from django.shortcuts import render
 
 from . import forms
+
 
 # Create your views here.
 
@@ -54,10 +59,44 @@ class SignUpView(generic.CreateView):
     template_name = "accounts/signup.html"
 
 
-class DashboardView(LoginRequiredMixin, TemplateView):
+def signup(request):
+    form = forms.UserCreateForm(request.POST or None)
+    # success_url = reverse_lazy("dashboard")
+    if form.is_valid():
+        saved_user = form.save()
+        # We going authenticate the user through django authenticate method
+        # which receive the user captured and the password sent in the
+        # registration form in forms.py-UserCreateForm
+        user = authenticate(username = saved_user.username,
+                            password = form.cleaned_data['password1'])
+
+        # Login the user, then we authenticate it
+        login(request,user)
+        # redirect the user to the url home or profile
+        return HttpResponseRedirect(reverse('dashboard'))
+    else:
+        return render(request, 'accounts/signup2.html', {'form': form})
+
+
+class DashboardProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
-        context = super(DashboardView, self).get_context_data(**kwargs)
-        # user = self.request.user
+        context = super(DashboardProfileView, self).get_context_data(**kwargs)
+        user = self.request.user
+        if user.is_student:
+            profile = user.get_student_profile()
+            data = {
+                'profile': profile,
+            }
+            context.update({'userprofile': profile})
+        '''
+        elif user.is_professor:
+            profile = user.get_professor_profile()
+            data = {
+                'profile': profile,
+            }
+            context.update({'userprofile': profile})
+        '''
         return context
+

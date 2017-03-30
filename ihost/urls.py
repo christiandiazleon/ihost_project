@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 
 from .views import  home_files, HomePageView
-from accounts.views import DashboardView
+from accounts.views import DashboardProfileView
 
 # Return a url pattern to serve the static files
 #from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -31,7 +31,7 @@ urlpatterns = [
 
     url(r'^$', HomePageView.as_view(), name='home'),
 
-    url(r'^dashboard/', DashboardView.as_view(), name='dashboard'),
+    url(r'^dashboard/', DashboardProfileView.as_view(), name='dashboard'),
 
 
     #url(r'^$', home, name='home'),

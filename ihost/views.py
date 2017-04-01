@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class HomePageView(TemplateView):
@@ -15,6 +16,17 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         # messages.info(self.request, 'hello http://example.com')
+        user = self.request.user
+        if user.is_authenticated():
+            if user.is_student:
+                profile = user.get_student_profile
+                context['userprofile'] = profile
+            elif user.is_professor:
+                profile = user.get_professor_profile
+                context['userprofile'] = profile
+            elif user.is_executive:
+                profile = user.get_executive_profile
+                context['userprofile'] = profile
         return context
 
 '''

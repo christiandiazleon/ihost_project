@@ -12,6 +12,11 @@ from django.contrib.auth.models import (
     # all benefits of them
 )
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+
+
 # from languages_plus.models import Language
 from django.conf import settings
 from django.db import models
@@ -94,16 +99,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
         ])
 
+    slug = models.SlugField(
+        max_length=100,
+        blank=True
+    )
+
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
 
     display_name = models.CharField(max_length=140)
 
     gender = models.CharField(
-        max_length=4,
+        max_length=10,
         choices=GENDER_CHOICES,
-        verbose_name='genero'
-
+        verbose_name='genero',
+        default=False,
+        blank=False,
     )
 
     country_of_origin = CountryField(blank_label='(select country)')
@@ -113,7 +124,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         # choices=LANGUAGES_CHOICES,
         # verbose_name='Speak languages',
-        default = False,
+        blank = False,
 
     )
 
@@ -208,6 +219,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             and self.is_professor and not ProfessorProfile.objects.filter(user=self).exists() \
             and self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
             student_profile = StudentProfile(user=self)
+            student_slug = self.username
+            student_profile.slug = student_slug
+
             professor_profile = ProfessorProfile(user=self)
             executive_profile = ExecutiveProfile(user=self)
 
@@ -218,6 +232,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Creating an user with student profile
         elif self.is_student and not StudentProfile.objects.filter(user=self).exists():
             student_profile = StudentProfile(user = self)
+            student_slug = self.username
+            student_profile.slug = student_slug
+
             student_profile.save()
 
         # Creating an user with professor profile
@@ -231,10 +248,21 @@ class User(AbstractBaseUser, PermissionsMixin):
             executive_profile.save()
 
 
+@receiver(post_save, sender=User)
+def post_save_user(sender, instance, **kwargs):
+    slug = slugify(instance.username)
+    User.objects.filter(pk=instance.pk).update(slug=slug)
+
+
 class StudentProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
+    )
+
+    slug = models.SlugField(
+        max_length=100,
+        blank=True
     )
 
     origin_education_school = models.CharField(
@@ -257,10 +285,34 @@ class StudentProfile(models.Model):
 
 
 class ProfessorProfile(models.Model):
+
+    CATHEDRAL_PROFESSOR = 'CATHEDRAL'
+    RESEARCH_PROFESSOR = 'RESEARCH'
+    INSTITUTIONAL_DIRECTIVE = 'DIRECTIVE'
+
+
+    OCCUPATION_CHOICES = (
+        (CATHEDRAL_PROFESSOR, 'Cathedral Professor'),
+        (RESEARCH_PROFESSOR, 'Research Professor'),
+        (INSTITUTIONAL_DIRECTIVE, 'Institutional Directive'),
+    )
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
+
+    slug = models.SlugField(
+        max_length=100,
+        blank=True
+    )
+
+    occupation = models.CharField(
+        max_length=255,
+        blank = False,
+    )
+
+    # educational_titles =
 
     class Meta:
         verbose_name_plural='Usuarios con perfil de profesores'

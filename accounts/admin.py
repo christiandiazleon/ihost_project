@@ -18,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
             None, {
                 'classes':('wide',),
                 'fields':(
-                    #'username',
+                    'slug',
                     #'first_name',
                     #'last_name',
                     'display_name',
@@ -45,16 +45,16 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(User)
 class UserAdmin(CustomUserAdmin):
 
-    list_display = ('username', 'first_name', 'last_name', 'display_name','gender','country_of_origin',
+    list_display = ('id', 'username', 'slug','first_name', 'last_name', 'display_name','gender','country_of_origin',
         'speak_languages','phone_number','address','email',
                     'bio','date_of_birth','is_student','is_professor',
                     'is_executive', )
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):
-    list_display = ('id',)
+    list_display = ('id', 'user_id', 'slug')
 
 @admin.register(ProfessorProfile)
-class StudentProfileAdmin(admin.ModelAdmin):
-    list_display = ('id',)
+class ProfessorProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', )
 

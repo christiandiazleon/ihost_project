@@ -2,18 +2,20 @@ from __future__ import unicode_literals
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
 # form that handles authenticating the user
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic import TemplateView
+from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from django.shortcuts import render
 
 from . import forms
-
+from .models import StudentProfile
 
 # Create your views here.
 
@@ -90,13 +92,57 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
                 'profile': profile,
             }
             context.update({'userprofile': profile})
-        '''
+
         elif user.is_professor:
             profile = user.get_professor_profile()
             data = {
                 'profile': profile,
             }
             context.update({'userprofile': profile})
-        '''
+
         return context
+
+
+class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = forms.UserUpdateForm
+    success_url = reverse_lazy('dashboard')
+    context_object_name = 'preferences'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        if user.is_student:
+            profile = user.get_student_profile()
+            context.update({'userprofile': profile})
+        elif user.is_professor:
+            profile = user.get_professor_profile()
+            context.update({'userprofile': profile})
+        return context
+
+'''
+class AccountProfilesView(LoginRequiredMixin, UpdateView):
+    def get_context_data(self, **kwargs):
+'''
+
+
+class StudentProfileView(LoginRequiredMixin, UpdateView):
+    model = StudentProfile
+    form_class = forms.StudentProfileForm
+    success_url = reverse_lazy('dashboard')
+    template_name = 'accounts/student_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentProfileView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        queryset = StudentProfile.objects.filter(user_id__slug=self.kwargs['slug'])
+        # context['student_profile_data']=queryset
+        if user.is_student:
+            profile = user.get_student_profile()
+            context.update({'userprofile': profile})
+        return context
+
+
 

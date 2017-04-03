@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 from django.conf.urls import url
 from . import views
+from .forms import ProfessorProfileForm
+from .models import ProfessorProfile, ExecutiveProfile
 
 
 urlpatterns = [
@@ -15,13 +17,18 @@ urlpatterns = [
     #    name='preferences'
     #),
 
+    # basado en el usernames
+    url(r"^profile/(?P<slug>[\w\-]+)/$",
+        views.AccountProfilesView.as_view(),
+            name='profile'
+    ),
+
     url(r"^preferences/(?P<slug>[\w\-]+)/$",
         views.AccountSettingsUpdateView.as_view(),
         name='preferences'
     ),
 
-    # basado en el usernames
-    url(r"^profile/(?P<slug>[\w\-]+)/$", views.StudentProfileView.as_view(), name='profile'),
+
 
 
 ]

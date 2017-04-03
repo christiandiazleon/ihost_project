@@ -59,7 +59,26 @@
                     
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Account</li>
-                    <li><a href="{% url 'accounts:profile' userprofile.user.studentprofile.slug %}">My profile</a></li>
+                    {% if userprofile.user.is_student %}
+                      <li>
+                        <a href="{% url 'accounts:profile' userprofile.user.studentprofile.slug %}">
+                          My profile
+                        </a>
+                      </li>
+                    {% elif userprofile.user.is_professor %}
+                      <li>
+                        <a href="{% url 'accounts:profile' userprofile.user.professorprofile.slug %}">
+                          My profile
+                        </a>
+                      </li>
+                    {% elif userprofile.user.is_executive %}
+
+                      <li>
+                        <a href="{% url 'accounts:profile' userprofile.user.executiveprofile.slug %}">
+                          My profile
+                        </a>
+                      </li>
+                    {% endif %}
                     <li><a href="{% url 'accounts:preferences' userprofile.user.username %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
                   </ul>

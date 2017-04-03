@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import User, StudentProfile, ProfessorProfile
+from .models import User, StudentProfile, ProfessorProfile, ExecutiveProfile
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -56,5 +56,9 @@ class StudentProfileAdmin(admin.ModelAdmin):
 
 @admin.register(ProfessorProfile)
 class ProfessorProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user_id', )
+    list_display = ('id', 'user_id', 'slug' )
+
+@admin.register(ExecutiveProfile)
+class ExecutiveProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'slug' )
 

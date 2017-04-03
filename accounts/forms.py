@@ -2,7 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms.widgets import CheckboxSelectMultiple
 from django import forms
-from .models import StudentProfile, User, ProfessorProfile
+from .models import (StudentProfile,
+                        User,
+                        ProfessorProfile,
+                        ExecutiveProfile
+                    )
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -75,3 +79,10 @@ class ProfessorProfileForm(forms.ModelForm):
     class Meta:
         model = ProfessorProfile
         fields = ('occupation',)
+
+
+class ExecutiveProfileForm(forms.ModelForm):
+    class Meta:
+        model = ExecutiveProfile
+        fields = ('occupation', 'enterprise_name', 'culturals_arthistic',
+            'ecological')

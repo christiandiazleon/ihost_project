@@ -223,7 +223,12 @@ class User(AbstractBaseUser, PermissionsMixin):
             student_profile.slug = student_slug
 
             professor_profile = ProfessorProfile(user=self)
+            professor_slug = self.username
+            professor_profile.slug = professor_slug
+
             executive_profile = ExecutiveProfile(user=self)
+            executive_slug = self.username
+            executive_profile.slug = executive_slug
 
             student_profile.save()
             professor_profile.save()
@@ -240,11 +245,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Creating an user with professor profile
         elif self.is_professor and not ProfessorProfile.objects.filter(user=self).exists():
             professor_profile = ProfessorProfile(user=self)
+            professor_slug = self.username
+            professor_profile.slug = professor_slug
             professor_profile.save()
 
         # Creating an user with executive profile
         elif self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
             executive_profile = ExecutiveProfile(user = self)
+            executive_slug = self.username
+            executive_profile.slug = executive_slug
             executive_profile.save()
 
 
@@ -322,9 +331,35 @@ class ProfessorProfile(models.Model):
 
 
 class ExecutiveProfile(models.Model):
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
+    )
+
+    slug = models.SlugField(
+        max_length=100,
+        blank=True
+    )
+
+    occupation = models.CharField(
+        max_length=255,
+        blank = False,
+    )
+
+    enterprise_name = models.CharField(
+        max_length=255,
+        blank = False,
+    )
+
+    culturals_arthistic = models.BooleanField(
+        default=False,
+        verbose_name='Arthistic and Culturals activities',
+    )
+
+    ecological = models.BooleanField(
+        default=False,
+        verbose_name='Ecological activities',
     )
 
     class Meta:

@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 # form that handles authenticating the user
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.views import generic
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
@@ -15,7 +15,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 
 from . import forms
-from .models import StudentProfile
+from .models import StudentProfile, ProfessorProfile, ExecutiveProfile
 
 # Create your views here.
 
@@ -88,17 +88,15 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
         user = self.request.user
         if user.is_student:
             profile = user.get_student_profile()
-            data = {
-                'profile': profile,
-            }
-            context.update({'userprofile': profile})
+            context['userprofile'] = profile
 
         elif user.is_professor:
             profile = user.get_professor_profile()
-            data = {
-                'profile': profile,
-            }
-            context.update({'userprofile': profile})
+            context['userprofile'] = profile
+
+        elif user.is_executive:
+            profile = user.get_executive_profile()
+            context['userprofile'] = profile
 
         return context
 
@@ -115,10 +113,13 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         user = self.request.user
         if user.is_student:
             profile = user.get_student_profile()
-            context.update({'userprofile': profile})
+            context['userprofile'] = profile
         elif user.is_professor:
             profile = user.get_professor_profile()
-            context.update({'userprofile': profile})
+            context['userprofile'] = profile
+        elif user.is_executive:
+            profile = user.get_executive_profile()
+            context['userprofile'] = profile
         return context
 
 '''
@@ -127,22 +128,62 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
 '''
 
 
-class StudentProfileView(LoginRequiredMixin, UpdateView):
-    model = StudentProfile
-    form_class = forms.StudentProfileForm
-    success_url = reverse_lazy('dashboard')
-    template_name = 'accounts/student_form.html'
+class AccountProfilesView(LoginRequiredMixin, UpdateView):
+    # All users can access this view
+    model = get_user_model()
+    #success_url = reverse_lazy('dashboard')
+    template_name = 'accounts/profile_form.html'
+    fields = '__all__'
 
     def get_context_data(self, **kwargs):
-        context = super(StudentProfileView, self).get_context_data(**kwargs)
-
+        context = super(AccountProfilesView, self).get_context_data(**kwargs)
         user = self.request.user
-        queryset = StudentProfile.objects.filter(user_id__slug=self.kwargs['slug'])
-        # context['student_profile_data']=queryset
-        if user.is_student:
-            profile = user.get_student_profile()
-            context.update({'userprofile': profile})
+
+        if not self.request.POST:
+            if user.is_student:
+                profile = user.get_student_profile()
+                context['userprofile'] = profile
+                context['form_student'] = forms.StudentProfileForm()
+            elif user.is_professor:
+                profile = user.get_professor_profile()
+                context['userprofile'] = profile
+                context['form_professor'] = forms.ProfessorProfileForm()
+            elif user.is_executive:
+                profile = user.get_executive_profile()
+                context['userprofile'] = profile
+                context['form_executive'] = forms.ExecutiveProfileForm()
         return context
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        user = self.request.user
+        if user.is_student:
+            context['form_student'] = forms.StudentProfileForm(self.request.POST)
+        elif user.is_professor:
+            context['form_professor'] = forms.ProfessorProfileForm(self.request.POST)
+        elif user.is_executive:
+            context['form_executive'] = forms.ExecutiveProfileForm(self.request.POST)
+        return super(AccountProfilesView, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        context = self.get_context_data(form=form)
+        user = self.request.user
+        user = form.save()
+        if user.is_student:
+            student = context['form_student'].save(commit=False)
+            student.user = user
+            student.save()
+        elif user.is_professor:
+            professor = context['form_professor'].save(commit=False)
+            professor.user = user
+            professor.save()
+        elif user.is_executive:
+            executive = context['form_executive'].save(commit=False)
+            executive.user = user
+            executive.save()
+        return super(AccountProfilesView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard')
 
 

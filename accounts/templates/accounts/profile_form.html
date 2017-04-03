@@ -5,10 +5,16 @@
 
 {% block body_content %}
 <div class="container">
-    <h1>Account Details</h1>
+    <h1>My Profile</h1>
     <form method="POST">
         {% csrf_token %}
-        {% bootstrap_form form %}
+        {% if userprofile.user.is_student %}
+            {% bootstrap_form form_student %}
+        {% elif userprofile.user.is_professor %}
+            {% bootstrap_form form_professor %}
+        {% elif userprofile.user.is_executive %}
+            {% bootstrap_form form_executive %}
+        {% endif %}    
         <input type="submit" value="Save Changes" class="btn btn-default">
     </form>
 </div>

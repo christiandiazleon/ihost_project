@@ -68,6 +68,7 @@ class StudentProfileForm(forms.ModelForm):
             'extra_occupation')
 
 
+
 class ProfessorProfileForm(forms.ModelForm):
     occupation = forms.MultipleChoiceField(
         required=False,

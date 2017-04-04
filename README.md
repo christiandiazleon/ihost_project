@@ -7,10 +7,12 @@
 
 # Todo
 
-- [x] Home page
-- [ ] Profile page to set image, display name, etc
-- [x] Ability to sign up in the platform
-- [x] Ability to Log in in the platform
+- [x] Home page.
+- [x] Account settings update user and profile choose.
+- [ ] Account settings update profile mix combinations options. * Partially done
+- [x] Profile page update user to set image, display name, and profile data associated.
+- [x] Ability to sign up in the platform.
+- [x] Ability to Log in in the platform.
 
 
 # Credits

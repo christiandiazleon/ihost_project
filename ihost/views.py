@@ -27,6 +27,9 @@ class HomePageView(TemplateView):
             elif user.is_executive:
                 profile = user.get_executive_profile
                 context['userprofile'] = profile
+            elif user.is_study_host:
+                profile = user.get_study_host_profile
+                context['userprofile'] = profile
         return context
 
 '''

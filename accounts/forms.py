@@ -2,11 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms.widgets import CheckboxSelectMultiple
 from django import forms
-from .models import (StudentProfile,
-                        User,
-                        ProfessorProfile,
-                        ExecutiveProfile
+from .models import (StudentProfile, User, ProfessorProfile, ExecutiveProfile,
+                    StudyHostProfile
                     )
+
+from django_countries.widgets import CountrySelectWidget
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -53,11 +53,19 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         widgets = {
             'gender':forms.RadioSelect,
+            'country_of_origin': CountrySelectWidget(),
+            'country_current_residence': CountrySelectWidget()
+            # I can customize these https://github.com/SmileyChris/
+            # django-countries#countryselectwidget
         }
         fields = ("first_name", "last_name", "display_name", "gender",
-            "country_of_origin", "speak_languages", "phone_number",
+            "country_of_origin", "city_of_origin", "country_current_residence",
+            "city_current_residence", "speak_languages", "phone_number",
             "address", "bio", "avatar", "date_of_birth", "is_student",
-            "is_professor", "is_executive",)
+            "is_professor", "is_executive", "is_study_host",
+            "is_innovation_host", "is_hosting_host", "is_entertainment_host",
+            "is_other_services_host", )
+
         model = get_user_model()
 
 
@@ -66,7 +74,6 @@ class StudentProfileForm(forms.ModelForm):
         model = StudentProfile
         fields = ('origin_education_school', 'current_education_school',
             'extra_occupation')
-
 
 
 class ProfessorProfileForm(forms.ModelForm):
@@ -86,4 +93,10 @@ class ExecutiveProfileForm(forms.ModelForm):
     class Meta:
         model = ExecutiveProfile
         fields = ('occupation', 'enterprise_name', 'culturals_arthistic',
-            'ecological')
+            'ecological', )
+
+
+class StudyHostProfileForm(forms.ModelForm):
+    class Meta:
+        model = StudyHostProfile
+        fields = ('slug',)

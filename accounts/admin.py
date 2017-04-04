@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import User, StudentProfile, ProfessorProfile, ExecutiveProfile
+from .models import (User, StudentProfile, ProfessorProfile, ExecutiveProfile,
+                    StudyHostProfile, InnovationHostProfile, HostingHostProfile, EntertainmentHostProfile, OtherServicesHostProfile)
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -24,6 +25,9 @@ class CustomUserAdmin(UserAdmin):
                     'display_name',
                     'gender',
                     'country_of_origin',
+                    'city_of_origin',
+                    'country_current_residence',
+                    'city_current_residence',
                     'speak_languages',
                     #'email',
                     'phone_number',
@@ -34,6 +38,11 @@ class CustomUserAdmin(UserAdmin):
                     'is_student',
                     'is_professor',
                     'is_executive',
+                    'is_study_host',
+                    'is_innovation_host',
+                    'is_hosting_host',
+                    'is_entertainment_host',
+                    'is_other_services_host',
                 ),
             }
         ),
@@ -45,10 +54,12 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(User)
 class UserAdmin(CustomUserAdmin):
 
-    list_display = ('id', 'username', 'slug','first_name', 'last_name', 'display_name','gender','country_of_origin',
-        'speak_languages','phone_number','address','email',
-                    'bio','date_of_birth','is_student','is_professor',
-                    'is_executive', )
+    list_display = ('id', 'username', 'slug','first_name', 'last_name',
+        'display_name','gender','country_of_origin', 'speak_languages',
+        'phone_number','address','email', 'bio', 'date_of_birth', 'is_student',
+        'is_professor', 'is_executive', 'is_study_host', "is_innovation_host",
+         "is_hosting_host", "is_entertainment_host", "is_other_services_host",
+    )
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):
@@ -60,5 +71,25 @@ class ProfessorProfileAdmin(admin.ModelAdmin):
 
 @admin.register(ExecutiveProfile)
 class ExecutiveProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'slug' )
+
+@admin.register(StudyHostProfile)
+class StudyHostProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'slug' )
+
+@admin.register(InnovationHostProfile)
+class InnovationHostProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'slug' )
+
+@admin.register(HostingHostProfile)
+class HostingHostProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'slug' )
+
+@admin.register(EntertainmentHostProfile)
+class EntertainmentHostProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id', 'slug' )
+
+@admin.register(OtherServicesHostProfile)
+class OtherServicesHostProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug' )
 

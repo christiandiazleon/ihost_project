@@ -14,6 +14,8 @@
             {% bootstrap_form form_professor %}
         {% elif userprofile.user.is_executive %}
             {% bootstrap_form form_executive %}
+        {% elif userprofile.user.is_executive %}
+            {% bootstrap_form form_study_host %}
         {% endif %}    
         <input type="submit" value="Save Changes" class="btn btn-default">
     </form>

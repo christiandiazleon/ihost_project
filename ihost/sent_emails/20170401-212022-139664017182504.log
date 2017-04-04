@@ -1,0 +1,25 @@
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: luisa@gmail.com
+Date: Sat, 01 Apr 2017 21:20:22 -0000
+Message-ID: <20170401212022.15110.52140@elpug>
+
+
+You're receiving this email because you requested a password reset for your user account at localhost:8000.
+
+Please go to the following page and choose a new password:
+
+http://localhost:8000/accounts/reset/Mg/4ku-fea3df817c1f45a32b1c/
+
+Your username, in case you've forgotten: luisa@gmail.com
+
+Thanks for using our site!
+
+The localhost:8000 team
+
+
+
+-------------------------------------------------------------------------------

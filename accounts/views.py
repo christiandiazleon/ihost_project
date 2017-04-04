@@ -98,6 +98,10 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
             profile = user.get_executive_profile()
             context['userprofile'] = profile
 
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+
         return context
 
 
@@ -120,6 +124,11 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         elif user.is_executive:
             profile = user.get_executive_profile()
             context['userprofile'] = profile
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+
+
         return context
 
 '''
@@ -152,6 +161,10 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
                 profile = user.get_executive_profile()
                 context['userprofile'] = profile
                 context['form_executive'] = forms.ExecutiveProfileForm()
+            elif user.is_study_host:
+                profile = user.get_study_host_profile()
+                context['userprofile'] = profile
+                context['form_study_host'] = forms.StudyHostProfileForm()
         return context
 
     def post(self, request, *args, **kwargs):

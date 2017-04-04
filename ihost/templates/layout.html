@@ -78,6 +78,13 @@
                           My profile
                         </a>
                       </li>
+                    {% elif userprofile.user.is_study_host %}
+
+                      <li>
+                        <a href="{% url 'accounts:profile' userprofile.user.studyhostprofile.slug %}">
+                          My profile
+                        </a>
+                      </li>
                     {% endif %}
                     <li><a href="{% url 'accounts:preferences' userprofile.user.username %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>

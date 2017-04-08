@@ -102,6 +102,17 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
             profile = user.get_study_host_profile()
             context['userprofile'] = profile
 
+        elif user.is_active:
+            #profile = user.get_user_profile()
+            context['userprofile'] = self.request.user
+
+        elif user.is_student and user.is_professor and user.is_executive:
+            student_profile = user.get_student_profile()
+            professor_profile = user.get_professor_profile()
+            executive_profile = user.get_executive_profile()
+            context['student_profile'] = student_profile
+            context['professor_profile'] = professor_profile
+            context['executive_profile'] = executive_profile
         return context
 
 
@@ -124,11 +135,9 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         elif user.is_executive:
             profile = user.get_executive_profile()
             context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-
-
+        elif user.is_active:
+            #profile = user.get_user_profile()
+            context['userprofile'] = self.request.user
         return context
 
 '''
@@ -153,30 +162,32 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
                 profile = user.get_student_profile()
                 context['userprofile'] = profile
                 context['form_student'] = forms.StudentProfileForm()
-            elif user.is_professor:
+            if user.is_professor:
                 profile = user.get_professor_profile()
                 context['userprofile'] = profile
                 context['form_professor'] = forms.ProfessorProfileForm()
-            elif user.is_executive:
+                print ("profesor form is", context['form_professor'])
+            if user.is_executive:
                 profile = user.get_executive_profile()
                 context['userprofile'] = profile
                 context['form_executive'] = forms.ExecutiveProfileForm()
-            elif user.is_study_host:
-                profile = user.get_study_host_profile()
-                context['userprofile'] = profile
-                context['form_study_host'] = forms.StudyHostProfileForm()
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        context = super(AccountProfilesView, self).post(request, *args, **kwargs)
         user = self.request.user
-        if user.is_student:
-            context['form_student'] = forms.StudentProfileForm(self.request.POST)
-        elif user.is_professor:
-            context['form_professor'] = forms.ProfessorProfileForm(self.request.POST)
-        elif user.is_executive:
-            context['form_executive'] = forms.ExecutiveProfileForm(self.request.POST)
-        return super(AccountProfilesView, self).post(request, *args, **kwargs)
+        if self.request.method == 'POST':
+            if user.is_student:
+                context['form_student'] = forms.StudentProfileForm(
+                    self.request.POST)
+            elif user.is_professor:
+                context['form_professor'] = forms.ProfessorProfileForm(
+                    self.request.POST)
+            elif user.is_executive:
+                context['form_executive'] = forms.ExecutiveProfileForm(
+                    self.request.POST)
+        return context
 
     def form_valid(self, form):
         context = self.get_context_data(form=form)
@@ -186,11 +197,11 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
             student = context['form_student'].save(commit=False)
             student.user = user
             student.save()
-        elif user.is_professor:
+        if user.is_professor:
             professor = context['form_professor'].save(commit=False)
             professor.user = user
             professor.save()
-        elif user.is_executive:
+        if user.is_executive:
             executive = context['form_executive'].save(commit=False)
             executive.user = user
             executive.save()

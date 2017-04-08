@@ -367,6 +367,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             entertainment_host_profile.save()
 
 
+
 @receiver(post_save, sender=User)
 def post_save_user(sender, instance, **kwargs):
     slug = slugify(instance.username)

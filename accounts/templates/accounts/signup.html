@@ -12,10 +12,12 @@
         {% bootstrap_form form %}
         {# equivalent to form.as_p #}
         <input type="submit" value="Sign Up with email" class="btn btn-default">
+      {% comment %}
         <input type="submit" value="Sign Up with facebook" class="btn btn-default"> 
         <br /><br />
         Already member?
       <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Log In &raquo;</a></p>
+      {% endcomment %}  
 
     </form>
     

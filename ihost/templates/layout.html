@@ -49,17 +49,26 @@
                     </li> <hr>
                     {% if userprofile.user.is_student %}
                       <li><strong>Student</strong></li>
-                    {% elif userprofile.user.is_professor %}
+                    {% endif %}
+                    {% if userprofile.user.is_professor %}
                       <li><strong>Professor</strong></li>
-                    {% elif userprofile.user.is_executive %}
+                    {% endif %}  
+                    {% if userprofile.user.is_executive %}
                       <li><strong>Executive</strong></li>
                     {% endif %}
+                    
                     
                     <li><a href="{% url 'dashboard' %}">My dashboard</a></li>
                     
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Account</li>
-                    {% if userprofile.user.is_student %}
+                    {% if userprofile.user.is_active %}
+                      <li>
+                        <a href="{% url 'accounts:profile' userprofile.user.slug %}">
+                          My profile
+                        </a>
+                      </li>
+                    {% elif userprofile.user.is_student %}
                       <li>
                         <a href="{% url 'accounts:profile' userprofile.user.studentprofile.slug %}">
                           My profile
@@ -85,6 +94,15 @@
                           My profile
                         </a>
                       </li>
+                    
+                    {% elif not userprofile.user.is_student and 
+                      not userprofile.user.is_professor and 
+                      not userprofile.user.is_executive  %}
+                      <a href="{% url 'accounts:profile' userprofile.user.username %}">
+                          My profile
+                        </a>
+
+                      
                     {% endif %}
                     <li><a href="{% url 'accounts:preferences' userprofile.user.username %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>

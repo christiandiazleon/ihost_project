@@ -151,7 +151,7 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
 class AccountProfilesView(LoginRequiredMixin, UpdateView):
     # All users can access this view
     model = get_user_model()
-    #success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('dashboard')
     template_name = 'accounts/profile_form.html'
     fields = '__all__'
 
@@ -173,21 +173,15 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
                 profile = user.get_executive_profile()
                 context['userprofile'] = profile
                 context['form_executive'] = forms.ExecutiveProfileForm()
-        return context
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        context = super(AccountProfilesView, self).post(request, *args, **kwargs)
-        user = self.request.user
-        # if self.request.method == 'POST':
-        if user.is_student:
-            context['form_student'] = forms.StudentProfileForm(
+        else:
+            if user.is_student:
+                context['form_student'] = forms.StudentProfileForm(
                 self.request.POST)
-        elif user.is_professor:
-            context['form_professor'] = forms.ProfessorProfileForm(
+            if user.is_professor:
+                context['form_professor'] = forms.ProfessorProfileForm(
                 self.request.POST)
-        elif user.is_executive:
-            context['form_executive'] = forms.ExecutiveProfileForm(
+            if user.is_executive:
+                context['form_executive'] = forms.ExecutiveProfileForm(
                 self.request.POST)
         return context
 
@@ -209,7 +203,8 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
             executive.save()
         return super(AccountProfilesView, self).form_valid(form)
 
+    '''
     def get_success_url(self):
         return reverse('dashboard')
-
+    '''
 

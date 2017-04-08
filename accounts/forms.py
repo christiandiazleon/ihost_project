@@ -29,7 +29,8 @@ class UserCreateForm(UserCreationForm):
     '''
 
     class Meta:
-        fields = ("username", "email", "password1", "password2", )
+        fields = ("username", "email", "password1", "password2", "is_student",
+        "is_professor", "is_executive" )
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
@@ -73,7 +74,7 @@ class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
         fields = ('origin_education_school', 'current_education_school',
-            'extra_occupation')
+                  'extra_occupation')
 
 
 class ProfessorProfileForm(forms.ModelForm):
@@ -93,7 +94,7 @@ class ExecutiveProfileForm(forms.ModelForm):
     class Meta:
         model = ExecutiveProfile
         fields = ('occupation', 'enterprise_name', 'culturals_arthistic',
-            'ecological', )
+                   'ecological', )
 
 
 class StudyHostProfileForm(forms.ModelForm):

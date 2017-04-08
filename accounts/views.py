@@ -168,7 +168,7 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
                 profile = user.get_professor_profile()
                 context['userprofile'] = profile
                 context['form_professor'] = forms.ProfessorProfileForm()
-                print ("profesor form is", context['form_professor'])
+                #print ("profesor form is", context['form_professor'])
             if user.is_executive:
                 profile = user.get_executive_profile()
                 context['userprofile'] = profile

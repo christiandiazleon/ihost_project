@@ -179,7 +179,7 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
         self.object = self.get_object()
         context = super(AccountProfilesView, self).post(request, *args, **kwargs)
         user = self.request.user
-        #if self.request.method == 'POST':
+        # if self.request.method == 'POST':
         if user.is_student:
             context['form_student'] = forms.StudentProfileForm(
                 self.request.POST)

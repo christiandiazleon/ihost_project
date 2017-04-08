@@ -21,6 +21,7 @@ from .models import StudentProfile, ProfessorProfile, ExecutiveProfile
 
 # Do not use at moment
 
+'''
 
 class LoginView(generic.FormView):
     form_class = AuthenticationForm
@@ -42,6 +43,7 @@ class LoginView(generic.FormView):
         # and then I-m going to call form.get_user())
         login(self.request, form.get_user())
         return super().form_valid(form)
+'''
 
 
 class LogoutView(generic.RedirectView):

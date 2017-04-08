@@ -179,16 +179,16 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
         self.object = self.get_object()
         context = super(AccountProfilesView, self).post(request, *args, **kwargs)
         user = self.request.user
-        if self.request.method == 'POST':
-            if user.is_student:
-                context['form_student'] = forms.StudentProfileForm(
-                    self.request.POST)
-            elif user.is_professor:
-                context['form_professor'] = forms.ProfessorProfileForm(
-                    self.request.POST)
-            elif user.is_executive:
-                context['form_executive'] = forms.ExecutiveProfileForm(
-                    self.request.POST)
+        #if self.request.method == 'POST':
+        if user.is_student:
+            context['form_student'] = forms.StudentProfileForm(
+                self.request.POST)
+        elif user.is_professor:
+            context['form_professor'] = forms.ProfessorProfileForm(
+                self.request.POST)
+        elif user.is_executive:
+            context['form_executive'] = forms.ExecutiveProfileForm(
+                self.request.POST)
         return context
 
     def form_valid(self, form):

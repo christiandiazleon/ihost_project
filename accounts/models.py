@@ -149,7 +149,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     phone_number = PhoneNumberField(
         blank=True,
-        help_text="Please use the following format: <em>+<counry-code><phone-number></em>.",
+        help_text="Please use the following format: <em>+Country Code-Number</em>.",
     )
 
     address = models.CharField(_("address"), max_length=128)
@@ -164,7 +164,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fecha de nacimiento',
-        help_text="Por favor use el siguiente formato: <em>DD/MM/YYYY</em>.",
+        help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
     )
 
     is_student = models.BooleanField(

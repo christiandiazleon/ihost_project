@@ -18,8 +18,13 @@ urlpatterns = [
     #),
 
     # basado en el usernames
+    #url(r"^profile/(?P<slug>[\w\-]+)/$",
+    #    views.AccountProfilesView.as_view(),
+    #        name='profile'
+    #),
+
     url(r"^profile/(?P<slug>[\w\-]+)/$",
-        views.AccountProfilesView.as_view(),
+        views.account_profiles__update_view,
             name='profile'
     ),
 

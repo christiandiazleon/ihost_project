@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 # form that handles authenticating the user
@@ -12,10 +14,11 @@ from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.conf import settings
 
 from . import forms
-from .models import StudentProfile, ProfessorProfile, ExecutiveProfile
+from .models import StudentProfile, ProfessorProfile, ExecutiveProfile, User
 
 # Create your views here.
 
@@ -142,11 +145,6 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
             context['userprofile'] = self.request.user
         return context
 
-'''
-class AccountProfilesView(LoginRequiredMixin, UpdateView):
-    def get_context_data(self, **kwargs):
-'''
-
 
 class AccountProfilesView(LoginRequiredMixin, UpdateView):
     # All users can access this view
@@ -168,7 +166,7 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
                 profile = user.get_professor_profile()
                 context['userprofile'] = profile
                 context['form_professor'] = forms.ProfessorProfileForm()
-                #print ("profesor form is", context['form_professor'])
+                # print ("profesor form is", context['form_professor'])
             if user.is_executive:
                 profile = user.get_executive_profile()
                 context['userprofile'] = profile
@@ -208,3 +206,35 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
         return reverse('dashboard')
     '''
 
+@login_required
+def account_profiles__update_view(request, slug):
+    user = request.user
+    user = get_object_or_404(User, username = slug)
+    # user = User.objects.get(username = slug)
+
+    _forms = []
+    if user.is_student:
+        profile = user.get_student_profile()
+        _forms.append(forms.StudentProfileForm)
+    if user.is_professor:
+        profile = user.get_professor_profile()
+        _forms.append(forms.ProfessorProfileForm)
+    if user.is_executive:
+        profile = user.get_executive_profile()
+        _forms.append(forms.ExecutiveProfileForm)
+
+    # user = get_object_or_404(settings.AUTH_USER_MODEL, username = slug)
+
+    if request.method == 'POST':
+        formularios =[Form(data = request.POST,instance=profile) for Form in _forms]
+        if all([form.is_valid() for form in formularios]):
+            for form in formularios:
+                profile = form.save(commit=False)
+                profile.user = user
+                profile.save()
+            return redirect('dashboard')
+    else:
+        formularios = [Form() for Form in _forms]
+    data = {form.__class__.__name__.__str__().lower(): form for form in formularios}
+    data['userprofile'] = profile
+    return render(request, 'accounts/profile_form.html', data,)

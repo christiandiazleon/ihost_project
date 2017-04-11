@@ -6,22 +6,26 @@
     <h1>My Profile</h1>
     <form method="POST">
         {% csrf_token %}
+
+
+
         {% if userprofile.user.is_student %}
     
         <div align="center"><i>My Student Profile data</i></div>
-            {% bootstrap_form form_student %}
+            {% bootstrap_form studentprofileform %}
+            {{ studentprofileform.non_field_errors }}
         {% endif %}
          
         
         {% if userprofile.user.is_professor %}
             <div align="center"><i>My Professor Profile data</i></div>
-            {% bootstrap_form form_professor %}
+            {% bootstrap_form professorprofileform %}
         {% endif %}
         
         
         {% if userprofile.user.is_executive %} 
             <div align="center"><i>My Executive Profile data</i></div>  
-            {% bootstrap_form form_executive %}
+            {% bootstrap_form executiveprofileform %}
         {% endif %}
 
         <input type="submit" value="Save Changes" class="btn btn-default">

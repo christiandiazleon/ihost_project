@@ -453,10 +453,12 @@ class ExecutiveProfile(models.Model):
         blank=True
     )
 
+    '''
     occupation = models.CharField(
         max_length=255,
-        blank = False,
+        blank = True,
     )
+    '''
 
     enterprise_name = models.CharField(
         max_length=255,

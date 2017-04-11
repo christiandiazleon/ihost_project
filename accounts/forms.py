@@ -93,7 +93,7 @@ class ProfessorProfileForm(forms.ModelForm):
 class ExecutiveProfileForm(forms.ModelForm):
     class Meta:
         model = ExecutiveProfile
-        fields = ('occupation', 'enterprise_name', 'culturals_arthistic',
+        fields = ('enterprise_name', 'culturals_arthistic',
                    'ecological', )
 
 

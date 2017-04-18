@@ -20,12 +20,14 @@
         {% if userprofile.user.is_professor %}
             <div align="center"><i>My Professor Profile data</i></div>
             {% bootstrap_form professorprofileform %}
+            {{ professorprofileform.non_field_errors }}
         {% endif %}
         
         
         {% if userprofile.user.is_executive %} 
             <div align="center"><i>My Executive Profile data</i></div>  
             {% bootstrap_form executiveprofileform %}
+            {{ executiveprofileform.non_field_errors }}
         {% endif %}
 
         <input type="submit" value="Save Changes" class="btn btn-default">

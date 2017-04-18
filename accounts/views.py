@@ -209,9 +209,9 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
 @login_required
 def account_profiles__update_view(request, slug):
     user = request.user
-    user = get_object_or_404(User, username = slug)
+    # user = get_object_or_404(User, username = slug)
     # user = User.objects.get(username = slug)
-
+    # empty list
     _forms = []
     if user.is_student:
         profile = user.get_student_profile()
@@ -226,8 +226,15 @@ def account_profiles__update_view(request, slug):
     # user = get_object_or_404(settings.AUTH_USER_MODEL, username = slug)
 
     if request.method == 'POST':
+        # Create a list with all formularies in which there is some POST
+        # operation. This mean if there is one, two or three profiles together
+        # or individual
         formularios =[Form(data = request.POST,instance=profile) for Form in _forms]
+
         if all([form.is_valid() for form in formularios]):
+            # Only save dato to database if all formularies that send
+            # the user in their request are correct or well formed in their
+            # data. Check that all formularies has been filled
             for form in formularios:
                 profile = form.save(commit=False)
                 profile.user = user
@@ -235,6 +242,18 @@ def account_profiles__update_view(request, slug):
             return redirect('dashboard')
     else:
         formularios = [Form() for Form in _forms]
+
+    # Access to class Forms instanced (StudentProfileForm,
+    # ProfessorProfileForm, ExecutiveProfileForm), through the __class__
+    # pŕoperty which return the class onlying. An this class have another
+    # property named __name__ which return the name of string of a class,
+    # which is the same name with I did name the form classes
+    # (StudentProfileForm, ProfessorProfileForm, ExecutiveProfileForm)
+    # Next I call to their string method to grant that I always will return
+    # a string and I call to lower.
+
+    # The idea with this is place data into a python dictionarie and access
+    # to it
     data = {form.__class__.__name__.__str__().lower(): form for form in formularios}
     data['userprofile'] = profile
     return render(request, 'accounts/profile_form.html', data,)

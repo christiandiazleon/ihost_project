@@ -7,8 +7,12 @@
     <form method="POST">
         {% csrf_token %}
 
-
-
+        {% for form in forms %}
+            <h1>{{ form.title }}</h1>
+                {% bootstrap_form form %}
+        {% endfor %}
+    
+{% comment %}
         {% if userprofile.user.is_student %}
     
         <div align="center"><i>My Student Profile data</i></div>
@@ -29,6 +33,7 @@
             {% bootstrap_form executiveprofileform %}
             {{ executiveprofileform.non_field_errors }}
         {% endif %}
+{% endcomment %}
 
         <input type="submit" value="Save Changes" class="btn btn-default">
     </form>

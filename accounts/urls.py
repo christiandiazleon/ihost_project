@@ -24,7 +24,7 @@ urlpatterns = [
     #),
 
     url(r"^profile/(?P<slug>[\w\-]+)/$",
-        views.account_profiles__update_view,
+        views.user_profile_update_view,
             name='profile'
     ),
 

@@ -294,6 +294,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         return other_services_host_profile
 
     def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+
+        if self.is_student and getattr(self, 'studentprofile', None) is None:
+            StudentProfile.objects.create(
+                user=self,
+                slug = self.username
+            )
+        if self.is_professor and getattr(self, 'professorprofile', None) is None:
+            ProfessorProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+        if self.is_executive and getattr(self, 'executiveprofile', None) is None:
+            ExecutiveProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+        '''
         user = super(User,self).save(*args,**kwargs)
 
         # Creating an user with student, professor and executive profiles
@@ -365,8 +383,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             entertainment_host_slug = self.username
             entertainment_host_profile.slug = entertainment_host_slug
             entertainment_host_profile.save()
-
-
+        '''
 
 @receiver(post_save, sender=User)
 def post_save_user(sender, instance, **kwargs):

@@ -17,7 +17,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 
-from . import forms
+#from . import forms
+from .forms import StudentProfileForm, ExecutiveProfileForm, ProfessorProfileForm, UserCreateForm, UserUpdateForm
 from .models import StudentProfile, ProfessorProfile, ExecutiveProfile, User
 
 # Create your views here.
@@ -61,7 +62,7 @@ class LogoutView(generic.RedirectView):
 
 
 class SignUpView(generic.CreateView):
-    form_class = forms.UserCreateForm
+    form_class = UserCreateForm
     success_url = reverse_lazy("login")
     template_name = "accounts/signup.html"
 
@@ -123,7 +124,7 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
 
 class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
-    form_class = forms.UserUpdateForm
+    form_class = UserUpdateForm
     success_url = reverse_lazy('dashboard')
     context_object_name = 'preferences'
 
@@ -146,6 +147,40 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
+@login_required
+def user_profile_update_view(request, slug):
+    user = request.user
+
+    # Populate the forms and Instances (if applicable)
+    form_profiles = []
+
+    if user.is_student:
+        profile = user.get_student_profile()
+        form_profiles.append({'form': StudentProfileForm,
+                              'instance': user.studentprofile,
+                              'title':"Student Details"
+                            })
+
+    if user.is_professor:
+        profile = user.get_professor_profile()
+        form_profiles.append({'form': ProfessorProfileForm, 'instance': user.professorprofile, 'title': "Professor Details"})
+    if user.is_executive:
+        profile = user.get_executive_profile()
+        form_profiles.append({'form': ExecutiveProfileForm, 'instance': user.executiveprofile, 'title': "Executive Details"})
+
+    if request.method == 'POST':
+        forms = [x['form'](data=request.POST, instance=x['instance'],) for x in form_profiles]
+        if all([form.is_valid() for form in forms]):
+            for form in forms:
+                form.save()
+            return redirect('dashboard')
+    else:
+        forms = [x['form'](instance=x['instance']) for x in form_profiles]
+
+    return render(request, 'accounts/profile_form.html', {'forms': forms, 'userprofile':profile,})
+
+
+'''
 class AccountProfilesView(LoginRequiredMixin, UpdateView):
     # All users can access this view
     model = get_user_model()
@@ -201,11 +236,15 @@ class AccountProfilesView(LoginRequiredMixin, UpdateView):
             executive.save()
         return super(AccountProfilesView, self).form_valid(form)
 
-    '''
+
     def get_success_url(self):
         return reverse('dashboard')
-    '''
+'''
 
+
+
+
+'''
 @login_required
 def account_profiles__update_view(request, slug):
     user = request.user
@@ -257,3 +296,4 @@ def account_profiles__update_view(request, slug):
     data = {form.__class__.__name__.__str__().lower(): form for form in formularios}
     data['userprofile'] = profile
     return render(request, 'accounts/profile_form.html', data,)
+'''

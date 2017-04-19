@@ -71,6 +71,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class StudentProfileForm(forms.ModelForm):
+    title = "Student Details"
     class Meta:
         model = StudentProfile
         fields = ('origin_education_school', 'current_education_school',
@@ -78,6 +79,7 @@ class StudentProfileForm(forms.ModelForm):
 
 
 class ProfessorProfileForm(forms.ModelForm):
+    title = "Professor Details"
     occupation = forms.MultipleChoiceField(
         required=False,
         label='Occupation',
@@ -91,6 +93,7 @@ class ProfessorProfileForm(forms.ModelForm):
 
 
 class ExecutiveProfileForm(forms.ModelForm):
+    title = "Executive Details"
     class Meta:
         model = ExecutiveProfile
         fields = ('enterprise_name', 'culturals_arthistic',

@@ -98,13 +98,13 @@
                     {% elif not userprofile.user.is_student and 
                       not userprofile.user.is_professor and 
                       not userprofile.user.is_executive  %}
-                      <a href="{% url 'accounts:profile' userprofile.user.username %}">
+                      <a href="{% url 'accounts:profile' userprofile.user.slug %}">
                           My profile
                         </a>
 
                       
                     {% endif %}
-                    <li><a href="{% url 'accounts:preferences' userprofile.user.username %}">Settings</a></li>
+                    <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
                   </ul>
                 </li>

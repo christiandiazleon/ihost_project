@@ -91,7 +91,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         (PORTUGUESE, 'Portuguese'),
     )
 
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True,
+            help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
+        validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
+        ])
 
     # username = models.CharField(max_length=40, unique=True)
 

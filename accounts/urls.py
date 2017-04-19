@@ -28,7 +28,7 @@ urlpatterns = [
             name='profile'
     ),
 
-    url(r"^preferences/(?P<slug>[\w\-]+)/$",
+    url(r"^preferences/(?P<slug>[\w.\-]+)/$",
         views.AccountSettingsUpdateView.as_view(),
         name='preferences'
     ),

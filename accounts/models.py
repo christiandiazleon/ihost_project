@@ -146,7 +146,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         choices=LANGUAGES_CHOICES,
         # verbose_name='Speak languages',
-        blank = False,
+        blank = True,
 
     )
 

@@ -144,7 +144,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # speak_languages = Country.objects.get(iso3='USA')
     speak_languages = models.CharField(
         max_length=255,
-        # choices=LANGUAGES_CHOICES,
+        choices=LANGUAGES_CHOICES,
         # verbose_name='Speak languages',
         blank = False,
 

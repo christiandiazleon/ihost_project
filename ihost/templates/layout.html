@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
-        
+
+
         <title>{% block title_tag %}IHost Applications{% endblock %}</title>
     </head>
-    
+
     <body>
       {% block navbar %}
         <!-- Fixed navbar -->
@@ -35,9 +35,9 @@
                   <ul class="dropdown-menu">
                     <li class="user-header">
                       {% comment %}
-                      <img src="{{ userprofile.user.avatar.url }}" 
+                      <img src="{{ userprofile.user.avatar.url }}"
                       class="img-circle" alt="User Image">
-                      
+
                         <p><strong>{{ userprofile.user.username }}</strong>
                             <small>{{ userprofile.user.occupation }}</small>
                         </p>
@@ -52,14 +52,14 @@
                     {% endif %}
                     {% if userprofile.user.is_professor %}
                       <li><strong>Professor</strong></li>
-                    {% endif %}  
+                    {% endif %}
                     {% if userprofile.user.is_executive %}
                       <li><strong>Executive</strong></li>
                     {% endif %}
-                    
-                    
+
+
                     <li><a href="{% url 'dashboard' %}">My dashboard</a></li>
-                    
+
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Account</li>
                     {% if userprofile.user.is_active %}
@@ -94,15 +94,15 @@
                           My profile
                         </a>
                       </li>
-                    
-                    {% elif not userprofile.user.is_student and 
-                      not userprofile.user.is_professor and 
+
+                    {% elif not userprofile.user.is_student and
+                      not userprofile.user.is_professor and
                       not userprofile.user.is_executive  %}
                       <a href="{% url 'accounts:profile' userprofile.user.slug %}">
                           My profile
                         </a>
 
-                      
+
                     {% endif %}
                     <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
@@ -121,7 +121,7 @@
           </div>
         </nav>
         <br /><br /><br />
-        
+
       {% endblock %}
       {% block body_content %}
 
@@ -137,7 +137,7 @@
 
       {% comment %}
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  
+
       {# estos js se llaman pero por bootstrap3 deben estar auto cuadrarlo#}
       <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
       <script src="../../dist/js/bootstrap.min.js"></script>

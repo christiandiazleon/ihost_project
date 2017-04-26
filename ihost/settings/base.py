@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # which points to the folder containing the folder that contains the actual
-# file, i.e. the folder taskbuster
+# file, i.e. the folder ihost
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

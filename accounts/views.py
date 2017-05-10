@@ -18,7 +18,8 @@ from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 
 #from . import forms
-from .forms import StudentProfileForm, ExecutiveProfileForm, ProfessorProfileForm, UserCreateForm, UserUpdateForm
+from .forms import (
+    StudentProfileForm, ExecutiveProfileForm, ProfessorProfileForm, UserCreateForm, UserUpdateForm, StudyHostProfileForm, HostingHostProfileForm,)
 from .models import StudentProfile, ProfessorProfile, ExecutiveProfile, User
 
 # Create your views here.
@@ -108,6 +109,10 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
             profile = user.get_study_host_profile()
             context['userprofile'] = profile
 
+        elif user.is_hosting_host:
+            profile = user.get_hosting_host_profile()
+            context['userprofile'] = profile
+
         elif user.is_active:
             #profile = user.get_user_profile()
             context['userprofile'] = self.request.user
@@ -141,6 +146,12 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         elif user.is_executive:
             profile = user.get_executive_profile()
             context['userprofile'] = profile
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+        elif user.is_hosting_host:
+            profile = user.get_hosting_host_profile()
+            context['userprofile'] = profile
         elif user.is_active:
             #profile = user.get_user_profile()
             context['userprofile'] = self.request.user
@@ -160,13 +171,22 @@ def user_profile_update_view(request, slug):
                               'instance': user.studentprofile,
                               'title':"Student Details"
                             })
-
     if user.is_professor:
         profile = user.get_professor_profile()
         form_profiles.append({'form': ProfessorProfileForm, 'instance': user.professorprofile, 'title': "Professor Details"})
+
     if user.is_executive:
         profile = user.get_executive_profile()
         form_profiles.append({'form': ExecutiveProfileForm, 'instance': user.executiveprofile, 'title': "Executive Details"})
+
+    if user.is_study_host:
+        profile = user.get_study_host_profile()
+        form_profiles.append({'form': StudyHostProfileForm, 'instance': user.studyhostprofile, 'title': "Study Host Details"})
+
+    if user.is_hosting_host:
+        profile = user.get_hosting_host_profile()
+        form_profiles.append({'form': HostingHostProfileForm, 'instance': user.hostinghostprofile, 'title': "Hosting Host Details"})
+
 
     if request.method == 'POST':
         forms = [x['form'](data=request.POST, instance=x['instance'],) for x in form_profiles]

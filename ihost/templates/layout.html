@@ -56,6 +56,15 @@
                     {% if userprofile.user.is_executive %}
                       <li><strong>Executive</strong></li>
                     {% endif %}
+                    {% if userprofile.user.is_study_host %}
+                      <li><strong>Study Host</strong></li>
+                    {% endif %}
+                    {% if userprofile.user.is_hosting_host %}
+                      <li><strong>Hosting Host</strong></li>
+                    {% endif %}
+                    {% if userprofile.user.is_active %}
+                      <li><strong>Hello Friend</strong></li>
+                    {% endif %}
                     
                     
                     <li><a href="{% url 'dashboard' %}">My dashboard</a></li>

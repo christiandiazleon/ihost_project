@@ -91,6 +91,31 @@ class User(AbstractBaseUser, PermissionsMixin):
         (PORTUGUESE, 'Portuguese'),
     )
 
+    ARTHISTIC_CULTURALS = 'ART_CULT'
+    SPORTS = 'SPORTS'
+    ECOLOGICAL = 'ECO'
+    OUTDOOR_ACTIVITIES = 'OUTDOOR'
+    SHOPPING = 'SHOPPING'
+    TOURISM = 'TOURISM'
+    NIGHT_LIFE = 'NIGHT_LIFE'
+    THEMATIC_PARKS = 'FUN_PARKS'
+    GASTRONOMY = 'GASTRONOMY'
+    EVENTS_AND_SHOWS = 'EVENTS_SHOWS'
+    MUSICALS = 'MUSICALS'
+    LITERARY = 'LITERARY'
+
+    ENTERTAINMENT_ACTIVITIES_CHOICES = (
+        (ARTHISTIC_CULTURALS, 'Arthistic-Culturals'),
+        (ECOLOGICAL, 'Ecological'),
+        (OUTDOOR_ACTIVITIES, 'Outdoor Activities'),
+        (SHOPPING, 'Shopping'),
+        (NIGHT_LIFE, 'Night Life'),
+        (THEMATIC_PARKS, 'Thematics Parks'),
+        (GASTRONOMY, 'Gastronomy'),
+        (MUSICALS, 'Musicals'),
+        (LITERARY, 'Literary'),
+    )
+
     email = models.EmailField(unique=True,
             help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
@@ -218,6 +243,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Other services host profile',
     )
 
+    entertainment_activities_choice = models.CharField(
+        _("Entertainment activities of your choice"), max_length=255
+    )
+
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -314,6 +344,16 @@ class User(AbstractBaseUser, PermissionsMixin):
                 user=self,
                 slug=self.username
             )
+        if self.is_study_host and getattr(self, 'studyhostprofile', None) is None:
+            StudyHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
+        if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
+            HostingHostProfile.objects.create(
+                user=self,
+                slug=self.username
+            )
         '''
         user = super(User,self).save(*args,**kwargs)
 
@@ -395,6 +435,7 @@ def post_save_user(sender, instance, **kwargs):
 
 
 class StudentProfile(models.Model):
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -406,16 +447,29 @@ class StudentProfile(models.Model):
     )
 
     origin_education_school = models.CharField(
-        _("origin education institute"), max_length=128
+        _("Origin education institute"), max_length=128
     )
 
     current_education_school = models.CharField(
-        _("current education institute"), max_length=128
+        _("Institution of education to which is linked in the current residence"), max_length=128
     )
 
     extra_occupation = models.CharField(
-        _("extra occupation"), max_length=128
+        _("Extra occupation"), max_length=128
     )
+
+    educational_titles = models.CharField(
+        max_length=255,
+    )
+
+    complete_studies_school = models.CharField(
+        _("Institution where completed his previous studies"), max_length=255
+    )
+
+    knowledge_topics_choice = models.CharField(
+        _("Areas of knowledge of your choice"), max_length=255
+    )
+
 
     class Meta:
         verbose_name_plural='Usuarios con perfil de estudiantes'
@@ -429,7 +483,6 @@ class ProfessorProfile(models.Model):
     CATHEDRAL_PROFESSOR = 'CATHEDRAL'
     RESEARCH_PROFESSOR = 'RESEARCH'
     INSTITUTIONAL_DIRECTIVE = 'DIRECTIVE'
-
 
     OCCUPATION_CHOICES = (
         (CATHEDRAL_PROFESSOR, 'Cathedral Professor'),
@@ -452,7 +505,33 @@ class ProfessorProfile(models.Model):
         blank = False,
     )
 
-    # educational_titles =
+    origin_education_school = models.CharField(
+        _("Origin education institute"), max_length=128
+    )
+
+    current_education_school = models.CharField(
+        _("Institution of education to which is linked in the current residence"), max_length=128
+    )
+
+    educational_titles = models.CharField(
+        max_length=255,
+    )
+
+    complete_studies_school = models.CharField(
+        _("Institution where completed his previous studies"), max_length=255
+    )
+
+    knowledge_topics_choice = models.CharField(
+        _("Areas of knowledge of your choice"), max_length=255
+    )
+
+    research_groups = models.CharField(
+        _("Research groups to which it belongs"), max_length=255
+    )
+
+    autorship_publications = models.CharField(
+        _("Publications of its authorship"), max_length=255
+    )
 
     class Meta:
         verbose_name_plural='Usuarios con perfil de profesores'
@@ -473,26 +552,32 @@ class ExecutiveProfile(models.Model):
         blank=True
     )
 
-    '''
     occupation = models.CharField(
         max_length=255,
         blank = True,
+        verbose_name='Occupation',
     )
-    '''
 
     enterprise_name = models.CharField(
         max_length=255,
         blank = False,
+        verbose_name='Company to which you are linked',
     )
 
-    culturals_arthistic = models.BooleanField(
-        default=False,
-        verbose_name='Arthistic and Culturals activities',
+    companies_to_visit = models.CharField(
+        _("Companies to Visit"), max_length=255
     )
 
-    ecological = models.BooleanField(
-        default=False,
-        verbose_name='Ecological activities',
+    educational_titles = models.CharField(
+        max_length=255,
+    )
+
+    complete_studies_school = models.CharField(
+        _("Institution where completed his previous studies"), max_length=255
+    )
+
+    innovation_topics_choice = models.CharField(
+        _("Areas of innovation of your choice"), max_length=255
     )
 
     class Meta:
@@ -503,6 +588,71 @@ class ExecutiveProfile(models.Model):
 
 
 class StudyHostProfile(models.Model):
+
+    UNIVERSITY = 'UNIVERSITY'
+    TECHNOLOGICAL_SCHOOL = 'TECH_SCHOOL'
+    UNIVERSITY_INSTITUTION = 'UNIV_INST'
+    PROFESSIONAL_TECH_INSTITUTION = 'PROF_TECH_INST'
+    CEC = 'CONTINUAL_EDUCATION_CENTER'
+
+    INSTITUTION_TYPE_CHOICES = (
+        (UNIVERSITY, 'University'),
+        (TECHNOLOGICAL_SCHOOL, 'Technological School'),
+        (UNIVERSITY_INSTITUTION, 'University Institution'),
+        (PROFESSIONAL_TECH_INSTITUTION, 'Professional Technological Institution'),
+        (CEC, 'Continual Education Center'),
+    )
+
+    PRIVATE = 'PRIVATE'
+    PUBLIC = 'PUBLIC'
+    MIXED = 'MIXED'
+
+    CHARACTER_INSTITUTE_CHOICES = (
+        (PRIVATE, "Private"),
+        (PUBLIC, "Public"),
+        (MIXED, "Private - Public"),
+    )
+
+    NATIONAL_ACCREDITATIONS = 'NAT_ACC'
+    INTERNATIONAL_ACCREDITATIONS = 'INT_ACC'
+
+    ACCREDITATIONS_CHOICES = (
+        (NATIONAL_ACCREDITATIONS, "National Accreditation"),
+        (INTERNATIONAL_ACCREDITATIONS, "International Accreditation"),
+    )
+
+    CES = 'CONT_EDUCATION_'
+    TECHNIQUE_STUDIES = 'TECHNIQUE'
+    TECHNOLOGICAL_STUDIES = 'TECHNOLOGICAL'
+    PROFESSIONAL_STUDIES = 'PROFESSIONAL'
+    SPECIALIZATION_STUDIES = 'SPECIALIZATION'
+    MASTER_STUDIES = 'MASTER'
+    DOCTORATE = 'DOCTORATE'
+
+    STUDIES_TYPE_OFFERED_CHOICES = (
+        (CES, 'Continuing education studies'),
+        (TECHNIQUE_STUDIES, 'Technique'),
+        (TECHNOLOGICAL_STUDIES, 'Technology'),
+        (PROFESSIONAL_TECH_INSTITUTION, 'Professional'),
+        (SPECIALIZATION_STUDIES, 'Specialization'),
+        (MASTER_STUDIES, 'Master'),
+        (DOCTORATE, 'Doctorate'),
+    )
+
+    STUDIES_OFFERT_LIST_CHOICES = (
+        ('Continuing education studies', (
+            ('SPANISH_FOREIGNS', 'Spanish for foreigns'),
+            ('ENGLISH', 'English'),
+            )
+        ),
+        ('Professional', (
+            ('SYSTEMS_ENGINEERING', 'Systems Engineering'),
+            ('BIOMEDICAL_ENGINEERING', 'Biomedical Engineering'),
+            )
+        ),
+        ('unknown', 'Unknown'),
+    )
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -511,6 +661,49 @@ class StudyHostProfile(models.Model):
     slug = models.SlugField(
         max_length=100,
         blank=True
+    )
+
+    institution_type = models.CharField(
+        _("Institution type"), max_length=255
+    )
+
+    institute_character = models.CharField(
+        max_length=7,
+        choices=CHARACTER_INSTITUTE_CHOICES,
+        verbose_name='Character of the institution',
+        default=False,
+        blank=False,
+    )
+
+    high_quality_accreditations = models.CharField(
+        _("Accreditations of high quality"), max_length=255
+    )
+
+    students_number = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        verbose_name='Number of students',
+    )
+
+    rankings_classification = models.CharField(
+        _("Classification in ranking"), max_length=255
+    )
+
+    knowledge_topics_choice = models.CharField(
+        _("Areas of knowledge of your choice"), max_length=255
+    )
+
+    strengths = models.CharField(
+        _("Strengths"), max_length=255
+    )
+
+    studies_type_offered = models.CharField(
+        _("Type of studies offered"), max_length=255
+    )
+
+    studies_offert_list = models.CharField(
+        _("Studies Offert List"), max_length=255,
+        choices = STUDIES_OFFERT_LIST_CHOICES
     )
 
     class Meta:

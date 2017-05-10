@@ -3,8 +3,7 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms.widgets import CheckboxSelectMultiple
 from django import forms
 from .models import (StudentProfile, User, ProfessorProfile, ExecutiveProfile,
-                    StudyHostProfile
-                    )
+                    StudyHostProfile, HostingHostProfile)
 
 from django_countries.widgets import CountrySelectWidget
 
@@ -30,7 +29,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         fields = ("username", "email", "password1", "password2", "is_student",
-        "is_professor", "is_executive" )
+        "is_professor", "is_executive", "is_study_host", "is_hosting_host" )
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
@@ -47,9 +46,13 @@ class UserUpdateForm(forms.ModelForm):
         choices=User.LANGUAGES_CHOICES,
     )
     bio = forms.CharField(widget=forms.Textarea)
+    entertainment_activities_choice = forms.MultipleChoiceField(
+        required=False,
+        label='Entertainment activities of your choice',
+        widget=CheckboxSelectMultiple(),
+        choices=User.ENTERTAINMENT_ACTIVITIES_CHOICES,
+    )
 
-
-    # date_of_birth = forms.DateField(widget=forms.SelectDateWidget(years=BIRTH_YEAR_CHOICES))
 
     class Meta:
         widgets = {
@@ -60,22 +63,23 @@ class UserUpdateForm(forms.ModelForm):
             # django-countries#countryselectwidget
         }
         fields = ("first_name", "last_name", "display_name", "gender",
-            "country_of_origin", "city_of_origin", "country_current_residence",
-            "city_current_residence", "speak_languages", "phone_number",
-            "address", "bio", "avatar", "date_of_birth", "is_student",
-            "is_professor", "is_executive",) #"is_study_host",
-            #"is_innovation_host", "is_hosting_host", "is_entertainment_host",
-            #"is_other_services_host", )
+        "country_of_origin", "city_of_origin", "country_current_residence",
+        "city_current_residence", "speak_languages", "phone_number",
+        "address", "bio", "avatar", "date_of_birth", "is_student",
+        "is_professor", "is_executive", "is_study_host",
+        "is_hosting_host", "entertainment_activities_choice",)
 
         model = get_user_model()
 
 
 class StudentProfileForm(forms.ModelForm):
     title = "Student Details"
+
     class Meta:
         model = StudentProfile
         fields = ('origin_education_school', 'current_education_school',
-                  'extra_occupation')
+                  'extra_occupation', 'educational_titles',
+                  'complete_studies_school', 'knowledge_topics_choice',)
 
 
 class ProfessorProfileForm(forms.ModelForm):
@@ -86,21 +90,69 @@ class ProfessorProfileForm(forms.ModelForm):
         widget=CheckboxSelectMultiple(),
         choices=ProfessorProfile.OCCUPATION_CHOICES
     )
+    research_groups = forms.CharField(widget=forms.Textarea)
+    autorship_publications = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = ProfessorProfile
-        fields = ('occupation',)
+        fields = ('occupation', 'origin_education_school',
+            'current_education_school', 'educational_titles',
+            'complete_studies_school', 'knowledge_topics_choice',
+            'research_groups', 'autorship_publications',)
 
 
 class ExecutiveProfileForm(forms.ModelForm):
     title = "Executive Details"
+    companies_to_visit = forms.CharField(widget=forms.Textarea)
+
     class Meta:
         model = ExecutiveProfile
-        fields = ('enterprise_name', 'culturals_arthistic',
-                   'ecological', )
+        fields = ('occupation', 'enterprise_name', 'companies_to_visit',
+        'educational_titles', 'complete_studies_school',
+        'innovation_topics_choice', )
 
 
 class StudyHostProfileForm(forms.ModelForm):
+    title = "Study Host Details"
+    widgets = {
+            'institute_character':forms.RadioSelect,
+    }
+
+    institution_type = forms.MultipleChoiceField(
+        required=False,
+        label='Type of studies offered',
+        widget=CheckboxSelectMultiple(),
+        choices=StudyHostProfile.INSTITUTION_TYPE_CHOICES,
+    )
+
+    high_quality_accreditations = forms.MultipleChoiceField(
+        required=False,
+        label='Accreditations of high quality',
+        widget=CheckboxSelectMultiple(),
+        choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
+    )
+
+    studies_type_offered = forms.MultipleChoiceField(
+        required=False,
+        label='Type of studies offered',
+        widget=CheckboxSelectMultiple(),
+        choices=StudyHostProfile.STUDIES_TYPE_OFFERED_CHOICES,
+    )
+
+    rankings_classification = forms.CharField(widget=forms.Textarea)
+    knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
+    strengths = forms.CharField(widget=forms.Textarea)
+
     class Meta:
         model = StudyHostProfile
+        fields = ('institution_type', 'institute_character',
+            'high_quality_accreditations', 'students_number',
+            'rankings_classification', 'knowledge_topics_choice',
+            'strengths', 'studies_type_offered', 'studies_offert_list',)
+
+
+class HostingHostProfileForm(forms.ModelForm):
+    title = "Hosting Host Details"
+    class Meta:
+        model = HostingHostProfile
         fields = ('slug',)

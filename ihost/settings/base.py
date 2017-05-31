@@ -63,10 +63,14 @@ INSTALLED_APPS = [
     'django_countries',
     'django_extensions',
     # 'languages_plus',
+    'haystack',
     'phonenumber_field',
 
     # Project apps
     'accounts.apps.AccountsConfig',
+    'host_information.apps.HostInformationConfig',
+    'hosts.apps.HostsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -230,5 +234,12 @@ BOOTSTRAP3 = {
     'field_renderers': {
         'default': 'bootstrap3.renderers.FieldRenderer',
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
+    },
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/blog'
     },
 }

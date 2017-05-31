@@ -8,7 +8,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+<<<<<<< HEAD
         ('accounts', '0021_auto_20170426_0351'),
+=======
+        ('accounts', '0021_auto_20170509_0125'),
+>>>>>>> development
         ('accounts', '0025_auto_20170509_2107'),
     ]
 

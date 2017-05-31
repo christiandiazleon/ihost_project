@@ -67,7 +67,7 @@ class UserUpdateForm(forms.ModelForm):
         "city_current_residence", "speak_languages", "phone_number",
         "address", "bio", "avatar", "date_of_birth", "is_student",
         "is_professor", "is_executive", "is_study_host",
-        "is_hosting_host", "entertainment_activities_choice",)
+        "is_hosting_host", "entertainment_activities",)
 
         model = get_user_model()
 

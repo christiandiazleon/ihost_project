@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+import json
+from host_information.models import EntertainmentActivities
+
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 
@@ -159,7 +162,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank_label='(select country)'
     )
 
-
     city_current_residence = models.CharField(
         max_length=255,
         blank = False,
@@ -243,10 +245,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Other services host profile',
     )
 
+    '''
     entertainment_activities_choice = models.CharField(
         _("Entertainment activities of your choice"), max_length=255
     )
-
+    '''
+    entertainment_activities = models.ManyToManyField(EntertainmentActivities)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -268,6 +272,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return "@{}".format(self.username)
+
+    def setspeak_languages(self, days):
+        self.days = json.dumps(self.speak_languages)
+
+    def getspeak_languages(self):
+        return json.loads(self.speak_languages)
 
     def get_short_name(self):
         return self.first_name

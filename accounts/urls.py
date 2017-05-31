@@ -11,7 +11,6 @@ urlpatterns = [
     url(r"signup/$", views.SignUpView.as_view(), name="signup"),
     url(r"join/$", views.signup, name="join"),
 
-
     #url(r"^preferences/(?P<pk>\d+)$",
     #    views.AccountSettingsUpdateView.as_view(),
     #    name='preferences'
@@ -34,6 +33,10 @@ urlpatterns = [
     ),
 
 
+    #url(r"^preferences/(?P<slug>[\w.\-]+)/$",
+    #   views.AccountSettingsUpdateView.as_view(),
+    #    name='preferences'
+    #),
 
 
 ]

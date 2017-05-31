@@ -34,12 +34,15 @@ urlpatterns = [
     url(r'^dashboard/', DashboardProfileView.as_view(), name='dashboard'),
 
 
-    #url(r'^$', home, name='home'),
-
     # which is a regular expression that takes the desired urls and passes as
     # an argument the filename, i.e. robots.txt or humans.txt.
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
+
+    url(r'^become-a-host/',
+        include('hosts.urls', namespace='hosts')
+    ),
+
 ]
 
 

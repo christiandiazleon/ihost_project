@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     # 'languages_plus',
     'haystack',
     'phonenumber_field',
+    'smart_selects',
+    #'star_ratings',
 
     # Project apps
     'accounts.apps.AccountsConfig',
@@ -168,9 +170,16 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "assets"),
 )
 
+FIXTURE_DIRS = (
+   os.path.join(BASE_DIR, 'fixtures'),
+)
+
+
 # Por el momento es asi
 LOGIN_REDIRECT_URL = 'dashboard'
 # La debo enviar al url por ejemplo posts:all
+
+#LOGOUT_REDIRECT_URL = '/accounts/logout/'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
@@ -198,7 +207,7 @@ BOOTSTRAP3 = {
     'javascript_in_head': False,
 
     # Include jQuery with Bootstrap JavaScript (affects django-bootstrap3 template tags)
-    'include_jquery': True,
+    'include_jquery': False,
 
     # Label class to use in horizontal forms
     'horizontal_label_class': 'col-md-3',
@@ -243,3 +252,38 @@ HAYSTACK_CONNECTIONS = {
         'URL': 'http://127.0.0.1:8983/solr/blog'
     },
 }
+
+'''
+SMART_SELECTS_JQUERY_URL : jQuery 2.2.0 is loaded from Google's CDN if this is set to True. If you would prefer to use a different version put the full URL here. Set SMART_SELECTS_JQUERY_URL = False to disable loading jQuery altogether.
+
+SMART_SELECTS_USE_DJANGO_JQUERY : By default, smart_selects loads jQuery from Google's CDN. However, it can use jQuery from Django's admin area. Set SMART_SELECTS_USE_DJANGO_JQUERY = True to enable this behaviour.
+'''
+SMART_SELECTS_JQUERY_URL = False
+SMART_SELECTS_USE_DJANGO_JQUERY = True
+
+#Amazon S3 Storage
+AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY =  get_env_variable('AWS_SECRET_ACCESS_KEY')
+
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
+# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
+# We also use it in the next setting.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# For media files to S3
+STATICFILES_LOCATION = 'assets'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+REHABILITATION_SESSIONS_LOCATIONS = 'custom_storages.RehabilitationSessionStorage'
+
+# That will tell boto that when it uploads files to S3, it should set properties on them so that when S3 serves them, it'll include those HTTP headers in the response.
+# Those HTTP headers in turn will tell browsers that they can cache these files for a very long time.
+
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+        'Expires': 'Thu, 31 Dec 2199 20:00:00 GMT',
+        'Cache-Control': 'max-age=94608000',
+    }
+

@@ -55,12 +55,83 @@ class FeaturesAmenities(models.Model):
 
 class RoomInformation(models.Model):
 
-    name = models.CharField(max_length=100, null=False, blank=False)
-    description = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=False
+    )
+
+    description = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = "Room caracteristics"
         verbose_name_plural = "Room caracteristics"
+
+    def __str__(self):
+        return self.name
+
+
+# Relacionarlo con el studyhost y que este pueda ingresarlos
+# para despues traerlos en el campo de grupos de invest en su perfil
+class ResearchGroups(models.Model):
+    name = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False
+    )
+
+    description = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = "Research Groups"
+        verbose_name_plural = "Research Groups"
+
+    def __str__(self):
+        return self.name
+
+# Relacionarlo con el studyhost y que este pueda ingresarlos
+# para despues traerlos en el campo de becas en la oferta academica
+
+
+class Scholarship(models.Model):
+
+    name = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False
+    )
+
+    description = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    who_can_apply = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    application_process = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    terms_and_conditions = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    class Meta:
+        verbose_name = "Scholarship"
+        verbose_name_plural = "Scholarships"
 
     def __str__(self):
         return self.name

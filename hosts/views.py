@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-
+from django.core.urlresolvers import reverse_lazy, reverse
 from .models import LodgingOffer
 from .forms import LodgingOfferForm, HostingOfferSearchForm
 from django.views.generic.edit import FormView
@@ -31,8 +31,7 @@ class HostingOfferSearch(LoginRequiredMixin, FormView):
 class HostingOfferCreateView(LoginRequiredMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
-
-
+    success_url = reverse_lazy("dashboard")
 
     def get_context_data(self, **kwargs):
         context = super(HostingOfferCreateView, self).get_context_data(**kwargs)

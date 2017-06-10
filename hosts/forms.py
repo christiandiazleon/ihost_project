@@ -6,12 +6,16 @@ class LodgingOfferForm(forms.ModelForm):
     title = "Creating Lodging Offert"
     additional_description = forms.CharField(widget=forms.Textarea)
 
+
     class Meta:
         model = LodgingOffer
-        fields = ('lodging_offer_type', 'offered_services',
-            'featured_amenities', 'room_information', 'room_value',
+        fields = ('hosting_host_user', 'available_dates', 'lodging_offer_type', 'offered_services', 'room_information', 'room_value',
             'additional_description')
-        exclude = ('hosting_host_user',)
+        widgets = {
+            'available_dates': forms.DateInput(attrs={'class':'datepicker'}),
+
+        }
+        # exclude = ('hosting_host_user',)
 
 
 class HostingOfferSearchForm(forms.ModelForm):

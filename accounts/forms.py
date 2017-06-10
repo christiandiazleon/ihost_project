@@ -38,6 +38,10 @@ class UserCreateForm(UserCreationForm):
         self.fields["email"].label = "Email address"
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class UserUpdateForm(forms.ModelForm):
     speak_languages = forms.MultipleChoiceField(
         required=False,
@@ -46,21 +50,15 @@ class UserUpdateForm(forms.ModelForm):
         choices=User.LANGUAGES_CHOICES,
     )
     bio = forms.CharField(widget=forms.Textarea)
-    entertainment_activities_choice = forms.MultipleChoiceField(
-        required=False,
-        label='Entertainment activities of your choice',
-        widget=CheckboxSelectMultiple(),
-        choices=User.ENTERTAINMENT_ACTIVITIES_CHOICES,
-    )
-
 
     class Meta:
         widgets = {
             'gender':forms.RadioSelect,
             'country_of_origin': CountrySelectWidget(),
-            'country_current_residence': CountrySelectWidget()
+            'country_current_residence': CountrySelectWidget(),
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
+            'date_of_birth': DateInput(), #datepicker
         }
         fields = ("first_name", "last_name", "display_name", "gender",
         "country_of_origin", "city_of_origin", "country_current_residence",
@@ -118,25 +116,11 @@ class StudyHostProfileForm(forms.ModelForm):
             'institute_character':forms.RadioSelect,
     }
 
-    institution_type = forms.MultipleChoiceField(
-        required=False,
-        label='Type of studies offered',
-        widget=CheckboxSelectMultiple(),
-        choices=StudyHostProfile.INSTITUTION_TYPE_CHOICES,
-    )
-
     high_quality_accreditations = forms.MultipleChoiceField(
         required=False,
         label='Accreditations of high quality',
         widget=CheckboxSelectMultiple(),
         choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
-    )
-
-    studies_type_offered = forms.MultipleChoiceField(
-        required=False,
-        label='Type of studies offered',
-        widget=CheckboxSelectMultiple(),
-        choices=StudyHostProfile.STUDIES_TYPE_OFFERED_CHOICES,
     )
 
     rankings_classification = forms.CharField(widget=forms.Textarea)
@@ -148,11 +132,15 @@ class StudyHostProfileForm(forms.ModelForm):
         fields = ('institution_type', 'institute_character',
             'high_quality_accreditations', 'students_number',
             'rankings_classification', 'knowledge_topics_choice',
-            'strengths', 'studies_type_offered', 'studies_offert_list',)
+            'strengths', 'studies_type_offered', 'studies_offert_list',
+            'research_groups', 'academic_mobility_programs', 'scholarships',
+            'photography')
+        exclude = ('studies_offert_list', )
 
 
 class HostingHostProfileForm(forms.ModelForm):
     title = "Hosting Host Details"
+
     class Meta:
         model = HostingHostProfile
-        fields = ('slug',)
+        fields = ('featured_amenities', 'stars',)

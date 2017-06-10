@@ -1,0 +1,43 @@
+[{
+    "model": "accounts.studiestypeoffered",
+    "pk": 1,
+    "fields": {
+        "name": "Continuing Education studies"
+    }
+}, {
+    "model": "accounts.studiestypeoffered",
+    "pk": 2,
+    "fields": {
+        "name": "Technique"
+    }
+}, {
+    "model": "accounts.studiestypeoffered",
+    "pk": 3,
+    "fields": {
+        "name": "Technology"
+    }
+}, {
+    "model": "accounts.studiestypeoffered",
+    "pk": 4,
+    "fields": {
+        "name": "Professional"
+    }
+}, {
+    "model": "accounts.studiestypeoffered",
+    "pk": 5,
+    "fields": {
+        "name": "Specialization"
+    }
+}, {
+    "model": "accounts.studiestypeoffered",
+    "pk": 6,
+    "fields": {
+        "name": "Master"
+    }
+}, {
+    "model": "accounts.studiestypeoffered",
+    "pk": 7,
+    "fields": {
+        "name": "Doctorate"
+    }
+}]

@@ -30,7 +30,7 @@
 
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-   {% comment %} <link rel="stylesheet" href="{% static 'ihost/css/master.css'%}">{% endcomment %}
+    <link rel="stylesheet" href="{% static 'ihost/css/master.css'%}">
     </head>
     
     <body>
@@ -38,15 +38,59 @@
       <nav class="navbar  mynav" role="navigation" id="navbar">
           <div class="container">
 
-            <a class="navbar-brand mynav" href="{% url 'home' %}"><img src="{% static 'hostayni.png' %}"/></a>
+            <a class="navbar-brand mynav" href="{% url 'home' %}">Star Social</a>
 
               <ul class="nav navbar-nav navbar-right">
-                
-                      <li><a href="#how-it-works" class="btn btn-simple">How it Works</a></li>
-                      <li><a href="#safety" class="btn btn-simple">Safety</a></li>
-                {% if user.is_authenticated %} 
-                  <li><a href="{% url 'home' %}" class="btn btn-simple">Home</a></li> 
-                  <li class="dropdown">
+                {% if user.is_authenticated %}
+                      <li><a href="#" class="btn btn-simple">Post</a></li>
+                      <li><a href="#" class="btn btn-simple">Groups</a></li>
+                      <li><a href="#" class="btn btn-simple">Create Group</a></li>
+                      <li><a href="{% url 'logout' %}" class="btn btn-simple">Log out</a></li>
+                {% else %}
+                      <li><a href="#"class="btn btn-simple">Groups</a></li>
+                      <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>
+                      <li><a href="{% url 'accounts:signup' %}" class="btn btn-simple">Sign up</a></li>
+                {% endif %}
+              </ul>
+
+
+
+          </div>
+        </nav>
+
+        <div class="container mycontent">
+          {% block content %}
+          
+
+          {% endblock %}
+
+        </div>
+
+
+
+    {% comment %} end new tests {% endcomment %}
+
+
+
+      {% block navbar %}
+        <!-- Fixed navbar poner default en ligar de inverse para blanco -->
+        <nav class="navbar navbar-inverse navbar-fixed-top ">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'hostayni.png' %}"/></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#safety">Safety</a></li>
+                {% if userprofile %}
+                <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Become a Host <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="{% url 'hosts:hosting-host' %}">Hosting Host</a></li>
@@ -59,24 +103,27 @@
                     {% endcomment %}
                   </ul>
                 </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                
+                
                 <li class="dropdown user user-menu active">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@{{ userprofile.user.username }} <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ userprofile.user.username }} <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li class="user-header">
-                      
-                      <img src="{{ object.image_url|default_if_none:'#' }}" 
-                      class="img-circle" alt="User Image">
                       {% comment %}
+                      <img src="{{ userprofile.user.avatar.url }}" 
+                      class="img-circle" alt="User Image">
+                      
                         <p><strong>{{ userprofile.user.username }}</strong>
                             <small>{{ userprofile.user.occupation }}</small>
                         </p>
                       {% endcomment %}
                     </li>
-                    <li><p align="center" class= "pull-center hidden-xs text-muted">
+                    <li><p align="left" class= "pull-right hidden-xs text-muted">
                           {{ userprofile.user.bio }}
                         </p>
-                    </li>
-                    <hr>
+                    </li> <hr>
                     {% if userprofile.user.is_student %}
                       <li><strong>Student</strong></li>
                     {% endif %}
@@ -95,7 +142,9 @@
                     {% if userprofile.user.is_active %}
                       <li><strong></strong></li>
                     {% endif %}
-                    <li><a href="{% url 'dashboard' %}">Contents</a></li>
+                    
+                    
+                    <li><a href="{% url 'dashboard' %}">My dashboard</a></li>
                     
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Account</li>
@@ -146,25 +195,24 @@
                   </ul>
                 </li>
                 {% else %}
-                <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>
-                <li><a href="{% url 'accounts:signup' %}" class="btn btn-simple">Sign up</a></li>
+                <li><a href="{% url 'accounts:signup' %}">Join</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
+                {% comment %}
+                <li class="active"><a href="./">{{ userprofile.user.display_name }} <span class="sr-only">(current)</span></a></li>
+                {% endcomment %}
+
               </ul>
-
-
-
+            </div><!--/.nav-collapse -->
           </div>
         </nav>
+        <br /><br /><br />
+        
+      {% endblock %}
+      {% block body_content %}
 
-        <div class="container mycontent">
-          {% block body_content %}
-          
-
-          {% endblock %}
-
-        </div>
-
-        <footer class="main-footer">
+      {% endblock %}
+      <footer class="main-footer">
         <div class="container">
           <div class="pull-right hidden-xs text-muted">
             <b>Version</b> 1.O
@@ -173,10 +221,14 @@
         </div>
     </footer>
 
-    {% comment %} end new tests {% endcomment %}
-
-
-
-      
+      {% comment %}
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  
+      {# estos js se llaman pero por bootstrap3 deben estar auto cuadrarlo#}
+      <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+      <script src="../../dist/js/bootstrap.min.js"></script>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+      {% endcomment %}
     </body>
 </html>

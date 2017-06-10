@@ -8,14 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 
 class LodgingOffer(models.Model):
 
-    hosting_host_user = models.ForeignKey(
-        'accounts.HostingHostProfile',
-        null=True,
-        blank=True,
-        verbose_name='Hosting Host',
-        related_name='hostinghostprofile'
-    )
-
     HOTEL = 'HOTEL'
     HOSTEL = 'HOSTEL'
     STUDENT_RESIDENCE = 'STUDENT_RESIDENCE'
@@ -30,6 +22,21 @@ class LodgingOffer(models.Model):
         (ACCOMODATION_WITH_LOCAL_FAMILY, 'Accommodation with local family'),
         (HOUSE_APT_SHARE_VISITANTS, 'House or apartment to share with other visitors'),
         (HOUSE_OR_PRIV_APT, 'House or private apartment'),
+    )
+
+    hosting_host_user = models.ForeignKey(
+        'accounts.HostingHostProfile',
+        null=True,
+        blank=True,
+        verbose_name='Hosting Host',
+        related_name='hostinghostprofile'
+    )
+
+    available_dates = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name='Available dates',
+        # help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
     )
 
     lodging_offer_type = models.CharField(
@@ -56,12 +63,6 @@ class LodgingOffer(models.Model):
         LodgingServiceOffer,
         help_text='What services do you offer?',
         verbose_name='Offered Services'
-    )
-
-    featured_amenities = models.ManyToManyField(
-        FeaturesAmenities,
-        help_text='What amenities do you offer?',
-        verbose_name='Featured Amenities'
     )
 
     room_information = models.ManyToManyField(

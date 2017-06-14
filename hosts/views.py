@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
-from .models import LodgingOffer, StudiesOffert
+from .models import LodgingOffer, StudiesOffert, RoomInformation
 
 
 from .forms import LodgingOfferForm, HostingOfferSearchForm, StudiesOffertForm
@@ -14,6 +15,21 @@ from haystack.query import SearchQuerySet
 
 # Create your views here.
 
+
+def lodging_offers_by_user(request, username):
+    user = request.user
+    lodging_offers = LodgingOffer.objects.filter(created_by__username=username)
+
+    if user.is_hosting_host:
+        profile = user.get_hosting_host_profile()
+
+
+    return render(
+        request,
+        'hosts/lodgingoffer_list.html',
+        {'lodging_offers':lodging_offers,
+        'userprofile':profile}
+    )
 
 class StudyHostPageView(TemplateView):
     template_name = 'hosts/study_host_home.html'
@@ -62,7 +78,9 @@ class HostingOfferSearch(LoginRequiredMixin, FormView):
 class HostingOfferCreateView(LoginRequiredMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
-    success_url = reverse_lazy("dashboard")
+    # success_url = reverse_lazy("hosts:detaillodgingoffer")
+    #success_url = reverse("hosts:detail-lodging-offer")
+    success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         form.save(commit=False)
@@ -112,11 +130,60 @@ class HostingOfferUpdateView(LoginRequiredMixin, UpdateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
     success_url = reverse_lazy("dashboard")
+    # success_url = reverse_lazy("hosts:detail-lodging-offer")
 
     def get_context_data(self, **kwargs):
         context = super(HostingOfferUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
+        if user.is_student:
+            profile = user.get_student_profile()
+            context['userprofile'] = profile
+        elif user.is_professor:
+            profile = user.get_professor_profile()
+            context['userprofile'] = profile
+        elif user.is_executive:
+            profile = user.get_executive_profile()
+            context['userprofile'] = profile
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+        elif user.is_hosting_host:
+            profile = user.get_hosting_host_profile()
+            context['userprofile'] = profile
+        elif user.is_active:
+            #profile = user.get_user_profile()
+            context['userprofile'] = self.request.user
+        return context
+
+
+class HostingOfferDetailView(LoginRequiredMixin, DetailView):
+    model=LodgingOffer
+    template_name = 'lodgingoffer_detail.html'
+    context_object_name = 'lodgingofferdetail'
+
+    def get_context_data(self, **kwargs):
+        context = super(HostingOfferDetailView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        # Retrieving all LodgingOffer objects of hostinghost user
+        # and send them to template
+        #queryset = RoomInformation.objects.filter(name=self.kwargs['room_information__name'])
+
+        queryset = LodgingOffer.objects.all()
+        #inf = self.kwargs['room_information_set.all()']
+
+        room_information = set(queryset.values_list('room_information__name', flat=True).distinct())
+
+        context['lodgingoffer'] = room_information
+
+        queryset2 = LodgingOffer.objects.all()
+
+        offeredservices = set(queryset.values_list('offered_services__name', flat=True).distinct())
+
+        context['offeredservices'] = offeredservices
+
+
         if user.is_student:
             profile = user.get_student_profile()
             context['userprofile'] = profile

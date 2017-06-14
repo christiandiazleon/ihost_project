@@ -145,8 +145,6 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         else:
             return super(AccountSettingsUpdateView, self).form_invalid(form)
 
-
-
     def form_valid(self, form):
         if self.request.method == 'POST':
             form = UserUpdateForm(self.request.POST, self.request.FILES)

@@ -15,9 +15,9 @@ from django.template.defaultfilters import slugify
 
 class LodgingOffer(models.Model):
 
-    ALL_PROPERTY = 'ALL_PROPERTY'
-    PRIVATE_ROOM = 'PRIVATE_ROOM'
-    SHARED_ROOM = 'SHARED_ROOM'
+    ALL_PROPERTY = 'All property'
+    PRIVATE_ROOM = 'Private Room'
+    SHARED_ROOM = 'Shared Room'
 
     ROOM_TYPE_OFFERED_CHOICES = (
         (ALL_PROPERTY, "All property"),
@@ -25,16 +25,16 @@ class LodgingOffer(models.Model):
         (SHARED_ROOM, "Shared Room"),
     )
 
-    ONE_GUEST = 'ONE_GUEST'
-    TWO_GUESTS = 'ONE_GUEST'
-    THREE_GUESTS = 'ONE_GUEST'
-    FOUR_GUESTS = 'ONE_GUEST'
-    FIVE_GUESTS = 'ONE_GUEST'
-    SIX_GUESTS = 'ONE_GUEST'
-    SEVEN_GUESTS = 'ONE_GUEST'
-    EIGHT_GUESTS = 'ONE_GUEST'
-    NINE_GUESTS = 'ONE_GUEST'
-    TEN_GUESTS = 'ONE_GUEST'
+    ONE_GUEST = 'For 1 guest'
+    TWO_GUESTS = 'For 2 guests'
+    THREE_GUESTS = '3 guests'
+    FOUR_GUESTS = '4 guests'
+    FIVE_GUESTS = '5 guests'
+    SIX_GUESTS = '6 guests'
+    SEVEN_GUESTS = '7 guests'
+    EIGHT_GUESTS = '8 guests'
+    NINE_GUESTS = '9 guests'
+    TEN_GUESTS = '10 guests'
 
 
     NUMBER_GUESS_ROOM_TYPE_CHOICES = (
@@ -50,15 +50,6 @@ class LodgingOffer(models.Model):
         (TEN_GUESTS, "For 10 guests"),
     )
 
-    '''
-    hosting_host_user = models.ForeignKey(
-        'accounts.HostingHostProfile',
-        null=True,
-        blank=True,
-        verbose_name='Hosting Host',
-        related_name='hostinghostprofile'
-    )
-    '''
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -124,7 +115,7 @@ class LodgingOffer(models.Model):
     number_guest_room_type = models.CharField(
         max_length=255,
         choices=NUMBER_GUESS_ROOM_TYPE_CHOICES,
-        verbose_name='Room Type Offered',
+        verbose_name='Number guess in room',
     )
 
     room_information = models.ManyToManyField(
@@ -246,6 +237,11 @@ class StudiesOffert(models.Model):
         blank=False
     )
 
+    slug = models.SlugField(
+        max_length=100,
+        blank=True
+    )
+
     knowledge_topics = TaggableManager(
         verbose_name="Knowledge topics",
         help_text=_("A comma-separated list of topics.")
@@ -291,3 +287,8 @@ class StudiesOffert(models.Model):
 
     def __str__(self):
         return "{}".format(self.ad_title)
+
+@receiver(post_save, sender=StudiesOffert)
+def post_save_studies_offer(sender, instance, **kwargs):
+    slug = slugify(instance.ad_title)
+    StudiesOffert.objects.filter(pk=instance.pk).update(slug=slug)

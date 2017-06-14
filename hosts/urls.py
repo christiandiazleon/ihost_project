@@ -1,21 +1,34 @@
 from django.conf.urls import url
-from .views import HostingOfferCreateView, HostingOfferUpdateView, HostingHostPageView, StudyHostPageView, StudyOfferCreateView
+from .views import (HostingOfferCreateView, HostingOfferUpdateView, HostingHostPageView, StudyHostPageView, StudyOfferCreateView,
+    HostingOfferDetailView, lodging_offers_by_user)
+
 
 urlpatterns = [
 
-    # Create Hosting Host Offer
-    url(r'^lodging-host/offer/new',
+    # Create Hosting Offer
+    url(r'^lodging-offer/new',
         HostingOfferCreateView.as_view(),
         name='hosting-host'
     ),
 
+    # List Hosting Offers
+    url(r'^lodging-offers/by/(?P<username>[-\w]+)/',
+        lodging_offers_by_user,
+        name='list'
+    ),
 
-    # Edit Hosting Host offer
-    url(r"^lodging-host/offer/(?P<slug>[\w.\-]+)/$",
+
+    # Edit Hosting offer
+    url(r"^lodging-offer/(?P<slug>[\w.\-]+)/edit/$",
         HostingOfferUpdateView.as_view(),
         name='edit-lodging-offer'
     ),
 
+    # Detail of a Hosting Offer
+    url(r"^lodging-offer/(?P<slug>[\w.\-]+)/",
+        HostingOfferDetailView.as_view(),
+        name='detail'
+    ),
 
     url(r'^lodging-host/offer/search',
         HostingOfferCreateView.as_view(),
@@ -33,7 +46,7 @@ urlpatterns = [
     ),
 
     # Create Study Host Offer
-    url(r'^studies-host/offer/new',
+    url(r'^studies-offer/new',
         StudyOfferCreateView.as_view(),
         name='study-host'
     ),

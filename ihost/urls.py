@@ -49,8 +49,8 @@ urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
 
-    url(r'^become-a-host/',
-        include('hosts.urls', namespace='hosts')
+    url(r'^host/',
+        include('hosts.urls', namespace='host')
     ),
 
 

@@ -9,6 +9,9 @@ from smart_selects.db_fields import ChainedManyToManyField
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
 
 class LodgingOffer(models.Model):
 
@@ -61,9 +64,15 @@ class LodgingOffer(models.Model):
         on_delete=models.CASCADE
     )
 
+    # Fijarle un max_length
     ad_title = models.TextField(
         null=False,
         blank=False
+    )
+
+    slug = models.SlugField(
+        max_length=100,
+        blank=True
     )
 
     available_dates = models.DateField(
@@ -137,6 +146,13 @@ class LodgingOffer(models.Model):
         null=False,
         blank=False
     )
+
+
+@receiver(post_save, sender=LodgingOffer)
+def post_save_lodging_offer(sender, instance, **kwargs):
+    slug = slugify(instance.ad_title)
+    LodgingOffer.objects.filter(pk=instance.pk).update(slug=slug)
+
 
     '''
     def get_absolute_url(self):

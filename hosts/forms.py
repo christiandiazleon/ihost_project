@@ -3,7 +3,7 @@ from .models import LodgingOffer, StudiesOffert
 
 
 class StudiesOffertForm(forms.ModelForm):
-    title = "Creating Studies Offert"
+    title = "Studies Offert"
 
     class Meta:
         model = StudiesOffert
@@ -13,7 +13,7 @@ class StudiesOffertForm(forms.ModelForm):
 
 
 class LodgingOfferForm(forms.ModelForm):
-    title = "Creating Lodging Offert"
+    title = "Lodging Offert"
     #birth_year = forms.DateField(widget=forms.SelectDateWidget(years=LodgingOffer.BIRTH_YEAR_CHOICES))
 
     class Meta:

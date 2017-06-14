@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
@@ -104,6 +105,36 @@ class HostingOfferCreateView(LoginRequiredMixin, CreateView):
             context['student_profile'] = student_profile
             context['professor_profile'] = professor_profile
             context['executive_profile'] = executive_profile
+        return context
+
+
+class HostingOfferUpdateView(LoginRequiredMixin, UpdateView):
+    model = LodgingOffer
+    form_class = LodgingOfferForm
+    success_url = reverse_lazy("dashboard")
+
+    def get_context_data(self, **kwargs):
+        context = super(HostingOfferUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        if user.is_student:
+            profile = user.get_student_profile()
+            context['userprofile'] = profile
+        elif user.is_professor:
+            profile = user.get_professor_profile()
+            context['userprofile'] = profile
+        elif user.is_executive:
+            profile = user.get_executive_profile()
+            context['userprofile'] = profile
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+        elif user.is_hosting_host:
+            profile = user.get_hosting_host_profile()
+            context['userprofile'] = profile
+        elif user.is_active:
+            #profile = user.get_user_profile()
+            context['userprofile'] = self.request.user
         return context
 
 

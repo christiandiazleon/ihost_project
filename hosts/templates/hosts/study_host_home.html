@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title_tag %}Be a hosting Host {{ block.super }}{% endblock %}
+{% block body_content %}
+  <div class='container'>
+    <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Hi {{ userprofile.user.display_name }} </h1>
+        <p>Do you want turn it in Study host?</p>
+        <p><a href="{% url 'hosts:study-host' %}" class="btn btn-primary" role="button">Make a Study Offert</a></p>
+      </div>
+  </div>
+
+
+
+   
+{% endblock %}

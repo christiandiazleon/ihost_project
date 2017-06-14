@@ -67,6 +67,9 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'smart_selects',
     #'star_ratings',
+    'taggit',
+    'storages',
+
 
     # Project apps
     'accounts.apps.AccountsConfig',
@@ -266,18 +269,21 @@ AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY =  get_env_variable('AWS_SECRET_ACCESS_KEY')
 
-# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
-# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
-# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
-# We also use it in the next setting.
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep # it simple - just use this domain plus the path.
+# (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it. We also use it in the next setting.
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
+#MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+#MEDIA_ROOT = 'avatars/'
 # For media files to S3
 STATICFILES_LOCATION = 'assets'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-REHABILITATION_SESSIONS_LOCATIONS = 'custom_storages.RehabilitationSessionStorage'
+#REHABILITATION_SESSIONS_LOCATIONS = 'custom_storages.RehabilitationSessionStorage'
 
 # That will tell boto that when it uploads files to S3, it should set properties on them so that when S3 serves them, it'll include those HTTP headers in the response.
 # Those HTTP headers in turn will tell browsers that they can cache these files for a very long time.

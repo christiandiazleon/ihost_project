@@ -2,20 +2,16 @@
 {% load bootstrap3 %}
 {% block title_tag %}Accounts | Profile | iHost {{ block.super }}{% endblock %}
 {% block body_content %}
-<script>
-  $( function() {
-    $( "#slider" ).slider();
-  } );
-  </script>
+
 <div class="container">
     
-    <form method="POST">
+    <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
 
         {% for form in forms %}
             <h2>{{ form.title }}</h2>
                 {% bootstrap_form form %}
-                <div id="slider"></div>
+                
         {% endfor %}
     
 {% comment %}

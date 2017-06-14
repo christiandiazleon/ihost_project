@@ -9,5 +9,6 @@ django-haystack==2.6.0
 django-phonenumber-field==1.2.0
 django-smart-selects==1.5.2
 django-storages-redux==1.3.2
+django-taggit==0.22.1
 Pillow==4.0.0
 psycopg2==2.7

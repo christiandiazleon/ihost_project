@@ -29,7 +29,9 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         fields = ("username", "email", "password1", "password2", "is_student",
-        "is_professor", "is_executive", "is_study_host", "is_hosting_host" )
+        "is_professor", "is_executive", "is_study_host", "is_hosting_host",
+        "is_innovation_host", "is_entertainment_host",
+        "is_other_services_host")
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
@@ -65,7 +67,8 @@ class UserUpdateForm(forms.ModelForm):
         "city_current_residence", "speak_languages", "phone_number",
         "address", "bio", "avatar", "date_of_birth", "is_student",
         "is_professor", "is_executive", "is_study_host",
-        "is_hosting_host", "entertainment_activities",)
+        "is_hosting_host", "is_innovation_host", "is_entertainment_host",
+        "is_other_services_host", "entertainment_activities",)
 
         model = get_user_model()
 
@@ -124,18 +127,16 @@ class StudyHostProfileForm(forms.ModelForm):
     )
 
     rankings_classification = forms.CharField(widget=forms.Textarea)
-    knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
+    #knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
     strengths = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = StudyHostProfile
         fields = ('institution_type', 'institute_character',
             'high_quality_accreditations', 'students_number',
-            'rankings_classification', 'knowledge_topics_choice',
-            'strengths', 'studies_type_offered', 'studies_offert_list',
-            'research_groups', 'academic_mobility_programs', 'scholarships',
-            'photography')
-        exclude = ('studies_offert_list', )
+            'rankings_classification', 'knowledge_topics',
+            'strengths', 'research_groups', 'photography')
+        #exclude = ('studies_offert_list', )
 
 
 class HostingHostProfileForm(forms.ModelForm):
@@ -143,4 +144,5 @@ class HostingHostProfileForm(forms.ModelForm):
 
     class Meta:
         model = HostingHostProfile
-        fields = ('featured_amenities', 'stars',)
+        fields = ('lodging_offer_type', 'featured_amenities', 'stars',
+            'photography', 'additional_description')

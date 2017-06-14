@@ -47,10 +47,16 @@
                 {% if user.is_authenticated %} 
                   <li><a href="{% url 'home' %}" class="btn btn-simple">Home</a></li> 
                   <li class="dropdown">
+
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Become a Host <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{% url 'hosts:hosting-host' %}">Hosting Host</a></li>
-                    <li><a href="#">Study Host</a></li>
+                  {% if userprofile.user.is_hosting_host %}
+                    <li><a href="{% url 'hosts:be-a-hosting-host' %}">Hosting Host</a></li>
+                  {% endif %}
+                  {% if userprofile.user.is_study_host %}
+                    <li><a href="{% url 'hosts:be-a-study-host' %}">Study Host</a></li>
+                  {% endif %}
+                    
                     {% comment %}
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Nav header</li>
@@ -58,14 +64,15 @@
                     <li><a href="#">One more separated link</a></li>
                     {% endcomment %}
                   </ul>
+
                 </li>
+
                 <li class="dropdown user user-menu active">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@{{ userprofile.user.username }} <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li class="user-header">
                       
-                      <img src="{{ object.image_url|default_if_none:'#' }}" 
-                      class="img-circle" alt="User Image">
+                      <img src="{{ object.image_url|default_if_none:'#' }}" class="img-thumbnail" alt="User Image">
                       {% comment %}
                         <p><strong>{{ userprofile.user.username }}</strong>
                             <small>{{ userprofile.user.occupation }}</small>

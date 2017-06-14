@@ -135,3 +135,33 @@ class Scholarship(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class LodgingOfferType(models.Model):
+    '''
+
+    HOTEL = 'HOTEL'
+    HOSTEL = 'HOSTEL'
+    STUDENT_RESIDENCE = 'STUDENT_RESIDENCE'
+    ACCOMODATION_WITH_LOCAL_FAMILY = 'ACCOMODATION_WITH_LOCAL_FAMILY'
+    HOUSE_APT_SHARE_VISITANTS = 'HOUSE_APT_SHARE_VISITANTS'
+    HOUSE_OR_PRIV_APT = 'HOUSE_OR_PRIV_APT'
+
+    LODGING_OFFER_CHOICES = (
+        (HOTEL, 'Hotel'),
+        (HOSTEL, 'Hostel'),
+        (STUDENT_RESIDENCE, 'Student Residence'),
+        (ACCOMODATION_WITH_LOCAL_FAMILY, 'Accommodation with local family'),
+        (HOUSE_APT_SHARE_VISITANTS, 'House or apartment to share with other visitors'),
+        (HOUSE_OR_PRIV_APT, 'House or private apartment'),
+    )
+    '''
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+
+    class Meta:
+        verbose_name = "Lodging Offer Type"
+        verbose_name_plural = "Lodging Offer Type"
+
+    def __str__(self):
+        return self.name

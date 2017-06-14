@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import json
-from host_information.models import EntertainmentActivities, ResearchGroups, FeaturesAmenities, Scholarship
+from host_information.models import EntertainmentActivities, ResearchGroups, FeaturesAmenities, LodgingOfferType
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
@@ -30,6 +30,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # https://github.com/stefanfoulis/django-phonenumber-field
 
 from smart_selects.db_fields import ChainedManyToManyField
+from taggit.managers import TaggableManager
 
 
 # Model Manager
@@ -296,6 +297,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.avatar and hasattr(self.avatar, 'url'):
             return self.avatar.url
 
+
     def get_short_name(self):
         return self.first_name
         #return self.display_name
@@ -540,63 +542,7 @@ class ExecutiveProfile(models.Model):
     def __str__(self):
         return "{}".format(self.user.display_name,)
 
-# Relacionarlo con el studyhost y que este pueda ingresarlos
-# para despues traerlos en el campo de studies_type_offered  en el perfil
-class StudiesTypeOffered(models.Model):
 
-    CONTINUING_EDUCATION_STUDIES = 'Continuing Education studies'
-    TECHNIQUE = 'Technique'
-    TECHNOLOGY = 'Technology'
-    PROFESSIONAL = 'Professional'
-    SPECIALIZATION = 'Specialization'
-    MASTER = 'Master'
-    DOCTORATE = 'Doctorate'
-
-    STUDIES_TYPE_CHOICES = (
-        (CONTINUING_EDUCATION_STUDIES, u'Continuing Education studies'),
-        (TECHNIQUE, u'Technique'),
-        (TECHNOLOGY, u'Technology'),
-        (PROFESSIONAL, u'Professional'),
-        (SPECIALIZATION, u'Specialization'),
-        (MASTER, u'Master'),
-        (DOCTORATE, u'Doctorate'),
-    )
-
-    name = models.CharField(
-        max_length=100,
-        choices=STUDIES_TYPE_CHOICES,
-        blank=False,
-        verbose_name=u'nombre',
-    )
-
-    class Meta:
-        verbose_name = "Tipo de estudio ofertado"
-        verbose_name_plural = "Tipo de estudios ofertados"
-
-    def __str__(self):
-        return "%s" % self.name
-
-# Relacionarlo con el studyhost y que este pueda ingresarlos
-# para despues traerlos en el campo de studies_offert_list  en el perfil
-class StudiesOffertList(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name = u'nombre'
-    )
-
-    studies_type_offered_associated = models.ManyToManyField(
-        StudiesTypeOffered,
-        blank=True,
-        verbose_name='Tipo de oferta asociada'
-    )
-
-    class Meta:
-        verbose_name = "Oferta de estudios"
-        verbose_name_plural = "Oferta de estudios"
-
-    def __str__(self):
-        return "%s" % self.name
 
 
 class StudyHostProfile(models.Model):
@@ -633,25 +579,6 @@ class StudyHostProfile(models.Model):
         (INTERNATIONAL_ACCREDITATIONS, "International Accreditation"),
     )
 
-    CES = 'CONT_EDUCATION_'
-    TECHNIQUE_STUDIES = 'TECHNIQUE'
-    TECHNOLOGICAL_STUDIES = 'TECHNOLOGICAL'
-    PROFESSIONAL_STUDIES = 'PROFESSIONAL'
-    SPECIALIZATION_STUDIES = 'SPECIALIZATION'
-    MASTER_STUDIES = 'MASTER'
-    DOCTORATE = 'DOCTORATE'
-
-    STUDIES_TYPE_OFFERED_CHOICES = (
-        (CES, 'Continuing education studies'),
-        (TECHNIQUE_STUDIES, 'Technique'),
-        (TECHNOLOGICAL_STUDIES, 'Technology'),
-        (PROFESSIONAL_TECH_INSTITUTION, 'Professional'),
-        (SPECIALIZATION_STUDIES, 'Specialization'),
-        (MASTER_STUDIES, 'Master'),
-        (DOCTORATE, 'Doctorate'),
-    )
-
-
     ZERO_T0_HUNDRED = 'ZERO_T0_HUNDRED'
     HUNDRED_TO_THREE_HUNDRED = 'HUNDRED_TO_THREE_HUNDRED'
     THREE_HUNDRED_TO_ONE_THOUSAND = 'THREE_HUNDRED_TO_ONE_THOUSAND'
@@ -664,18 +591,6 @@ class StudyHostProfile(models.Model):
         (THREE_HUNDRED_TO_ONE_THOUSAND, '300 a 1000 personas'),
         (ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED, '1000 a 21.500 personas '),
         (GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED, 'Mayor a 21.500 personas'),
-    )
-
-    ACADEMIC_SEMESTER = 'ACADEMIC_SEMESTER'
-    RESEARCH = 'RESEARCH'
-    ROTATIONS_OR_PRACTICES = 'ROTATIONS_OR_PRACTICES'
-    SUMMER_SCHOOL = 'SUMMER_SCHOOL'
-
-    ACADEMIC_MOBILITY_PROGRAMS_CHOICES = (
-        (ACADEMIC_SEMESTER, 'Academic Semester'),
-        (RESEARCH, 'Research'),
-        (ROTATIONS_OR_PRACTICES, 'Rotations or practices'),
-        (SUMMER_SCHOOL, 'Summer School'),
     )
 
     user = models.OneToOneField(
@@ -714,27 +629,16 @@ class StudyHostProfile(models.Model):
         _("Classification in ranking"), max_length=255
     )
 
-    knowledge_topics_choice = models.CharField(
-        _("Areas of knowledge of your choice"), max_length=255
+    knowledge_topics = TaggableManager(
+        verbose_name="Knowledge topics",
+        # help_text= tag_helptext()
+        help_text=_("A comma-separated list of topics.")
     )
 
     strengths = models.CharField(
         _("Strengths"), max_length=255
     )
 
-    studies_type_offered = models.ManyToManyField(
-        'StudiesTypeOffered',
-        verbose_name=u'Studies Type offered'
-    )
-
-    studies_offert_list = ChainedManyToManyField(
-        'StudiesOffertList', # Modelo encadenado
-        horizontal=False,
-        verbose_name='Studies Offert List',
-        chained_field='studies_type_offered',
-        chained_model_field='studies_type_offered_associated',
-        help_text='What are your studies offerts>?'
-    )
 
     # TO-DO Consultar las grupos del usuario studyhost solamente
     research_groups = models.ManyToManyField(
@@ -743,23 +647,12 @@ class StudyHostProfile(models.Model):
         verbose_name='Research Groups'
     )
 
-    academic_mobility_programs = models.CharField(
-        max_length=255,
-        choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
-        verbose_name='Academic mobility programs',
-        help_text='Available student academic mobility programs',
-    )
-
-    # TO-DO Consultar las becas del usuario studyhost solamente
-    scholarships = models.ManyToManyField(
-        Scholarship,
-        help_text='Scholarships availables',
-        verbose_name='Scholarships'
-    )
 
     photography = models.ImageField(
+        upload_to='studyhosts',
         blank=True,
-        null=True
+        null=True,
+        verbose_name='Photo'
     )
 
     class Meta:
@@ -767,6 +660,14 @@ class StudyHostProfile(models.Model):
 
     def __str__(self):
         return "{}".format(self.user.display_name,)
+
+    '''
+    def tag_helptext():
+        help_text = "Options: "
+        for t in Tag.objects.all():
+            help_text += t.name + " ||| "
+        return help_text
+    '''
 
 
 class InnovationHostProfile(models.Model):
@@ -788,6 +689,7 @@ class InnovationHostProfile(models.Model):
 
 
 class HostingHostProfile(models.Model):
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -798,6 +700,12 @@ class HostingHostProfile(models.Model):
         blank=True
     )
 
+    lodging_offer_type = models.ManyToManyField(
+        LodgingOfferType,
+        help_text='What lodging offer type?',
+        verbose_name='Lodging Offer Type'
+    )
+
     featured_amenities = models.ManyToManyField(
         FeaturesAmenities,
         help_text='What amenities do you offer?',
@@ -806,8 +714,21 @@ class HostingHostProfile(models.Model):
 
     stars = models.PositiveIntegerField(
         blank=True,
+        null=True,
         verbose_name='Stars',
         help_text='Number of stars'
+    )
+
+    photography = models.ImageField(
+        upload_to='hostinghosts',
+        blank=True,
+        null=True,
+        verbose_name='Photo'
+    )
+
+    additional_description = models.TextField(
+        null=False,
+        blank=False
     )
 
     class Meta:

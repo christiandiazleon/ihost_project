@@ -45,12 +45,7 @@ class DateInput(forms.DateInput):
 
 
 class UserUpdateForm(forms.ModelForm):
-    speak_languages = forms.MultipleChoiceField(
-        required=False,
-        label='Speak languages',
-        widget=CheckboxSelectMultiple(),
-        choices=User.LANGUAGES_CHOICES,
-    )
+
     bio = forms.CharField(widget=forms.Textarea)
 
     class Meta:
@@ -64,11 +59,11 @@ class UserUpdateForm(forms.ModelForm):
         }
         fields = ("first_name", "last_name", "display_name", "gender",
         "country_of_origin", "city_of_origin", "country_current_residence",
-        "city_current_residence", "speak_languages", "phone_number",
-        "address", "bio", "avatar", "date_of_birth", "is_student",
-        "is_professor", "is_executive", "is_study_host",
+        "city_current_residence", 'speak_languages', "phone_number",
+        "address", "bio", "avatar", "date_of_birth", 'entertainment_activities'
+        , "is_student", "is_professor", "is_executive", "is_study_host",
         "is_hosting_host", "is_innovation_host", "is_entertainment_host",
-        "is_other_services_host", "entertainment_activities",)
+        "is_other_services_host",)
 
         model = get_user_model()
 

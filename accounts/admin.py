@@ -54,10 +54,10 @@ class CustomUserAdmin(UserAdmin):
 class UserAdmin(CustomUserAdmin):
 
     list_display = ('id', 'username', 'slug','first_name', 'last_name',
-        'display_name','gender','country_of_origin', 'speak_languages',
-        'phone_number','address','email', 'bio', 'date_of_birth', 'is_student',
-        'is_professor', 'is_executive', 'is_study_host', "is_innovation_host",
-         "is_hosting_host", "is_entertainment_host", "is_other_services_host",
+        'display_name','gender','country_of_origin', 'phone_number','address',
+        'email', 'bio', 'date_of_birth', 'is_student', 'is_professor',
+        'is_executive', 'is_study_host', "is_innovation_host",
+        "is_hosting_host", "is_entertainment_host", "is_other_services_host",
     )
 
 @admin.register(StudentProfile)

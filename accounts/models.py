@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import json
-from host_information.models import EntertainmentActivities, ResearchGroups, FeaturesAmenities, LodgingOfferType
+from host_information.models import EntertainmentActivities, ResearchGroups, FeaturesAmenities, LodgingOfferType, SpeakLanguages
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
@@ -174,14 +174,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
      # Can I use later this package https://github.com/coderholic/django-cities
 
-    # speak_languages = Country.objects.get(iso3='USA')
-    speak_languages = models.CharField(
-        max_length=255,
-        choices=LANGUAGES_CHOICES,
-        # verbose_name='Speak languages',
-        blank = True,
 
+    speak_languages = models.ManyToManyField(
+        SpeakLanguages,
+        help_text='What services do you offer?',
+        verbose_name='Languages',
+        related_name="users"
+        # here m2m lookup sample
+        # https://stackoverflow.com/a/16360605/2773461
     )
+
 
     phone_number = PhoneNumberField(
         blank=True,
@@ -256,11 +258,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Other services host profile',
     )
 
-    '''
-    entertainment_activities_choice = models.CharField(
-        _("Entertainment activities of your choice"), max_length=255
-    )
-    '''
     entertainment_activities = models.ManyToManyField(EntertainmentActivities)
 
     is_active = models.BooleanField(default=True)
@@ -641,6 +638,7 @@ class StudyHostProfile(models.Model):
 
 
     # TO-DO Consultar las grupos del usuario studyhost solamente
+
     research_groups = models.ManyToManyField(
         ResearchGroups,
         help_text='What are your research groups?',
@@ -711,6 +709,7 @@ class HostingHostProfile(models.Model):
         help_text='What amenities do you offer?',
         verbose_name='Featured Amenities'
     )
+
 
     stars = models.PositiveIntegerField(
         blank=True,

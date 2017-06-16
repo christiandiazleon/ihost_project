@@ -11,13 +11,7 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-
-
-
-        <title>{% block title_tag %}IHost Applications{% endblock %}</title>
-
-
+    
     <head>        
         <title>{% block title_tag %}HOSTAYNI Platform{% endblock %}</title>
         <!-- Latest compiled and minified CSS -->
@@ -43,94 +37,8 @@
 
               <ul class="nav navbar-nav navbar-right">
 
-                {% if userprofile %}
+                     
                 
-                <li class="dropdown user user-menu active">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ userprofile.user.username }} <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="user-header">
-                      {% comment %}
-                      <img src="{{ userprofile.user.avatar.url }}"
-                      class="img-circle" alt="User Image">
-
-                        <p><strong>{{ userprofile.user.username }}</strong>
-                            <small>{{ userprofile.user.occupation }}</small>
-                        </p>
-                      {% endcomment %}
-                    </li>
-                    <li><p align="left" class= "pull-right hidden-xs text-muted">
-                          {{ userprofile.user.bio }}
-                        </p>
-                    </li> <hr>
-                    {% if userprofile.user.is_student %}
-                      <li><strong>Student</strong></li>
-                    {% endif %}
-                    {% if userprofile.user.is_professor %}
-                      <li><strong>Professor</strong></li>
-                    {% endif %}
-                    {% if userprofile.user.is_executive %}
-                      <li><strong>Executive</strong></li>
-                    {% endif %}
-                    {% if userprofile.user.is_study_host %}
-                      <li><strong>Study Host</strong></li>
-                    {% endif %}
-                    {% if userprofile.user.is_hosting_host %}
-                      <li><strong>Hosting Host</strong></li>
-                    {% endif %}
-                    {% if userprofile.user.is_active %}
-                      <li><strong>Hello Friend</strong></li>
-                    {% endif %}
-                    
-
-                    <li><a href="{% url 'dashboard' %}">My dashboard</a></li>
-
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Account</li>
-                    {% if userprofile.user.is_active %}
-                      <li>
-                        <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                          My profile
-                        </a>
-                      </li>
-                    {% elif userprofile.user.is_student %}
-                      <li>
-                        <a href="{% url 'accounts:profile' userprofile.user.studentprofile.slug %}">
-                          My profile
-                        </a>
-                      </li>
-                    {% elif userprofile.user.is_professor %}
-                      <li>
-                        <a href="{% url 'accounts:profile' userprofile.user.professorprofile.slug %}">
-                          My profile
-                        </a>
-                      </li>
-                    {% elif userprofile.user.is_executive %}
-
-                      <li>
-                        <a href="{% url 'accounts:profile' userprofile.user.executiveprofile.slug %}">
-                          My profile
-                        </a>
-                      </li>
-                    {% elif userprofile.user.is_study_host %}
-
-                      <li>
-                        <a href="{% url 'accounts:profile' userprofile.user.studyhostprofile.slug %}">
-                          My profile
-                        </a>
-                      </li>
-
-                    {% elif not userprofile.user.is_student and
-                      not userprofile.user.is_professor and
-                      not userprofile.user.is_executive  %}
-                      <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                          My profile
-                        </a>
-
-
-                    {% endif %}
-                    <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Settings</a></li>
-                    <li><a href="{% url 'logout' %}">Log out</a></li>
-                  </ul>
 
                   <li><a href="#how-it-works" class="btn btn-simple">How it Works</a></li>
                   <li><a href="#safety" class="btn btn-simple">Safety</a></li>
@@ -261,8 +169,7 @@
 
         <br /><br /><br />
 
-      {% endblock %}
-      {% block body_content %}
+      
 
 
         <div class="container mycontent">

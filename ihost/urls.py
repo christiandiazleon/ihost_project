@@ -20,14 +20,24 @@ from django.conf import settings
 from .views import  home_files, HomePageView
 from accounts.views import DashboardProfileView
 
+
 # Return a url pattern to serve the static files
 #from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^chaining/', include('smart_selects.urls')),
     url(r'^accounts/', include('accounts.urls', namespace = 'accounts')),
-    url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
+    # conecta a vistas como logot signyp
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    # para autorizacion
+
+    #verdadero
+    # url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
+
     # I don't assign namespace because this is django URL
+
+
 
     url(r'^$', HomePageView.as_view(), name='home'),
 
@@ -39,9 +49,10 @@ urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
 
-    url(r'^become-a-host/',
-        include('hosts.urls', namespace='hosts')
-    ),
+    url(r'^host/', include('hosts.urls', namespace='host')),
+
+    url(r'^host-information/', include('host_information.urls', namespace='host-information')),
+
 
 ]
 

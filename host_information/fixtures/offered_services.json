@@ -1,0 +1,50 @@
+[{
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 1,
+    "fields": {
+        "name": "Breakfast included",
+        "description": null
+    }
+}, {
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 2,
+    "fields": {
+        "name": "Free WiFi connection",
+        "description": null
+    }
+}, {
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 3,
+    "fields": {
+        "name": "Airport transfer",
+        "description": null
+    }
+}, {
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 4,
+    "fields": {
+        "name": "Pet admission",
+        "description": null
+    }
+}, {
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 5,
+    "fields": {
+        "name": "Air conditioner",
+        "description": null
+    }
+}, {
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 6,
+    "fields": {
+        "name": "Laundry",
+        "description": null
+    }
+}, {
+    "model": "host_information.lodgingserviceoffer",
+    "pk": 7,
+    "fields": {
+        "name": "24 hours reception",
+        "description": null
+    }
+}]

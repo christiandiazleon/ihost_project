@@ -29,13 +29,19 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         fields = ("username", "email", "password1", "password2", "is_student",
-        "is_professor", "is_executive", "is_study_host", "is_hosting_host" )
+        "is_professor", "is_executive", "is_study_host", "is_hosting_host",
+        "is_innovation_host", "is_entertainment_host",
+        "is_other_services_host")
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #self.fields["username"].label='Display name'
         self.fields["email"].label = "Email address"
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -46,28 +52,23 @@ class UserUpdateForm(forms.ModelForm):
         choices=User.LANGUAGES_CHOICES,
     )
     bio = forms.CharField(widget=forms.Textarea)
-    entertainment_activities_choice = forms.MultipleChoiceField(
-        required=False,
-        label='Entertainment activities of your choice',
-        widget=CheckboxSelectMultiple(),
-        choices=User.ENTERTAINMENT_ACTIVITIES_CHOICES,
-    )
-
 
     class Meta:
         widgets = {
             'gender':forms.RadioSelect,
             'country_of_origin': CountrySelectWidget(),
-            'country_current_residence': CountrySelectWidget()
+            'country_current_residence': CountrySelectWidget(),
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
+            'date_of_birth': DateInput(), #datepicker
         }
         fields = ("first_name", "last_name", "display_name", "gender",
         "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", "speak_languages", "phone_number",
         "address", "bio", "avatar", "date_of_birth", "is_student",
         "is_professor", "is_executive", "is_study_host",
-        "is_hosting_host", "entertainment_activities",)
+        "is_hosting_host", "is_innovation_host", "is_entertainment_host",
+        "is_other_services_host", "entertainment_activities",)
 
         model = get_user_model()
 
@@ -118,13 +119,6 @@ class StudyHostProfileForm(forms.ModelForm):
             'institute_character':forms.RadioSelect,
     }
 
-    institution_type = forms.MultipleChoiceField(
-        required=False,
-        label='Type of studies offered',
-        widget=CheckboxSelectMultiple(),
-        choices=StudyHostProfile.INSTITUTION_TYPE_CHOICES,
-    )
-
     high_quality_accreditations = forms.MultipleChoiceField(
         required=False,
         label='Accreditations of high quality',
@@ -132,27 +126,23 @@ class StudyHostProfileForm(forms.ModelForm):
         choices=StudyHostProfile.ACCREDITATIONS_CHOICES,
     )
 
-    studies_type_offered = forms.MultipleChoiceField(
-        required=False,
-        label='Type of studies offered',
-        widget=CheckboxSelectMultiple(),
-        choices=StudyHostProfile.STUDIES_TYPE_OFFERED_CHOICES,
-    )
-
     rankings_classification = forms.CharField(widget=forms.Textarea)
-    knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
+    #knowledge_topics_choice = forms.CharField(widget=forms.Textarea)
     strengths = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = StudyHostProfile
         fields = ('institution_type', 'institute_character',
             'high_quality_accreditations', 'students_number',
-            'rankings_classification', 'knowledge_topics_choice',
-            'strengths', 'studies_type_offered', 'studies_offert_list',)
+            'rankings_classification', 'knowledge_topics',
+            'strengths', 'research_groups', 'photography')
+        #exclude = ('studies_offert_list', )
 
 
 class HostingHostProfileForm(forms.ModelForm):
     title = "Hosting Host Details"
+
     class Meta:
         model = HostingHostProfile
-        fields = ('slug',)
+        fields = ('lodging_offer_type', 'featured_amenities', 'stars',
+            'photography', 'additional_description')

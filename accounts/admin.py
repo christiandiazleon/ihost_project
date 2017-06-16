@@ -1,11 +1,10 @@
 from __future__ import unicode_literals
 from django.contrib import admin
 
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .models import (User, StudentProfile, ProfessorProfile, ExecutiveProfile,
-                    StudyHostProfile, InnovationHostProfile, HostingHostProfile, EntertainmentHostProfile, OtherServicesHostProfile)
+                    StudyHostProfile, InnovationHostProfile, HostingHostProfile, EntertainmentHostProfile, OtherServicesHostProfile,)
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -72,6 +71,7 @@ class ProfessorProfileAdmin(admin.ModelAdmin):
 @admin.register(ExecutiveProfile)
 class ExecutiveProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug' )
+
 
 @admin.register(StudyHostProfile)
 class StudyHostProfileAdmin(admin.ModelAdmin):

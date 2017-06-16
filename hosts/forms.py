@@ -1,17 +1,31 @@
 from django import forms
-from .models import LodgingOffer
+from .models import LodgingOffer, StudiesOffert
+
+
+class StudiesOffertForm(forms.ModelForm):
+    title = "Studies Offert"
+
+    class Meta:
+        model = StudiesOffert
+        fields = ('ad_title', 'knowledge_topics', 'studies_type_offered',
+             'academic_mobility_programs', 'additional_description',
+             'scholarships', 'photo',)
+        # exclude = ('hosting_host_user',)
 
 
 class LodgingOfferForm(forms.ModelForm):
-    title = "Creating Lodging Offert"
-    additional_description = forms.CharField(widget=forms.Textarea)
+    title = "Lodging Offert"
+    #birth_year = forms.DateField(widget=forms.SelectDateWidget(years=LodgingOffer.BIRTH_YEAR_CHOICES))
 
     class Meta:
         model = LodgingOffer
-        fields = ('lodging_offer_type', 'offered_services',
-            'featured_amenities', 'room_information', 'room_value',
-            'additional_description')
-        exclude = ('hosting_host_user',)
+        fields = ('ad_title', 'available_dates', 'offered_services', 'room_type_offered', 'number_guest_room_type',
+            'room_information', 'photographies', 'room_value',
+            'additional_description',)
+        widgets = {
+            'available_dates': forms.DateInput(attrs={'class':'datepicker'}),
+        }
+        # exclude = ('hosting_host_user',)
 
 
 class HostingOfferSearchForm(forms.ModelForm):

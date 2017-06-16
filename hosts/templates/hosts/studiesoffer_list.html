@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% block title_tag %}Studies Offert | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+<div class="container">
+    {% for offers in studies_offers %}
+    <h5><a href="{% url 'host:studyoffertdetail' offers.pk %}">{{ offers.ad_title }}</a> <a href="{% url 'host:edit-study-offer' offers.pk %}">Edit</a> </h5>
+    {% endfor %}
+    {% comment %} <h5><a href="{% url 'host:detail' slug=offers.slug %}">{{ lodgingoffers.ad_title }}</a></h5> {% endcomment %}
+</div>
+{% endblock %}

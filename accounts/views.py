@@ -12,7 +12,8 @@ from django.views import generic
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+
+
 
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
@@ -133,6 +134,28 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('dashboard')
     context_object_name = 'preferences'
 
+    '''
+    def post(self, request, *args,**kwargs):
+        form = self.get_form()
+        if request.method=='POST':
+            form = UserUpdateForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return super(AccountSettingsUpdateView, self).form_valid(form)
+        else:
+            return super(AccountSettingsUpdateView, self).form_invalid(form)
+
+    def form_valid(self, form):
+        if self.request.method == 'POST':
+            form = UserUpdateForm(self.request.POST, self.request.FILES)
+            if form.is_valid():
+                form.save()
+                return super(AccountSettingsUpdateView, self).form_valid(form)
+        else:
+            return super(AccountSettingsUpdateView, self).form_invalid(form)
+        #return render(self.request, 'user_form.html', {'form':form})
+    '''
+
     def get_context_data(self, **kwargs):
         context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
 
@@ -186,7 +209,6 @@ def user_profile_update_view(request, slug):
     if user.is_hosting_host:
         profile = user.get_hosting_host_profile()
         form_profiles.append({'form': HostingHostProfileForm, 'instance': user.hostinghostprofile, 'title': "Hosting Host Details"})
-
 
     if request.method == 'POST':
         forms = [x['form'](data=request.POST, instance=x['instance'],) for x in form_profiles]

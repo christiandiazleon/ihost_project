@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% block title_tag %}{{ studyofferdetail.ad_title }} | {{ block.super }}{% endblock %}
+{% block body_content %}
+
+<div class="container">
+  <div class="page-header">
+    <h1>{{ studyofferdetail.ad_title }}</h1>
+  </div>
+    <p class="lead">About of this Study Offer</p>
+    <p>{{ studyofferdetail.additional_description }}</p><hr>
+      
+    <p class="lead">Topics</p>
+    <p>{{ studyofferdetail }}</p><hr>
+    
+    <p class="lead">Study types</p>
+    {% for offer in studiestypeoffered %}
+      <p>{{ offer }}</p>
+      
+    {% endfor %}<hr>
+    <p class="lead">Academic Mobility Program</p>
+    <p>{{ studyofferdetail.academic_mobility_programs }}</p><hr>
+    
+    <p class="lead">Scholarships</p>
+    {% for offer in scholarships %}
+      <p>{{ offer }}</p>  
+    {% endfor %}<hr>
+    
+    {% comment %}
+    <p class="lead">Photography</p>
+    <img src="{{ {{ object.image_url|default_if_none:'#' }} }}" height="150", width="200">
+    <hr>
+    {% endcomment %}
+
+</div>
+{% endblock %}

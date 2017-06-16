@@ -2,9 +2,23 @@
 {% load bootstrap3 %}
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
+
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2050",
+      altField: "#alternate",
+      altFormat: "DD, d MM, yy"
+      // You can put more options here.
+
+    });
+  });
+</script>
 <div class="container">
     <h1>{{ form.title }}</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
         {# equivalent to form.as_p #}

@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.conf import settings
+
 
 class SpeakLanguages(models.Model):
 
@@ -55,12 +57,129 @@ class FeaturesAmenities(models.Model):
 
 class RoomInformation(models.Model):
 
-    name = models.CharField(max_length=100, null=False, blank=False)
-    description = models.CharField(max_length=255, null=True, blank=True)
+    name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=False
+    )
+
+    description = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = "Room caracteristics"
         verbose_name_plural = "Room caracteristics"
+
+    def __str__(self):
+        return self.name
+
+
+# Relacionarlo con el studyhost y que este pueda ingresarlos
+# para despues traerlos en el campo de grupos de invest en su perfil
+class ResearchGroups(models.Model):
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    name = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False
+    )
+
+    description = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    class Meta:
+        verbose_name = "Research Groups"
+        verbose_name_plural = "Research Groups"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return u'/host-information/research-group/new'
+
+# Relacionarlo con el studyhost y que este pueda ingresarlos
+# para despues traerlos en el campo de becas en la oferta academica
+
+
+class Scholarship(models.Model):
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    name = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False
+    )
+
+    description = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    who_can_apply = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    application_process = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    terms_and_conditions = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    class Meta:
+        verbose_name = "Scholarship"
+        verbose_name_plural = "Scholarships"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return u'/host-information/scholarship/new'
+
+
+class LodgingOfferType(models.Model):
+    '''
+
+    HOTEL = 'HOTEL'
+    HOSTEL = 'HOSTEL'
+    STUDENT_RESIDENCE = 'STUDENT_RESIDENCE'
+    ACCOMODATION_WITH_LOCAL_FAMILY = 'ACCOMODATION_WITH_LOCAL_FAMILY'
+    HOUSE_APT_SHARE_VISITANTS = 'HOUSE_APT_SHARE_VISITANTS'
+    HOUSE_OR_PRIV_APT = 'HOUSE_OR_PRIV_APT'
+
+    LODGING_OFFER_CHOICES = (
+        (HOTEL, 'Hotel'),
+        (HOSTEL, 'Hostel'),
+        (STUDENT_RESIDENCE, 'Student Residence'),
+        (ACCOMODATION_WITH_LOCAL_FAMILY, 'Accommodation with local family'),
+        (HOUSE_APT_SHARE_VISITANTS, 'House or apartment to share with other visitors'),
+        (HOUSE_OR_PRIV_APT, 'House or private apartment'),
+    )
+    '''
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+
+    class Meta:
+        verbose_name = "Lodging Offer Type"
+        verbose_name_plural = "Lodging Offer Type"
 
     def __str__(self):
         return self.name

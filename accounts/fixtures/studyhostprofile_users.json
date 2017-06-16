@@ -1,0 +1,17 @@
+[{
+    "model": "accounts.studyhostprofile",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "slug": "universidad-ces",
+        "institution_type": "",
+        "institute_character": "False",
+        "high_quality_accreditations": "",
+        "students_number": "",
+        "rankings_classification": "",
+        "knowledge_topics_choice": "",
+        "strengths": "",
+        "studies_type_offered": [],
+        "studies_offert_list": []
+    }
+}]

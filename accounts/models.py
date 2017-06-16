@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import json
-from host_information.models import EntertainmentActivities
+from host_information.models import EntertainmentActivities, ResearchGroups, FeaturesAmenities, LodgingOfferType
 
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
@@ -28,6 +28,10 @@ from django_countries.fields import CountryField
 # from countries_plus.models import Country
 from phonenumber_field.modelfields import PhoneNumberField
 # https://github.com/stefanfoulis/django-phonenumber-field
+
+from smart_selects.db_fields import ChainedManyToManyField
+from taggit.managers import TaggableManager
+
 
 # Model Manager
 
@@ -76,8 +80,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     FEMALE = 'F'
 
     GENDER_CHOICES = (
-        (MALE, "Masculino"),
-        (FEMALE, "Femenino"),
+        (MALE, "Male"),
+        (FEMALE, "Female"),
     )
 
     SPANISH = 'SPA'
@@ -107,6 +111,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     MUSICALS = 'MUSICALS'
     LITERARY = 'LITERARY'
 
+    '''
     ENTERTAINMENT_ACTIVITIES_CHOICES = (
         (ARTHISTIC_CULTURALS, 'Arthistic-Culturals'),
         (ECOLOGICAL, 'Ecological'),
@@ -118,6 +123,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         (MUSICALS, 'Musicals'),
         (LITERARY, 'Literary'),
     )
+    '''
 
     email = models.EmailField(unique=True,
             help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
@@ -145,7 +151,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(
         max_length=10,
         choices=GENDER_CHOICES,
-        verbose_name='genero',
+        verbose_name='Gender',
         default=False,
         blank=False,
     )
@@ -186,7 +192,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     bio = models.CharField(max_length=140, blank=True, default="")
 
-    avatar = models.ImageField(blank=True, null=True)
+    avatar = models.ImageField(
+        upload_to='avatars',
+        blank=True,
+        null=True,
+        verbose_name='Photo'
+    )
 
     date_joined = models.DateTimeField(default=timezone.now)
 
@@ -194,7 +205,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         verbose_name='Fecha de nacimiento',
-        help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
+        # help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
     )
 
     is_student = models.BooleanField(
@@ -273,11 +284,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return "@{}".format(self.username)
 
+    '''
     def setspeak_languages(self, days):
         self.days = json.dumps(self.speak_languages)
 
     def getspeak_languages(self):
         return json.loads(self.speak_languages)
+    '''
+
+    @property
+    def image_url(self):
+        if self.avatar and hasattr(self.avatar, 'url'):
+            return self.avatar.url
+
 
     def get_short_name(self):
         return self.first_name
@@ -364,79 +383,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                 user=self,
                 slug=self.username
             )
-        '''
-        user = super(User,self).save(*args,**kwargs)
-
-        # Creating an user with student, professor and executive profiles
-        if self.is_student and not StudentProfile.objects.filter(user=self).exists() \
-            and self.is_professor and not ProfessorProfile.objects.filter(user=self).exists() \
-            and self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
-            student_profile = StudentProfile(user=self)
-            student_slug = self.username
-            student_profile.slug = student_slug
-
-            professor_profile = ProfessorProfile(user=self)
-            professor_slug = self.username
-            professor_profile.slug = professor_slug
-
-            executive_profile = ExecutiveProfile(user=self)
-            executive_slug = self.username
-            executive_profile.slug = executive_slug
-
-            student_profile.save()
-            professor_profile.save()
-            executive_profile.save()
-
-        # Creating an user with student profile
-        elif self.is_student and not StudentProfile.objects.filter(user=self).exists():
-            student_profile = StudentProfile(user = self)
-            student_slug = self.username
-            student_profile.slug = student_slug
-
-            student_profile.save()
-
-        # Creating an user with professor profile
-        elif self.is_professor and not ProfessorProfile.objects.filter(user=self).exists():
-            professor_profile = ProfessorProfile(user=self)
-            professor_slug = self.username
-            professor_profile.slug = professor_slug
-            professor_profile.save()
-
-        # Creating an user with executive profile
-        elif self.is_executive and not ExecutiveProfile.objects.filter(user=self).exists():
-            executive_profile = ExecutiveProfile(user = self)
-            executive_slug = self.username
-            executive_profile.slug = executive_slug
-            executive_profile.save()
-
-        # Creating an user with study host profile
-        elif self.is_study_host and not StudyHostProfile.objects.filter(user=self).exists():
-            study_host_profile = StudyHostProfile(user = self)
-            study_host_slug = self.username
-            study_host_profile.slug = study_host_slug
-            study_host_profile.save()
-
-        # Creating an user with innovation host profile
-        elif self.is_innovation_host and not InnovationHostProfile.objects.filter(user=self).exists():
-            innovation_host_profile = InnovationHostProfile(user = self)
-            innovation_host_slug = self.username
-            innovation_host_profile.slug = innovation_host_slug
-            innovation_host_profile.save()
-
-        # Creating an user with entertainment host profile
-        elif self.is_entertainment_host and not EntertainmentHostProfile.objects.filter(user=self).exists():
-            entertainment_host_profile = EntertainmentHostProfile(user = self)
-            entertainment_host_slug = self.username
-            entertainment_host_profile.slug = entertainment_host_slug
-            entertainment_host_profile.save()
-
-        # Creating an user with other services host profile
-        elif self.is_other_services_host and not OtherServicesHostProfile.objects.filter(user=self).exists():
-            entertainment_host_profile = EntertainmentHostProfile(user = self)
-            entertainment_host_slug = self.username
-            entertainment_host_profile.slug = entertainment_host_slug
-            entertainment_host_profile.save()
-        '''
 
 @receiver(post_save, sender=User)
 def post_save_user(sender, instance, **kwargs):
@@ -597,6 +543,8 @@ class ExecutiveProfile(models.Model):
         return "{}".format(self.user.display_name,)
 
 
+
+
 class StudyHostProfile(models.Model):
 
     UNIVERSITY = 'UNIVERSITY'
@@ -631,36 +579,18 @@ class StudyHostProfile(models.Model):
         (INTERNATIONAL_ACCREDITATIONS, "International Accreditation"),
     )
 
-    CES = 'CONT_EDUCATION_'
-    TECHNIQUE_STUDIES = 'TECHNIQUE'
-    TECHNOLOGICAL_STUDIES = 'TECHNOLOGICAL'
-    PROFESSIONAL_STUDIES = 'PROFESSIONAL'
-    SPECIALIZATION_STUDIES = 'SPECIALIZATION'
-    MASTER_STUDIES = 'MASTER'
-    DOCTORATE = 'DOCTORATE'
+    ZERO_T0_HUNDRED = 'ZERO_T0_HUNDRED'
+    HUNDRED_TO_THREE_HUNDRED = 'HUNDRED_TO_THREE_HUNDRED'
+    THREE_HUNDRED_TO_ONE_THOUSAND = 'THREE_HUNDRED_TO_ONE_THOUSAND'
+    ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED = 'ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED'
+    GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED = 'GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED'
 
-    STUDIES_TYPE_OFFERED_CHOICES = (
-        (CES, 'Continuing education studies'),
-        (TECHNIQUE_STUDIES, 'Technique'),
-        (TECHNOLOGICAL_STUDIES, 'Technology'),
-        (PROFESSIONAL_TECH_INSTITUTION, 'Professional'),
-        (SPECIALIZATION_STUDIES, 'Specialization'),
-        (MASTER_STUDIES, 'Master'),
-        (DOCTORATE, 'Doctorate'),
-    )
-
-    STUDIES_OFFERT_LIST_CHOICES = (
-        ('Continuing education studies', (
-            ('SPANISH_FOREIGNS', 'Spanish for foreigns'),
-            ('ENGLISH', 'English'),
-            )
-        ),
-        ('Professional', (
-            ('SYSTEMS_ENGINEERING', 'Systems Engineering'),
-            ('BIOMEDICAL_ENGINEERING', 'Biomedical Engineering'),
-            )
-        ),
-        ('unknown', 'Unknown'),
+    STUDENT_NUMBERS_CHOICES = (
+        (ZERO_T0_HUNDRED, '0 a 100 personas'),
+        (HUNDRED_TO_THREE_HUNDRED, '100 a 300 personas'),
+        (THREE_HUNDRED_TO_ONE_THOUSAND, '300 a 1000 personas'),
+        (ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED, '1000 a 21.500 personas '),
+        (GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED, 'Mayor a 21.500 personas'),
     )
 
     user = models.OneToOneField(
@@ -674,46 +604,55 @@ class StudyHostProfile(models.Model):
     )
 
     institution_type = models.CharField(
-        _("Institution type"), max_length=255
+        max_length=255,
+        choices=INSTITUTION_TYPE_CHOICES,
+        verbose_name='Institution Type',
     )
 
     institute_character = models.CharField(
         max_length=7,
         choices=CHARACTER_INSTITUTE_CHOICES,
         verbose_name='Character of the institution',
-        default=False,
-        blank=False,
     )
 
     high_quality_accreditations = models.CharField(
         _("Accreditations of high quality"), max_length=255
     )
 
-    students_number = models.PositiveIntegerField(
-        blank=True,
-        null=True,
-        verbose_name='Number of students',
+    students_number = models.CharField(
+        max_length=255,
+        choices=STUDENT_NUMBERS_CHOICES,
+        verbose_name='Number of students'
     )
 
     rankings_classification = models.CharField(
         _("Classification in ranking"), max_length=255
     )
 
-    knowledge_topics_choice = models.CharField(
-        _("Areas of knowledge of your choice"), max_length=255
+    knowledge_topics = TaggableManager(
+        verbose_name="Knowledge topics",
+        # help_text= tag_helptext()
+        help_text=_("A comma-separated list of topics.")
     )
 
     strengths = models.CharField(
         _("Strengths"), max_length=255
     )
 
-    studies_type_offered = models.CharField(
-        _("Type of studies offered"), max_length=255
+
+    # TO-DO Consultar las grupos del usuario studyhost solamente
+    research_groups = models.ManyToManyField(
+        ResearchGroups,
+        help_text='What are your research groups?',
+        verbose_name='Research Groups'
     )
 
-    studies_offert_list = models.CharField(
-        _("Studies Offert List"), max_length=255,
-        choices = STUDIES_OFFERT_LIST_CHOICES
+
+    photography = models.ImageField(
+        upload_to='studyhosts',
+        blank=True,
+        null=True,
+        verbose_name='Photo'
     )
 
     class Meta:
@@ -721,6 +660,14 @@ class StudyHostProfile(models.Model):
 
     def __str__(self):
         return "{}".format(self.user.display_name,)
+
+    '''
+    def tag_helptext():
+        help_text = "Options: "
+        for t in Tag.objects.all():
+            help_text += t.name + " ||| "
+        return help_text
+    '''
 
 
 class InnovationHostProfile(models.Model):
@@ -742,6 +689,7 @@ class InnovationHostProfile(models.Model):
 
 
 class HostingHostProfile(models.Model):
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -750,6 +698,37 @@ class HostingHostProfile(models.Model):
     slug = models.SlugField(
         max_length=100,
         blank=True
+    )
+
+    lodging_offer_type = models.ManyToManyField(
+        LodgingOfferType,
+        help_text='What lodging offer type?',
+        verbose_name='Lodging Offer Type'
+    )
+
+    featured_amenities = models.ManyToManyField(
+        FeaturesAmenities,
+        help_text='What amenities do you offer?',
+        verbose_name='Featured Amenities'
+    )
+
+    stars = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        verbose_name='Stars',
+        help_text='Number of stars'
+    )
+
+    photography = models.ImageField(
+        upload_to='hostinghosts',
+        blank=True,
+        null=True,
+        verbose_name='Photo'
+    )
+
+    additional_description = models.TextField(
+        null=False,
+        blank=False
     )
 
     class Meta:

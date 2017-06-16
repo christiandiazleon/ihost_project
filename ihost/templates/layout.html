@@ -4,8 +4,7 @@
 {% bootstrap_javascript %}
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-{% comment %} 
-<link rel="stylesheet" href="/resources/demos/style.css">{% endcomment %} 
+ 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -67,7 +66,7 @@
                         <li><p align="center" class= "pull-center hidden-xs text-muted">
                             {{ userprofile.user.bio }}</p>
                         </li>
-                        <hr>
+                       
                     
                           {% if userprofile.user.is_student %}{% comment %} abre5 {% endcomment %}
                             <li><strong>Student</strong></li>
@@ -82,40 +81,50 @@
                           {% endif %} {% comment %} cierra7 {% endcomment %}
                           
                           {% if userprofile.user.is_study_host %} {% comment %} abre8 {% endcomment %}
-                            <li><strong>Study Host</strong></li>
+                          <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Study Host</li>
+                            <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">My Study Offers</a></li>                      
+                            
                           {% endif %} {% comment %} cierra8 {% endcomment %}
                           
                           {% if userprofile.user.is_hosting_host %} {% comment %} abre9 {% endcomment %}
-                            <li><strong>Hosting Host</strong></li>
+                          <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Hosting Host</li>
+                            <li><a href="{% url 'host:list' userprofile.user.slug %}">My Lodging Offers</a></li>
+                            <li><a href="#">My Scholarships</a></li>
+                            {% comment %} url list espera un slug {% endcomment %}
                           {% endif %} {% comment %} cierra9 {% endcomment %}
-                        
-                          <li><a href="{% url 'dashboard' %}">Contents</a></li>
-                          <li><a href="{% url 'host:list' userprofile.user.username %}">My Lodging Offers</a></li>                        
+                          
+                          <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Contents</li>
+                          <li><a href="{% url 'dashboard' %}">Articles</a></li>
+                          
+                          
                           <li role="separator" class="divider"></li>
                             <li class="dropdown-header">Account</li>
                           {% if userprofile.user.is_student %}
                             <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.studentprofile.slug %}">
+                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
                                 My profile</a>
                             </li>
                           {% elif userprofile.user.is_professor %}
                             <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.professorprofile.slug %}">
+                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
                                 My profile</a>
                             </li>
                           {% elif userprofile.user.is_executive %}
                             <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.executiveprofile.slug %}">
-                                My profile</a>
+                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
+                                My profile</a> {% comment %} url profile espera un slug {% endcomment %}
                             </li>
                           {% elif userprofile.user.is_study_host %}
                             <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.studyhostprofile.slug %}">
+                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
                                 My profile</a>
                             </li>
                           {% elif userprofile.user.is_hosting_host %}
                             <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.hostinghostprofile.slug %}">
+                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
                                 My profile</a>
                             </li>
                           {% endif %}

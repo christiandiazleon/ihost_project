@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import LodgingOffer, StudiesOffert, RoomInformation
 
+from host_information.models import LodgingServiceOffer
+
 
 from .forms import LodgingOfferForm, HostingOfferSearchForm, StudiesOffertForm
 from django.views.generic.edit import FormView
@@ -15,6 +17,21 @@ from haystack.query import SearchQuerySet
 
 # Create your views here.
 
+
+def studies_offers_by_user(request, username):
+    user = request.user
+    studies_offers = StudiesOffert.objects.filter(created_by__username=username)
+
+    if user.is_study_host:
+        profile = user.get_study_host_profile()
+
+
+    return render(
+        request,
+        'hosts/studiesoffer_list.html',
+        {'studies_offers':studies_offers,
+        'userprofile':profile}
+    )
 
 def lodging_offers_by_user(request, username):
     user = request.user
@@ -78,9 +95,7 @@ class HostingOfferSearch(LoginRequiredMixin, FormView):
 class HostingOfferCreateView(LoginRequiredMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
-    # success_url = reverse_lazy("hosts:detaillodgingoffer")
-    #success_url = reverse("hosts:detail-lodging-offer")
-    success_url = reverse_lazy('dashboard')
+    #success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         form.save(commit=False)
@@ -166,22 +181,25 @@ class HostingOfferDetailView(LoginRequiredMixin, DetailView):
         context = super(HostingOfferDetailView, self).get_context_data(**kwargs)
         user = self.request.user
 
-        # Retrieving all LodgingOffer objects of hostinghost user
-        # and send them to template
-        #queryset = RoomInformation.objects.filter(name=self.kwargs['room_information__name'])
 
-        queryset = LodgingOffer.objects.all()
+        roominformation = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+        room_information_lodging_offer = roominformation.room_information.all()
         #inf = self.kwargs['room_information_set.all()']
 
-        room_information = set(queryset.values_list('room_information__name', flat=True).distinct())
+        #room_information = set(queryset.values_list('room_information__name', flat=True).distinct())
 
-        context['lodgingoffer'] = room_information
+        context['lodgingoffer'] = room_information_lodging_offer
 
-        queryset2 = LodgingOffer.objects.all()
+        #queryset2 = LodgingOffer.objects.filter(offered_services__lodgingserviceoffer=LodgingServiceOffer.objects.all())
 
-        offeredservices = set(queryset.values_list('offered_services__name', flat=True).distinct())
+        #offeredservices = set(queryset2.values_list('offered_services__name', flat=True).distinct())
 
-        context['offeredservices'] = offeredservices
+        offeredservices = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+
+        query = offeredservices.offered_services.all()
+
+
+        context['offeredservices'] = query
 
 
         if user.is_student:
@@ -208,7 +226,8 @@ class HostingOfferDetailView(LoginRequiredMixin, DetailView):
 class StudyOfferCreateView(LoginRequiredMixin, CreateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
-    success_url = reverse_lazy("dashboard")
+    #success_url = reverse_lazy("host:detail")
+    #success_url = reverse_lazy("dashboard")
 
     def form_valid(self, form):
         form.save(commit=False)
@@ -250,4 +269,76 @@ class StudyOfferCreateView(LoginRequiredMixin, CreateView):
             context['student_profile'] = student_profile
             context['professor_profile'] = professor_profile
             context['executive_profile'] = executive_profile
+        return context
+
+
+class StudyOffertDetailView(LoginRequiredMixin, DetailView):
+    model=StudiesOffert
+    template_name = 'studyoffert_detail.html'
+    context_object_name = 'studyofferdetail'
+
+    def get_context_data(self, **kwargs):
+        context = super(StudyOffertDetailView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+
+        studiestype_query = StudiesOffert.objects.get(pk=self.kwargs.get('pk'))
+        studies_type_study_offert = studiestype_query.studies_type_offered.all()
+        context['studiestypeoffered'] = studies_type_study_offert
+
+
+        scholarships_query = StudiesOffert.objects.get(pk=self.kwargs.get('pk'))
+        scholarships = scholarships_query.scholarships.all()
+        context['scholarships'] = scholarships
+
+
+        if user.is_student:
+            profile = user.get_student_profile()
+            context['userprofile'] = profile
+        elif user.is_professor:
+            profile = user.get_professor_profile()
+            context['userprofile'] = profile
+        elif user.is_executive:
+            profile = user.get_executive_profile()
+            context['userprofile'] = profile
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+        elif user.is_hosting_host:
+            profile = user.get_hosting_host_profile()
+            context['userprofile'] = profile
+        elif user.is_active:
+            #profile = user.get_user_profile()
+            context['userprofile'] = self.request.user
+        return context
+
+
+class StudyOfferUpdateView(LoginRequiredMixin, UpdateView):
+    model = StudiesOffert
+    form_class = StudiesOffertForm
+    success_url = reverse_lazy("dashboard")
+    # success_url = reverse_lazy("hosts:detail-lodging-offer")
+
+    def get_context_data(self, **kwargs):
+        context = super(StudyOfferUpdateView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+        if user.is_student:
+            profile = user.get_student_profile()
+            context['userprofile'] = profile
+        elif user.is_professor:
+            profile = user.get_professor_profile()
+            context['userprofile'] = profile
+        elif user.is_executive:
+            profile = user.get_executive_profile()
+            context['userprofile'] = profile
+        elif user.is_study_host:
+            profile = user.get_study_host_profile()
+            context['userprofile'] = profile
+        elif user.is_hosting_host:
+            profile = user.get_hosting_host_profile()
+            context['userprofile'] = profile
+        elif user.is_active:
+            #profile = user.get_user_profile()
+            context['userprofile'] = self.request.user
         return context

@@ -7,8 +7,9 @@ class StudiesOffertForm(forms.ModelForm):
 
     class Meta:
         model = StudiesOffert
-        fields = ('knowledge_topics', 'studies_type_offered',
-             'academic_mobility_programs', 'scholarships', 'photo',)
+        fields = ('ad_title', 'knowledge_topics', 'studies_type_offered',
+             'academic_mobility_programs', 'additional_description',
+             'scholarships', 'photo',)
         # exclude = ('hosting_host_user',)
 
 
@@ -23,8 +24,6 @@ class LodgingOfferForm(forms.ModelForm):
             'additional_description',)
         widgets = {
             'available_dates': forms.DateInput(attrs={'class':'datepicker'}),
-
-
         }
         # exclude = ('hosting_host_user',)
 

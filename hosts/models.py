@@ -13,6 +13,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 
+
 class LodgingOffer(models.Model):
 
     ALL_PROPERTY = 'All property'
@@ -61,11 +62,6 @@ class LodgingOffer(models.Model):
         blank=False
     )
 
-    slug = models.SlugField(
-        max_length=100,
-        blank=True
-    )
-
     available_dates = models.DateField(
         blank=True,
         null=True,
@@ -103,7 +99,10 @@ class LodgingOffer(models.Model):
     offered_services = models.ManyToManyField(
         LodgingServiceOffer,
         help_text='What services do you offer?',
-        verbose_name='Offered Services'
+        verbose_name='Offered Services',
+        related_name="lodgingoffers"
+        # here m2m lookup sample
+        # https://stackoverflow.com/a/16360605/2773461
     )
 
     room_type_offered = models.CharField(
@@ -121,7 +120,8 @@ class LodgingOffer(models.Model):
     room_information = models.ManyToManyField(
         RoomInformation,
         help_text='Room caracteristics',
-        verbose_name='Room caracteristics'
+        verbose_name='Room caracteristics',
+        related_name="lodgingoffers"
     )
 
     photographies = models.ImageField(
@@ -139,16 +139,9 @@ class LodgingOffer(models.Model):
     )
 
 
-@receiver(post_save, sender=LodgingOffer)
-def post_save_lodging_offer(sender, instance, **kwargs):
-    slug = slugify(instance.ad_title)
-    LodgingOffer.objects.filter(pk=instance.pk).update(slug=slug)
-
-
-    '''
     def get_absolute_url(self):
-        return u'/become-a-host/lodging-host/offer/new/%d' % self.id
-    '''
+        return u'/host/lodging-offer/%d' % self.id
+
 
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de studies_type_offered  en el perfil
@@ -215,10 +208,10 @@ class StudiesOffertList(models.Model):
 
 class StudiesOffert(models.Model):
 
-    ACADEMIC_SEMESTER = 'ACADEMIC_SEMESTER'
-    RESEARCH = 'RESEARCH'
-    ROTATIONS_OR_PRACTICES = 'ROTATIONS_OR_PRACTICES'
-    SUMMER_SCHOOL = 'SUMMER_SCHOOL'
+    ACADEMIC_SEMESTER = 'Academic Semester'
+    RESEARCH = 'Research'
+    ROTATIONS_OR_PRACTICES = 'Rotations or Practices'
+    SUMMER_SCHOOL = 'Summer School'
 
     ACADEMIC_MOBILITY_PROGRAMS_CHOICES = (
         (ACADEMIC_SEMESTER, 'Academic Semester'),
@@ -237,10 +230,12 @@ class StudiesOffert(models.Model):
         blank=False
     )
 
+    '''
     slug = models.SlugField(
         max_length=100,
         blank=True
     )
+    '''
 
     knowledge_topics = TaggableManager(
         verbose_name="Knowledge topics",
@@ -248,9 +243,12 @@ class StudiesOffert(models.Model):
     )
 
     studies_type_offered = models.ManyToManyField(
-        'StudiesTypeOffered',
-        verbose_name=u'Studies Type offered'
+        StudiesTypeOffered,
+        verbose_name=u'Studies Type offered',
+        related_name="studiesofferts"
     )
+
+
 
     studies_offert_list = ChainedManyToManyField(
         'StudiesOffertList', # Modelo encadenado
@@ -267,6 +265,11 @@ class StudiesOffert(models.Model):
         choices=ACADEMIC_MOBILITY_PROGRAMS_CHOICES,
         verbose_name='Academic mobility programs',
         help_text='Available student academic mobility programs',
+    )
+
+    additional_description = models.TextField(
+        null=False,
+        blank=False
     )
 
 
@@ -288,7 +291,12 @@ class StudiesOffert(models.Model):
     def __str__(self):
         return "{}".format(self.ad_title)
 
-@receiver(post_save, sender=StudiesOffert)
-def post_save_studies_offer(sender, instance, **kwargs):
-    slug = slugify(instance.ad_title)
-    StudiesOffert.objects.filter(pk=instance.pk).update(slug=slug)
+    def get_absolute_url(self):
+        return "/host/study-offer/%i/" % self.id
+    '''
+    @property
+    def image_url(self):
+        if self.photo and hasattr(self.photo, 'url'):
+            return self.photo.url
+    '''
+

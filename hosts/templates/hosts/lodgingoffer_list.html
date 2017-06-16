@@ -4,9 +4,9 @@
 {% block body_content %}
 
 <div class="container">
-    {% for offers in lodging_offers%}
-    <h5><a href="#">{{ offers.ad_title }}</a></h5>
+    {% for offers in lodging_offers %}
+    <h5><a href="{% url 'host:detail' offers.pk %}">{{ offers.ad_title }}</a> <a href="{% url 'host:edit-lodging-offer' offers.pk %}">Edit</a> </h5>
     {% endfor %}
-    {% comment %} <h5><a href="{% url 'host:detail' lodgingoffers.slug %}">{{ lodgingoffers.ad_title }}</a></h5> {% endcomment %}
+    {% comment %} <h5><a href="{% url 'host:detail' slug=offers.slug %}">{{ lodgingoffers.ad_title }}</a></h5> {% endcomment %}
 </div>
 {% endblock %}

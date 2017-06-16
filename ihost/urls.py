@@ -51,6 +51,8 @@ urlpatterns = [
 
     url(r'^host/', include('hosts.urls', namespace='host')),
 
+    url(r'^host-information/', include('host_information.urls', namespace='host-information')),
+
 
 ]
 

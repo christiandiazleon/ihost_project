@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.conf import settings
+
 
 class SpeakLanguages(models.Model):
 
@@ -78,16 +80,21 @@ class RoomInformation(models.Model):
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de grupos de invest en su perfil
 class ResearchGroups(models.Model):
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
     name = models.CharField(
         max_length=255,
         null=False,
         blank=False
     )
 
-    description = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True
+    description = models.TextField(
+        null=False,
+        blank=False
     )
 
     class Meta:
@@ -97,11 +104,19 @@ class ResearchGroups(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return u'/host-information/research-group/new'
+
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de becas en la oferta academica
 
 
 class Scholarship(models.Model):
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
 
     name = models.CharField(
         max_length=255,
@@ -135,6 +150,9 @@ class Scholarship(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return u'/host-information/scholarship/new'
 
 
 class LodgingOfferType(models.Model):

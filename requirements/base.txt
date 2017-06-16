@@ -3,6 +3,7 @@ Django==1.11.2
 django-boto==0.3.11
 django-bootstrap3==8.2.1
 django-countries==4.2
+django-debug-toolbar==1.7
 django-extensions==1.7.7
 django-haystack==2.6.0
 django-phonenumber-field==1.2.0

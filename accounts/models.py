@@ -174,7 +174,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
      # Can I use later this package https://github.com/coderholic/django-cities
 
-
     speak_languages = models.ManyToManyField(
         SpeakLanguages,
         help_text='What services do you offer?',
@@ -183,7 +182,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         # here m2m lookup sample
         # https://stackoverflow.com/a/16360605/2773461
     )
-
 
     phone_number = PhoneNumberField(
         blank=True,

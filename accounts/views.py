@@ -160,6 +160,13 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
+
+        # To UserDetailView
+        #speaklanguages = User.objects.get(pk=self.kwargs.get('pk'))
+        #speak_languages_user = speaklanguages.speak_languages.all()
+        #context['speaklanguages'] = speak_languages_user
+        # print(speak_languages_user)
+
         if user.is_student:
             profile = user.get_student_profile()
             context['userprofile'] = profile

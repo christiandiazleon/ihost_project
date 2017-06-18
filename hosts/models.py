@@ -57,9 +57,10 @@ class LodgingOffer(models.Model):
     )
 
     # Fijarle un max_length
-    ad_title = models.TextField(
+    ad_title = models.CharField(
         null=False,
-        blank=False
+        blank=False,
+        max_length=255
     )
 
     available_dates = models.DateField(
@@ -138,6 +139,8 @@ class LodgingOffer(models.Model):
         blank=False
     )
 
+    def __str__(self):
+        return "%s" % self.ad_title
 
     def get_absolute_url(self):
         return u'/host/lodging-offer/%d' % self.id

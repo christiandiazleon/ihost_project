@@ -1,1 +1,511 @@
-[{"model": "hosts.lodgingoffer", "pk": 1, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-23", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "10000", "additional_description": "xssd", "offered_services": [2], "room_information": [2]}}, {"model": "hosts.lodgingoffer", "pk": 2, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-29", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "45456464", "additional_description": "edsafdsa", "offered_services": [2, 3], "room_information": [1, 3]}}, {"model": "hosts.lodgingoffer", "pk": 3, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-28", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "45456464", "additional_description": "dfds", "offered_services": [3], "room_information": [5]}}, {"model": "hosts.lodgingoffer", "pk": 4, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-25", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "423543", "additional_description": "dsfsf", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 5, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-25", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "423543", "additional_description": "dsfsf", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 6, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-19", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "234", "additional_description": "fdf", "offered_services": [3], "room_information": [10]}}, {"model": "hosts.lodgingoffer", "pk": 7, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-15", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "45456464", "additional_description": "fgh", "offered_services": [1], "room_information": [3]}}, {"model": "hosts.lodgingoffer", "pk": 8, "fields": {"created_by": 1, "ad_title": "1", "available_dates": "2017-06-06", "room_type_offered": "1", "number_guest_room_type": "1", "photographies": "", "room_value": "1334245", "additional_description": "fsdfsd", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 9, "fields": {"created_by": 1, "ad_title": "ddsds", "available_dates": "2017-06-14", "room_type_offered": "ALL_PROPERTY", "number_guest_room_type": "ONE_GUEST", "photographies": "", "room_value": "45456464", "additional_description": "https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/", "offered_services": [3], "room_information": [2]}}, {"model": "hosts.lodgingoffer", "pk": 10, "fields": {"created_by": 1, "ad_title": "TEst", "available_dates": "2017-06-15", "room_type_offered": "SHARED_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "", "room_value": "45456464", "additional_description": "sdfsfsfs", "offered_services": [1], "room_information": [10]}}, {"model": "hosts.lodgingoffer", "pk": 11, "fields": {"created_by": 1, "ad_title": "dfdsfds", "available_dates": "2017-06-29", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "", "room_value": "342423", "additional_description": "fdsfs", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 12, "fields": {"created_by": 2, "ad_title": "Una vista que registra el valor de un campo de manera automatica, tomando la informacion a partir de uno de los objetos disponibles en la sesion.", "available_dates": "2017-06-22", "room_type_offered": "ALL_PROPERTY", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/male.png", "room_value": "100000", "additional_description": "CUna vista que registra el valor de un campo de manera automatica, tomando la informacion a partir de uno de los objetos disponibles en la sesion.", "offered_services": [], "room_information": []}}, {"model": "hosts.lodgingoffer", "pk": 13, "fields": {"created_by": 2, "ad_title": "sdadsa", "available_dates": "2017-06-29", "room_type_offered": "ALL_PROPERTY", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/RomeoAlegria.jpeg", "room_value": "100000", "additional_description": "dsada", "offered_services": [3], "room_information": [3]}}, {"model": "hosts.lodgingoffer", "pk": 14, "fields": {"created_by": 2, "ad_title": "fdsfdsfsdfds", "available_dates": "2017-06-30", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "", "room_value": "100000", "additional_description": "dsf", "offered_services": [2], "room_information": [2]}}, {"model": "hosts.lodgingoffer", "pk": 15, "fields": {"created_by": 2, "ad_title": "fdsfdsfsdfds", "available_dates": "2017-06-30", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "", "room_value": "100000", "additional_description": "dsf", "offered_services": [2], "room_information": [2]}}, {"model": "hosts.lodgingoffer", "pk": 16, "fields": {"created_by": 6, "ad_title": "MI casa", "available_dates": "2017-06-03", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/RomeoAlegria.jpeg", "room_value": "100000", "additional_description": "fdfds", "offered_services": [2], "room_information": [3]}}, {"model": "hosts.lodgingoffer", "pk": 17, "fields": {"created_by": 3, "ad_title": "dsdfsf", "available_dates": "2017-06-29", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/cc2.jpg", "room_value": "1000", "additional_description": "dfsfdsfsd", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 18, "fields": {"created_by": 3, "ad_title": "dsdfsf", "available_dates": "2017-06-29", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/cc2.jpg", "room_value": "1000", "additional_description": "dfsfdsfsd", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 19, "fields": {"created_by": 3, "ad_title": "dsdfsf", "available_dates": "2017-06-29", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/cc2.jpg", "room_value": "1000", "additional_description": "dfsfdsfsd", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 20, "fields": {"created_by": 3, "ad_title": "dsdfsf", "available_dates": "2017-06-29", "room_type_offered": "PRIVATE_ROOM", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/cc2.jpg", "room_value": "1000", "additional_description": "dfsfdsfsd", "offered_services": [2], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 21, "fields": {"created_by": 3, "ad_title": "Oferta de mi habitaci\u00f3n en TIlapia Inc", "available_dates": "2017-06-23", "room_type_offered": "ALL_PROPERTY", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/logo40.png", "room_value": "1000", "additional_description": "eS MUY BACAnita y chachacha", "offered_services": [1, 2, 3], "room_information": [1, 2, 5]}}, {"model": "hosts.lodgingoffer", "pk": 22, "fields": {"created_by": 2, "ad_title": "Students Residences", "available_dates": "2017-06-30", "room_type_offered": "ALL_PROPERTY", "number_guest_room_type": "ONE_GUEST", "photographies": "lodgingphoto/male.png", "room_value": "342553", "additional_description": "Aproveche papa", "offered_services": [5, 6, 7], "room_information": [1, 3]}}, {"model": "hosts.lodgingoffer", "pk": 23, "fields": {"created_by": 2, "ad_title": "Habitaci\u00f3n privada", "available_dates": "2017-06-30", "room_type_offered": "All property", "number_guest_room_type": "For 2 guests", "photographies": "hosting-host-photos/20160808_120642.jpg", "room_value": "342553", "additional_description": "Small modern loft located in Envigado . Right in the tram way. Very safe area surounded by tram station, mini-markets, farmers market, ATMs, bank, bakeries, small typical restaurants, and shops. Building with guards 24 hours. Quite and safe environment. Eight floor. Cool loft with big and wide windows and blackouts.", "offered_services": [2], "room_information": [2]}}, {"model": "hosts.lodgingoffer", "pk": 24, "fields": {"created_by": 2, "ad_title": "LOFT IN MEDELLIN'S HISTORIC CENTER", "available_dates": "2017-06-24", "room_type_offered": "Private Room", "number_guest_room_type": "6 guests", "photographies": "", "room_value": "456990", "additional_description": "Small modern loft located in Medellin's historic center. Right in the tram way. Very safe area surounded by tram station, mini-markets, farmers market, ATMs, bank, bakeries, small typical restaurants, and shops. Building with guards 24 hours. Quite and safe environment. Eight floor. Cool loft with big and wide windows and blackouts.", "offered_services": [1, 2], "room_information": [3]}}, {"model": "hosts.lodgingoffer", "pk": 25, "fields": {"created_by": 2, "ad_title": "DFDSFDSFS", "available_dates": "2017-06-29", "room_type_offered": "Private Room", "number_guest_room_type": "4 guests", "photographies": "", "room_value": "234", "additional_description": "DSFDSF", "offered_services": [1], "room_information": [3]}}, {"model": "hosts.lodgingoffer", "pk": 26, "fields": {"created_by": 2, "ad_title": "fdsfsfs", "available_dates": "2017-06-24", "room_type_offered": "Private Room", "number_guest_room_type": "For 2 guests", "photographies": "", "room_value": "432424532", "additional_description": "sdsaffdfads", "offered_services": [4], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 27, "fields": {"created_by": 2, "ad_title": "fdsfsfs", "available_dates": "2017-06-24", "room_type_offered": "Private Room", "number_guest_room_type": "For 2 guests", "photographies": "", "room_value": "432424532", "additional_description": "sdsaffdfads", "offered_services": [4], "room_information": [1]}}, {"model": "hosts.lodgingoffer", "pk": 28, "fields": {"created_by": 2, "ad_title": "Habitaci\u00f3n Privada apartamento en envigado", "available_dates": "2017-06-30", "room_type_offered": "Shared Room", "number_guest_room_type": "3 guests", "photographies": "hosting-host-photos/a.png", "room_value": "100000", "additional_description": "dsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsads", "offered_services": [1, 2], "room_information": [1, 2]}}, {"model": "hosts.lodgingoffer", "pk": 29, "fields": {"created_by": 2, "ad_title": "Habitaci\u00f3n Privada apartamento en envigado", "available_dates": "2017-06-29", "room_type_offered": "Private Room", "number_guest_room_type": "For 2 guests", "photographies": "hosting-host-photos/a.png", "room_value": "432423423", "additional_description": "SDSFSFDSFDSFSD", "offered_services": [4], "room_information": [2, 3]}}, {"model": "hosts.lodgingoffer", "pk": 30, "fields": {"created_by": 2, "ad_title": "Hospital en casa", "available_dates": "2017-06-24", "room_type_offered": "Shared Room", "number_guest_room_type": "7 guests", "photographies": "hosting-host-photos/20160808_120510.jpg", "room_value": "32142142", "additional_description": "wewrewr", "offered_services": [3], "room_information": [2]}}, {"model": "hosts.lodgingoffer", "pk": 31, "fields": {"created_by": 11, "ad_title": "Habitaci\u00f3n privada aldea de rio bamba", "available_dates": "2017-06-23", "room_type_offered": "All property", "number_guest_room_type": "3 guests", "photographies": "hosting-host-photos/RomeoAlegria.jpeg", "room_value": "342553", "additional_description": "Esta es una unidad bien chachchacha", "offered_services": [1], "room_information": [1, 2]}}, {"model": "hosts.lodgingoffer", "pk": 32, "fields": {"created_by": 11, "ad_title": "Habitaci\u00f3n privada aldea de rio bamba", "available_dates": "2017-06-23", "room_type_offered": "All property", "number_guest_room_type": "3 guests", "photographies": "hosting-host-photos/RomeoAlegria.jpeg", "room_value": "342553", "additional_description": "Esta es una unidad bien chachchacha", "offered_services": [2, 3], "room_information": [1, 2]}}, {"model": "hosts.lodgingoffer", "pk": 33, "fields": {"created_by": 11, "ad_title": "Las vegas", "available_dates": "2017-06-29", "room_type_offered": "Private Room", "number_guest_room_type": "For 2 guests", "photographies": "", "room_value": "342553", "additional_description": "erffsfs", "offered_services": [6, 7], "room_information": [2, 3]}}, {"model": "hosts.lodgingoffer", "pk": 34, "fields": {"created_by": 11, "ad_title": "Aguacatala", "available_dates": "2017-06-22", "room_type_offered": "Private Room", "number_guest_room_type": "3 guests", "photographies": "", "room_value": "342553", "additional_description": "dsfdsfsdfsd", "offered_services": [2], "room_information": [2, 3, 5]}}]
+[{
+    "model": "hosts.lodgingoffer",
+    "pk": 1,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-23",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "10000",
+        "additional_description": "xssd",
+        "offered_services": [2],
+        "room_information": [2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 2,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "45456464",
+        "additional_description": "edsafdsa",
+        "offered_services": [2, 3],
+        "room_information": [1, 3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 3,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-28",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "45456464",
+        "additional_description": "dfds",
+        "offered_services": [3],
+        "room_information": [5]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 4,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-25",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "423543",
+        "additional_description": "dsfsf",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 5,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-25",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "423543",
+        "additional_description": "dsfsf",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 6,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-19",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "234",
+        "additional_description": "fdf",
+        "offered_services": [3],
+        "room_information": [10]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 7,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-15",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "45456464",
+        "additional_description": "fgh",
+        "offered_services": [1],
+        "room_information": [3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 8,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "1",
+        "available_dates": "2017-06-06",
+        "room_type_offered": "1",
+        "number_guest_room_type": "1",
+        "photographies": "",
+        "room_value": "1334245",
+        "additional_description": "fsdfsd",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 9,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "ddsds",
+        "available_dates": "2017-06-14",
+        "room_type_offered": "ALL_PROPERTY",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "",
+        "room_value": "45456464",
+        "additional_description": "https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/https://docs.djangoproject.com/en/1.11/ref/forms/widgets/",
+        "offered_services": [3],
+        "room_information": [2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 10,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "TEst",
+        "available_dates": "2017-06-15",
+        "room_type_offered": "SHARED_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "",
+        "room_value": "45456464",
+        "additional_description": "sdfsfsfs",
+        "offered_services": [1],
+        "room_information": [10]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 11,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "dfdsfds",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "",
+        "room_value": "342423",
+        "additional_description": "fdsfs",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 12,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Una vista que registra el valor de un campo de manera automatica, tomando la informacion a partir de uno de los objetos disponibles en la sesion.",
+        "available_dates": "2017-06-22",
+        "room_type_offered": "ALL_PROPERTY",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/male.png",
+        "room_value": "100000",
+        "additional_description": "CUna vista que registra el valor de un campo de manera automatica, tomando la informacion a partir de uno de los objetos disponibles en la sesion.",
+        "offered_services": [],
+        "room_information": []
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 13,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "sdadsa",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "ALL_PROPERTY",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/RomeoAlegria.jpeg",
+        "room_value": "100000",
+        "additional_description": "dsada",
+        "offered_services": [3],
+        "room_information": [3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 14,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "fdsfdsfsdfds",
+        "available_dates": "2017-06-30",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "",
+        "room_value": "100000",
+        "additional_description": "dsf",
+        "offered_services": [2],
+        "room_information": [2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 15,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "fdsfdsfsdfds",
+        "available_dates": "2017-06-30",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "",
+        "room_value": "100000",
+        "additional_description": "dsf",
+        "offered_services": [2],
+        "room_information": [2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 16,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "MI casa",
+        "available_dates": "2017-06-03",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/RomeoAlegria.jpeg",
+        "room_value": "100000",
+        "additional_description": "fdfds",
+        "offered_services": [2],
+        "room_information": [3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 17,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "dsdfsf",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/cc2.jpg",
+        "room_value": "1000",
+        "additional_description": "dfsfdsfsd",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 18,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "dsdfsf",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/cc2.jpg",
+        "room_value": "1000",
+        "additional_description": "dfsfdsfsd",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 19,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "dsdfsf",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/cc2.jpg",
+        "room_value": "1000",
+        "additional_description": "dfsfdsfsd",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 20,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "dsdfsf",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "PRIVATE_ROOM",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/cc2.jpg",
+        "room_value": "1000",
+        "additional_description": "dfsfdsfsd",
+        "offered_services": [2],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 21,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Oferta de mi habitaci\u00f3n en TIlapia Inc",
+        "available_dates": "2017-06-23",
+        "room_type_offered": "ALL_PROPERTY",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/logo40.png",
+        "room_value": "1000",
+        "additional_description": "eS MUY BACAnita y chachacha",
+        "offered_services": [1, 2, 3],
+        "room_information": [1, 2, 5]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 22,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Students Residences",
+        "available_dates": "2017-06-30",
+        "room_type_offered": "ALL_PROPERTY",
+        "number_guest_room_type": "ONE_GUEST",
+        "photographies": "lodgingphoto/male.png",
+        "room_value": "342553",
+        "additional_description": "Aproveche papa",
+        "offered_services": [5, 6, 7],
+        "room_information": [1, 3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 23,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Habitaci\u00f3n privada",
+        "available_dates": "2017-06-30",
+        "room_type_offered": "All property",
+        "number_guest_room_type": "For 2 guests",
+        "photographies": "hosting-host-photos/20160808_120642.jpg",
+        "room_value": "342553",
+        "additional_description": "Small modern loft located in Envigado . Right in the tram way. Very safe area surounded by tram station, mini-markets, farmers market, ATMs, bank, bakeries, small typical restaurants, and shops. Building with guards 24 hours. Quite and safe environment. Eight floor. Cool loft with big and wide windows and blackouts.",
+        "offered_services": [2],
+        "room_information": [2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 24,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "LOFT IN MEDELLIN'S HISTORIC CENTER",
+        "available_dates": "2017-06-24",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "6 guests",
+        "photographies": "",
+        "room_value": "456990",
+        "additional_description": "Small modern loft located in Medellin's historic center. Right in the tram way. Very safe area surounded by tram station, mini-markets, farmers market, ATMs, bank, bakeries, small typical restaurants, and shops. Building with guards 24 hours. Quite and safe environment. Eight floor. Cool loft with big and wide windows and blackouts.",
+        "offered_services": [1, 2],
+        "room_information": [3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 25,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "DFDSFDSFS",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "4 guests",
+        "photographies": "",
+        "room_value": "234",
+        "additional_description": "DSFDSF",
+        "offered_services": [1],
+        "room_information": [3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 26,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "fdsfsfs",
+        "available_dates": "2017-06-24",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "For 2 guests",
+        "photographies": "",
+        "room_value": "432424532",
+        "additional_description": "sdsaffdfads",
+        "offered_services": [4],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 27,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "fdsfsfs",
+        "available_dates": "2017-06-24",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "For 2 guests",
+        "photographies": "",
+        "room_value": "432424532",
+        "additional_description": "sdsaffdfads",
+        "offered_services": [4],
+        "room_information": [1]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 28,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Habitaci\u00f3n Privada apartamento en envigado",
+        "available_dates": "2017-06-30",
+        "room_type_offered": "Shared Room",
+        "number_guest_room_type": "3 guests",
+        "photographies": "hosting-host-photos/a.png",
+        "room_value": "100000",
+        "additional_description": "dsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsadsdsads",
+        "offered_services": [1, 2],
+        "room_information": [1, 2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 29,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Habitaci\u00f3n Privada apartamento en envigado",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "For 2 guests",
+        "photographies": "hosting-host-photos/a.png",
+        "room_value": "432423423",
+        "additional_description": "SDSFSFDSFDSFSD",
+        "offered_services": [4],
+        "room_information": [2, 3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 30,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Hospital en casa",
+        "available_dates": "2017-06-24",
+        "room_type_offered": "Shared Room",
+        "number_guest_room_type": "7 guests",
+        "photographies": "hosting-host-photos/20160808_120510.jpg",
+        "room_value": "32142142",
+        "additional_description": "wewrewr",
+        "offered_services": [3],
+        "room_information": [2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 31,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Habitaci\u00f3n privada aldea de rio bamba",
+        "available_dates": "2017-06-23",
+        "room_type_offered": "All property",
+        "number_guest_room_type": "3 guests",
+        "photographies": "hosting-host-photos/RomeoAlegria.jpeg",
+        "room_value": "342553",
+        "additional_description": "Esta es una unidad bien chachchacha",
+        "offered_services": [1],
+        "room_information": [1, 2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 32,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Habitaci\u00f3n privada aldea de rio bamba",
+        "available_dates": "2017-06-23",
+        "room_type_offered": "All property",
+        "number_guest_room_type": "3 guests",
+        "photographies": "hosting-host-photos/RomeoAlegria.jpeg",
+        "room_value": "342553",
+        "additional_description": "Esta es una unidad bien chachchacha",
+        "offered_services": [2, 3],
+        "room_information": [1, 2]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 33,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Las vegas",
+        "available_dates": "2017-06-29",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "For 2 guests",
+        "photographies": "",
+        "room_value": "342553",
+        "additional_description": "erffsfs",
+        "offered_services": [6, 7],
+        "room_information": [2, 3]
+    }
+}, {
+    "model": "hosts.lodgingoffer",
+    "pk": 34,
+    "fields": {
+        "created_by": 2,
+        "ad_title": "Aguacatala",
+        "available_dates": "2017-06-22",
+        "room_type_offered": "Private Room",
+        "number_guest_room_type": "3 guests",
+        "photographies": "",
+        "room_value": "342553",
+        "additional_description": "dsfdsfsdfsd",
+        "offered_services": [2],
+        "room_information": [2, 3, 5]
+    }
+}]

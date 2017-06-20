@@ -1,17 +1,18 @@
 from __future__ import unicode_literals
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.conf import settings
 from . import views
 from .forms import ProfessorProfileForm
 from .models import ProfessorProfile, ExecutiveProfile
 from django.contrib.auth import views as auth_views
 
-app_name = 'accounts'
+# app_name = 'accounts'
 
 urlpatterns = [
     # url(r"login/", views.LoginView.as_view(), name="login"),
 
     # prueba de curso 1.11.
-    url(r"login/$", auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    #url(r"login/$", auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
 
     #url(r"logout/$", auth_views.LogoutView.as_view(), name="logout"),
 
@@ -50,3 +51,9 @@ urlpatterns = [
 
 
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

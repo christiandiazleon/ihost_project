@@ -28,6 +28,6 @@ class LodgingOfferForm(forms.ModelForm):
         # exclude = ('hosting_host_user',)
 
 
-class HostingOfferSearchForm(forms.ModelForm):
+class LodgingOfferSearchForm(forms.Form):
     query = forms.CharField(label='')
 

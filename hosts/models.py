@@ -57,9 +57,10 @@ class LodgingOffer(models.Model):
     )
 
     # Fijarle un max_length
-    ad_title = models.TextField(
+    ad_title = models.CharField(
         null=False,
-        blank=False
+        blank=False,
+        max_length=255
     )
 
     available_dates = models.DateField(

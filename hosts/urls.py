@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import (HostingOfferCreateView, HostingOfferUpdateView, HostingHostPageView, StudyHostPageView, StudyOfferCreateView, StudyOffertDetailView, HostingOfferDetailView, lodging_offers_by_user, studies_offers_by_user, StudyOfferUpdateView)
+from .views import (HostingOfferCreateView, HostingOfferUpdateView, HostingHostPageView, StudyHostPageView, StudyOfferCreateView, StudyOffertDetailView, HostingOfferDetailView, lodging_offers_by_user, studies_offers_by_user, StudyOfferUpdateView, LodgingOfferSearch,)
 
 
 urlpatterns = [
@@ -18,7 +18,6 @@ urlpatterns = [
         name='list'
     ),
 
-
     # Edit Hosting offer
     url(r"^lodging-offer/(?P<pk>\d+)/edit/",
         HostingOfferUpdateView.as_view(),
@@ -33,9 +32,9 @@ urlpatterns = [
 
 
     # Search Hosting Offer
-    url(r'^lodging-host/offer/search',
-        HostingOfferCreateView.as_view(),
-        name='hosting-host-search'
+    url(r'^lodging-offer/search/$',
+        LodgingOfferSearch.as_view(),
+        name='hostingoffer-search'
     ),
 
 

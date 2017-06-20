@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
-
 from .views import  home_files, HomePageView
 from accounts.views import DashboardProfileView
 
@@ -28,13 +27,13 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^accounts/', include('accounts.urls', namespace = 'accounts')),
+
     # conecta a vistas como logot signyp
-    url(r'^accounts/', include('django.contrib.auth.urls')),
+    #url(r'^accounts/', include('django.contrib.auth.urls')),
     # para autorizacion
 
-    #verdadero
-    # url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
-
+    # verdadero
+    url(r'^accounts/', include('django.contrib.auth.urls'), name='login'),
     # I don't assign namespace because this is django URL
 
 

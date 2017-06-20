@@ -1,0 +1,2 @@
+{{ object.ad_title }}
+{{ object.room_type_offered }}

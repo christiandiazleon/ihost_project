@@ -157,7 +157,10 @@
                 </li>
 
                 {% else %}
-                  <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>
+
+                  {% comment %} Para cuando usemos la guncion LoginView predeterminada de django en auth_views.LoginView.as_view
+                  <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>{% endcomment %}
+                  <li><a href="{% url 'login' %}" class="btn btn-simple">Log in</a></li>
                   <li><a href="{% url 'accounts:signup' %}" class="btn btn-simple">Sign up</a></li>
                 {% endif %} {% comment %} cierra1 {% endcomment %}
               </ul>

@@ -48,10 +48,12 @@
 
                     <li><a href="{% url 'home' %}" class="btn btn-simple">Home</a></li> 
                     
+                    {% comment %} Host Options {% endcomment %}
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Become a Host <span class="caret"></span></a>
                       <ul class="dropdown-menu">
+
                         {% if userprofile.user.is_hosting_host %} {% comment %} abre3 {% endcomment %}
                           <li><a href="{% url 'host:be-a-hosting-host' %}">Hosting Host</a></li>
                         {% endif %} {% comment %} cierra3 {% endcomment %}
@@ -61,6 +63,8 @@
                         {% endif %}  {% comment %} cierra4 {% endcomment %} 
                       </ul>
                     </li>
+                    
+                    {% comment %} User configurations {% endcomment %}
                     <li class="dropdown user user-menu active">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         @{{ userprofile.user.username }} <span class="caret"></span></a>
@@ -73,19 +77,63 @@
                         <li><p align="center" class= "pull-center hidden-xs text-muted">
                             {{ userprofile.user.bio }}</p>
                         </li>
-                       
-                    
-                          {% if userprofile.user.is_student %}{% comment %} abre5 {% endcomment %}
-                            <li><strong>Student</strong></li>
-                          {% endif %} {% comment %} cierra5 {% endcomment %}
+
+                        {% comment %} Para cuando sea estudiante o profesor {% endcomment %}
+                        {% comment %}{% if userprofile.user.is_student or userprofile.user.is_professor  %}
+                        <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Action</li>
+                            <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                        {% endif %}
+                        {% comment %} https://docs.djangoproject.com/en/1.11/ref/templates/builtins/{% endcomment %}
+
+                        {% comment %} Para cuando sea ejecutivo, estudiante o profesor cubre los tres perfiles de usuario{% endcomment %}
+                        {% if userprofile.user.is_student and userprofile.user.is_professor or userprofile.user.is_executive %}
+                        <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Action</li>
+                          <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                        {% endif %}
+
                         
-                          {% if userprofile.user.is_professor %} {% comment %} abre6 {% endcomment %}
-                            <li><strong>Professor</strong></li>
-                          {% endif %} {% comment %} cierra6 {% endcomment %}  
-                        
-                          {% if userprofile.user.is_executive %} {% comment %} abre7 {% endcomment %}
-                            <li><strong>Executive</strong></li>
-                          {% endif %} {% comment %} cierra7 {% endcomment %}
+
+                         {% comment %} Para cuando sea estudiante y ṕrofesor solamente {% endcomment %}
+                          
+                          {% comment %} 
+                           {% if userprofile.user.is_professor %}
+                            {% if userprofile.user.is_executive %}
+                              <p align="center"><strong>Student, Professor and Executive</strong></p>
+                              <li role="separator" class="divider"></li>
+                              <li class="dropdown-header">Action</li>
+                              <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li> 
+                            
+                           {% endif %}
+                          {% endif %}
+                          {% comment %}
+
+                          
+                          
+                          {% comment %}
+                          {% if userprofile.user.is_student %} 
+                           <p align="center"><strong>Student</strong></p>
+                           <li role="separator" class="divider"></li>
+                           <li class="dropdown-header">Actions</li>
+                           <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                          {% endif %} 
+                          
+                          {% if userprofile.user.is_professor %} 
+                           <p align="center"><strong>Professor</strong></p>
+                           <li role="separator" class="divider"></li>
+                           <li class="dropdown-header">Actions</li>
+                           <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                          {% endif %} 
+
+                          {% if userprofile.user.is_executive %} 
+                           <p align="center"><strong>Executive</strong></p>
+                           <li role="separator" class="divider"></li>
+                           <li class="dropdown-header">Actions</li>
+                           <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                          
+                          {% endif %}
+                          {% endcomment %}
 
 
                           

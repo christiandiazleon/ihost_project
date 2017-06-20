@@ -29,9 +29,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         fields = ("username", "email", "password1", "password2", "is_student",
-        "is_professor", "is_executive", "is_study_host", "is_hosting_host",
-        "is_innovation_host", "is_entertainment_host",
-        "is_other_services_host")
+        "is_professor", "is_executive", "is_study_host", "is_hosting_host",)
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
@@ -62,8 +60,7 @@ class UserUpdateForm(forms.ModelForm):
         "city_current_residence", 'speak_languages', "phone_number",
         "address", "bio", "avatar", "date_of_birth", 'entertainment_activities'
         , "is_student", "is_professor", "is_executive", "is_study_host",
-        "is_hosting_host", "is_innovation_host", "is_entertainment_host",
-        "is_other_services_host",)
+        "is_hosting_host",)
 
         model = get_user_model()
 

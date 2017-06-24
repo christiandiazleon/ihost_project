@@ -53,14 +53,22 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Become a Host <span class="caret"></span></a>
                       <ul class="dropdown-menu">
+                      
+                            <li class="dropdown-header">You can add or remove profile hosts</li> 
+                            <p align="center"><a href="{% url 'accounts:preferences' userprofile.user.slug %}">here</a></p>
+                            <li role="separator" class="divider"></li>
 
                         {% if userprofile.user.is_hosting_host %} {% comment %} abre3 {% endcomment %}
                           <li><a href="{% url 'host:be-a-hosting-host' %}">Hosting Host</a></li>
-                        {% endif %} {% comment %} cierra3 {% endcomment %}
+                          {% comment %}{% else %}
+                          <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Be a Hosting Host</a></li>{% endcomment %}
+                        {% endif %}  {% comment %}cierra3 {% endcomment %}
 
                         {% if userprofile.user.is_study_host %} {% comment %} abre4 {% endcomment %}
                           <li><a href="{% url 'host:be-a-study-host' %}">Study Host</a></li>
-                        {% endif %}  {% comment %} cierra4 {% endcomment %} 
+                          {% comment %}{% else %}
+                          <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Be a Study Host</a></li> {% endcomment %}
+                        {% endif %}   {% comment %} cierra4 {% endcomment %} 
                       </ul>
                     </li>
                     
@@ -89,8 +97,9 @@
                         {% comment %} Para cuando sea ejecutivo, estudiante o profesor cubre los tres perfiles de usuario{% endcomment %}
                         {% if userprofile.user.is_student and userprofile.user.is_professor or userprofile.user.is_executive %}
                         <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Action</li>
+                            <li class="dropdown-header">Visitant User</li>
                           <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                          <li><a href="{% url 'host:studyoffer-search' %}">Search Studies Offers</a></li>
                         {% endif %}
 
                         

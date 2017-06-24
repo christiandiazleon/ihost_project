@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% load bootstrap3 %}
-{% block title_tag %}Lodging Offert Search | {{ block.super }}{% endblock %}
+{% block title_tag %}Studies Offert Search | {{ block.super }}{% endblock %}
 {% block body_content %}
 <div class="container">
  <section class="content">
@@ -22,7 +22,7 @@
     <div class="col-xs-12">
      <div class="box">
       <div class="box-header">
-       <h3 class="box-title">Lodging Offers containing: "{{ cd.query }}"</h3>
+       <h3 class="box-title">Studies Offers containing: "{{ cd.query }}"</h3>
         <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
       </div>
       <!-- /.box-header -->
@@ -30,16 +30,18 @@
        <table class="table table-hover">
         <tbody>
          <tr>
-          <th>Lodging Offer Title</th>    
-          <th>Room type</th>    
-          <th>Guess Number</th>    
+          <th>Study Offer Title</th>    
+          <th>Institution</th>    
+          <th>Knowledge Topics</th>      
+          <th>Location</th>    
          </tr>
          {% for result in results %}
-          {% with lodgingoffer=result.object %}
+          {% with studyoffer=result.object %}
            <tr>
-            <td><a href="{% url 'host:detail' lodgingoffer.pk %}">{{ lodgingoffer.ad_title }}</a></td>
-            <td>{{ lodgingoffer.room_type_offered }}</td>
-            <td>{{ lodgingoffer.number_guest_room_type }}</td>
+            <td><a href="{% url 'host:studyoffertdetail' studyoffer.pk %}">{{ studyoffer.ad_title }}</a></td>
+            <td>{{ studyoffer.created_by.first_name }}, {{ studyoffer.institute_character }}</td>
+            <td>{{ studyoffer.knowledge_topics.all|join:", " }}</td>
+            <td>{{ studyoffer.city }}, {{ studyoffer.country }}</td>
            </tr>
           {% endwith %}
           {% empty %}

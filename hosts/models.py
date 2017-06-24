@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-from host_information.models import (LodgingServiceOffer, FeaturesAmenities, RoomInformation, Scholarship)
+from host_information.models import (LodgingServiceOffer, FeaturesAmenities, RoomInformation, Scholarship, LodgingOfferType, Accreditations)
 
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
@@ -8,11 +8,12 @@ from smart_selects.db_fields import ChainedManyToManyField
 
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
-
+from django_countries.fields import CountryField
 
 class LodgingOffer(models.Model):
 
@@ -51,6 +52,54 @@ class LodgingOffer(models.Model):
         (TEN_GUESTS, "For 10 guests"),
     )
 
+    HOTEL = 'Hotel'
+    HOSTEL = 'Hostel'
+    STUDENT_RESIDENCE = 'Student Residence'
+    ACCOMODATION_WITH_LOCAL_FAMILY = 'Accommodation with local family'
+    HOUSE_APT_SHARE_VISITORS = 'House or apartment to share with other visitors'
+    HOUSE_OR_PRIV_APT = 'House or private apartment'
+
+
+    LODGING_OFFER_TYPE_CHOICES = (
+        (HOTEL, "Hotel"),
+        (HOSTEL, "Hostel"),
+        (STUDENT_RESIDENCE, "Student Residence"),
+        (ACCOMODATION_WITH_LOCAL_FAMILY, "Accommodation with local family"),
+        (HOUSE_APT_SHARE_VISITORS, "House or apartment to share with other visitors"),
+        (HOUSE_OR_PRIV_APT, "House or private apartment"),
+    )
+
+    ONE_STAR = '1 star'
+    TWO_STARS = '2 stars'
+    THREE_STARS = '3 stars'
+    FOUR_STARS = '4 stars'
+    FIVE_STARS = '5 stars'
+
+
+    STARS_NUMBER_CHOICES = (
+        (ONE_STAR, "1 star"),
+        (TWO_STARS, "2 stars"),
+        (THREE_STARS, "3 stars"),
+        (FOUR_STARS, "4 stars"),
+        (FIVE_STARS, "5 stars"),
+    )
+
+    SINGLE_BED = 'Single bed'
+    DOUBLE_BED = 'Double bed'
+
+    BED_TYPE_OFFERED_CHOICES = (
+        (SINGLE_BED, "Single bed"),
+        (DOUBLE_BED, "Double bed"),
+    )
+
+    PRIVATE_BATHROOM = 'Private bathroom'
+    SHARED_BATHROOM = 'Shared bathroom'
+
+    BATHROOM_CHOICES = (
+        (PRIVATE_BATHROOM, "Private bathroom"),
+        (SHARED_BATHROOM, "Shared bathroom"),
+    )
+
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -63,12 +112,36 @@ class LodgingOffer(models.Model):
         max_length=255
     )
 
+    country = CountryField(blank_label='(select country)')
+
+    city = models.CharField(
+        max_length=255,
+        blank = False,
+    )
+    # Can I use later this package https://github.com/coderholic/django-cities
+
+    address = models.CharField(_("address"), max_length=255)
+
+    lodging_offer_type = models.CharField(
+        max_length=255,
+        choices=LODGING_OFFER_TYPE_CHOICES,
+        verbose_name='Lodging offer type',
+    )
+
+    stars = models.CharField(
+        max_length=255,
+        choices=STARS_NUMBER_CHOICES,
+        verbose_name='Stars numbers',
+    )
+
     available_dates = models.DateField(
         blank=True,
         null=True,
         verbose_name='Available dates',
         help_text="Days in which is possible bookings",
     )
+
+
 
     '''
     BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
@@ -106,6 +179,12 @@ class LodgingOffer(models.Model):
         # https://stackoverflow.com/a/16360605/2773461
     )
 
+    featured_amenities = models.ManyToManyField(
+        FeaturesAmenities,
+        help_text='What amenities do you offer?',
+        verbose_name='Featured Amenities'
+    )
+
     room_type_offered = models.CharField(
         max_length=255,
         choices=ROOM_TYPE_OFFERED_CHOICES,
@@ -116,6 +195,18 @@ class LodgingOffer(models.Model):
         max_length=255,
         choices=NUMBER_GUESS_ROOM_TYPE_CHOICES,
         verbose_name='Number guess in room',
+    )
+
+    bed_type = models.CharField(
+        max_length=10,
+        choices=BED_TYPE_OFFERED_CHOICES,
+        verbose_name='Bed type',
+    )
+
+    bathroom = models.CharField(
+        max_length=20,
+        choices=BATHROOM_CHOICES,
+        verbose_name='Bathroom',
     )
 
     room_information = models.ManyToManyField(
@@ -139,9 +230,16 @@ class LodgingOffer(models.Model):
         blank=False
     )
 
+    pub_date = models.DateTimeField(
+        auto_now_add=True,
+    )
 
+    '''
     def get_absolute_url(self):
         return u'/host/lodging-offer/%d' % self.id
+    '''
+    def get_absolute_url(self):
+        return reverse('host:detail', kwargs = {'pk' : self.pk })
 
 
 # Relacionarlo con el studyhost y que este pueda ingresarlos
@@ -150,6 +248,7 @@ class LodgingOffer(models.Model):
 
 class StudiesTypeOffered(models.Model):
 
+    '''
     CONTINUING_EDUCATION_STUDIES = 'Continuing Education studies'
     TECHNIQUE = 'Technique'
     TECHNOLOGY = 'Technology'
@@ -167,13 +266,11 @@ class StudiesTypeOffered(models.Model):
         (MASTER, u'Master'),
         (DOCTORATE, u'Doctorate'),
     )
+    '''
 
-    name = models.CharField(
-        max_length=100,
-        choices=STUDIES_TYPE_CHOICES,
-        blank=False,
-        verbose_name=u'nombre',
-    )
+    name = models.CharField(max_length=255, null=False, blank=False)
+
+    description = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = "Tipo de estudio ofertado"
@@ -221,6 +318,54 @@ class StudiesOffert(models.Model):
         (SUMMER_SCHOOL, 'Summer School'),
     )
 
+    LESS_THAN_THOUSAND = 'Less than a thousand students'
+    ONE_THOUSAND_TEN_THOUSAN = 'Between one thousand and ten thousand students'
+    TEN_THOUSAND_TWENTY_THOUSAND = 'Between ten thousand and twenty thousand students'
+    GREATER_THAN_TWENTY_THOUSAND = 'More/Greater than twenty thousand students'
+
+
+    STUDENT_NUMBERS_CHOICES = (
+        (LESS_THAN_THOUSAND, 'Less than a thousand students'),
+        (ONE_THOUSAND_TEN_THOUSAN, 'Between one thousand and ten thousand students'),
+        (TEN_THOUSAND_TWENTY_THOUSAND, 'Between ten thousand and twenty thousand students'),
+        (GREATER_THAN_TWENTY_THOUSAND, 'More/Greater than twenty thousand students'),
+    )
+
+    PRIVATE = 'Private'
+    PUBLIC = 'Public'
+    MIXED = 'Private - Public'
+
+    CHARACTER_INSTITUTE_CHOICES = (
+        (PRIVATE, "Private"),
+        (PUBLIC, "Public"),
+        (MIXED, "Private - Public"),
+    )
+
+    ONE_MONTHS = 'One month or less'
+    ONE_TO_SIX_MONTHS = 'One to six months'
+    SIX_TO_TWELVE_MONTHS = 'Six to twelve months'
+    TWELVE_TO_EIGHTEEN_MONTHS = 'Twelve to eighteen moths'
+    EIGHTEEN_TO_TWENTY_FOUR_MONTHS = 'Eighteen to twenty four months'
+
+    TWENTY_FOUR_TO_THIRTY_SIX_MONTHS = 'Twenty four to Thirty six months'
+    THIRTY_SIX_TO_FOURTY_EIGHT_MONTHS = 'Thirty six to Fourty eight months'
+    FOURTY_EIGHT_TO_SIXTY_MONTHS = 'Fourty eight to Sixty months'
+    MORE_THAN_TO_SIXTY_MONTHS = 'More/Greater than Sixty months'
+
+    DURATION_STUDY_CHOICES = (
+        (ONE_MONTHS, 'One month or less'),
+        (ONE_TO_SIX_MONTHS, 'One to six months'),
+        (SIX_TO_TWELVE_MONTHS, 'Six to twelve months'),
+        (TWELVE_TO_EIGHTEEN_MONTHS, 'Twelve to eighteen moths'),
+        (EIGHTEEN_TO_TWENTY_FOUR_MONTHS, 'Eighteen to twenty four months'),
+        (TWENTY_FOUR_TO_THIRTY_SIX_MONTHS, 'Twenty four to Thirty six months'),
+        (THIRTY_SIX_TO_FOURTY_EIGHT_MONTHS, 'Thirty six to Fourty eight months'),
+        (FOURTY_EIGHT_TO_SIXTY_MONTHS, 'Fourty eight to Sixty months'),
+        (MORE_THAN_TO_SIXTY_MONTHS, 'More/Greater than Sixty months'),
+
+    )
+
+
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -231,12 +376,31 @@ class StudiesOffert(models.Model):
         blank=False
     )
 
-    '''
-    slug = models.SlugField(
-        max_length=100,
-        blank=True
+    country = CountryField(blank_label='(select country)')
+
+    city = models.CharField(
+        max_length=255,
+        blank = False,
     )
-    '''
+    # Can I use later this package https://github.com/coderholic/django-cities
+
+    accreditations = models.ManyToManyField(
+        Accreditations,
+        verbose_name=u'High Quality accreditations',
+        related_name="studiesofferts"
+    )
+
+    institute_character = models.CharField(
+        max_length=20,
+        choices=CHARACTER_INSTITUTE_CHOICES,
+        verbose_name='Character of the institution',
+    )
+
+    students_number = models.CharField(
+        max_length=255,
+        choices=STUDENT_NUMBERS_CHOICES,
+        verbose_name='Number of students'
+    )
 
     knowledge_topics = TaggableManager(
         verbose_name="Knowledge topics",
@@ -249,8 +413,8 @@ class StudiesOffert(models.Model):
         related_name="studiesofferts"
     )
 
-
-
+    '''
+    Model to be removed
     studies_offert_list = ChainedManyToManyField(
         'StudiesOffertList', # Modelo encadenado
         horizontal=False,
@@ -260,6 +424,7 @@ class StudiesOffert(models.Model):
         help_text='What are your studies offerts?',
         blank=True,
     )
+    '''
 
     academic_mobility_programs = models.CharField(
         max_length=255,
@@ -267,6 +432,14 @@ class StudiesOffert(models.Model):
         verbose_name='Academic mobility programs',
         help_text='Available student academic mobility programs',
     )
+
+    duration = models.CharField(
+        max_length=255,
+        choices=DURATION_STUDY_CHOICES,
+        verbose_name='Duration',
+    )
+
+    studies_value = models.CharField(_("Price"), max_length=128)
 
     additional_description = models.TextField(
         null=False,
@@ -289,11 +462,16 @@ class StudiesOffert(models.Model):
         null=True
     )
 
+    pub_date = models.DateTimeField(
+        auto_now=True,
+        # related_name="lodgingoffers"
+    )
+
     def __str__(self):
         return "{}".format(self.ad_title)
 
     def get_absolute_url(self):
-        return "/host/study-offer/%i/" % self.id
+        return reverse('host:studyoffertdetail', kwargs = {'pk' : self.pk })
     '''
     @property
     def image_url(self):

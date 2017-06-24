@@ -17,7 +17,13 @@
   });
 </script>
 <div class="container">
-    <h1>{{ form.title }}</h1>
+    <h1>
+      {% if not form.instance.pk %}
+        {{ form.title }}
+      {% else %}
+      Update Lodging Offer
+      {% endif %}
+    </h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}

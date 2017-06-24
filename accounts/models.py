@@ -576,18 +576,17 @@ class StudyHostProfile(models.Model):
         (INTERNATIONAL_ACCREDITATIONS, "International Accreditation"),
     )
 
-    ZERO_T0_HUNDRED = 'ZERO_T0_HUNDRED'
-    HUNDRED_TO_THREE_HUNDRED = 'HUNDRED_TO_THREE_HUNDRED'
-    THREE_HUNDRED_TO_ONE_THOUSAND = 'THREE_HUNDRED_TO_ONE_THOUSAND'
-    ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED = 'ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED'
-    GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED = 'GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED'
+    LESS_THAN_THOUSAND = 'Less than a thousand students'
+    ONE_THOUSAND_TEN_THOUSAND = 'Between one thousand and ten thousand students'
+    TEN_THOUSAND_TWENTY_THOUSAND = 'Between ten thousand and twenty thousand students'
+    GREATER_THAN_TWENTY_THOUSAND = 'More/Greater than twenty thousand students'
+
 
     STUDENT_NUMBERS_CHOICES = (
-        (ZERO_T0_HUNDRED, '0 a 100 personas'),
-        (HUNDRED_TO_THREE_HUNDRED, '100 a 300 personas'),
-        (THREE_HUNDRED_TO_ONE_THOUSAND, '300 a 1000 personas'),
-        (ONE_THOUSAND_TO_TWENTY_ONE_THOUSAND_FIVE_HUNDRED, '1000 a 21.500 personas '),
-        (GREATER_THAN_TWENTY_ONE_THOUSAND_FIVE_HUNDRED, 'Mayor a 21.500 personas'),
+        (LESS_THAN_THOUSAND, 'Less than a thousand students'),
+        (ONE_THOUSAND_TEN_THOUSAND, 'Between one thousand and ten thousand students'),
+        (TEN_THOUSAND_TWENTY_THOUSAND, 'Between ten thousand and twenty thousand students'),
+        (GREATER_THAN_TWENTY_THOUSAND, 'More/Greater than twenty thousand students'),
     )
 
     user = models.OneToOneField(
@@ -644,7 +643,6 @@ class StudyHostProfile(models.Model):
         help_text='What are your research groups?',
         verbose_name='Research Groups'
     )
-
 
     photography = models.ImageField(
         upload_to='studyhosts',

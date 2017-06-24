@@ -69,6 +69,8 @@ class SignUpView(generic.CreateView):
     template_name = "accounts/signup.html"
 
 
+
+
 def signup(request):
     form = forms.UserCreateForm(request.POST or None)
     # success_url = reverse_lazy("dashboard")

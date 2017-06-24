@@ -5,7 +5,7 @@
   <div class='container'>
     <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Hi {{ userprofile.user.display_name }} </h1>
+        <h1>Hi {{ userprofile.user.first_name }} </h1>
         <p>Do you want turn it in hosting host?</p>
         <p><a href="{% url 'host:hosting-host' %}" class="btn btn-primary" role="button">Make a Lodging Offert</a></p>
       </div>

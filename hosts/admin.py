@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import StudiesTypeOffered, StudiesOffertList, StudiesOffert
+from .models import StudiesTypeOffered, StudiesOffertList, StudiesOffert, LodgingOffer
 
 # Register your models here.
 
@@ -20,3 +20,9 @@ class StudiesOffertAdmin(admin.ModelAdmin):
 
     def tag_list(self, obj):
         return u", ".join(o.name for o in obj.knowledge_topics.all())
+
+@admin.register(LodgingOffer)
+class LodgingOfferAdmin(admin.ModelAdmin):
+    list_display = ('id', 'ad_title', 'available_dates', 'room_type_offered',
+        'number_guest_room_type', 'photographies', 'room_value',
+        'additional_description')

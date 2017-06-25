@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% load bootstrap3 %}
+{% block title_tag %}Lodging Offert Search | {{ block.super }}{% endblock %}
+{% block body_content %}
+<div class="container">
+ <section class="content">
+  <div class="row">
+   <div class="col-md-4">
+    <!-- alargar el tamano del form en esta clase -->
+    <form action="." method="get">
+     <div class="form-group">
+      {% bootstrap_form form %} 
+      {% csrf_token %} 
+      <input type="submit" value="Search" class="btn btn-default">
+     </div>
+    </form>
+   </div>
+  </div>
+  {% if "query" in request.GET %}
+  <!--esta es la tabla donde se muestra la busqueda-->
+   <div class="row" style="margin-top: 20px;">
+    <div class="col-xs-12">
+     <div class="box">
+      <div class="box-header">
+       <h3 class="box-title">Lodging Offers containing: "{{ cd.query }}"</h3>
+        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+       <table class="table table-hover">
+        <tbody>
+         <tr>
+          <th>Lodging Offer Title</th>    
+          <th>Room type</th>    
+          <th>Guess Number</th>    
+         </tr>
+         {% for result in results %}
+          {% with lodgingoffer=result.object %}
+           <tr>
+            <td><a href="{% url 'host:detail' lodgingoffer.pk %}">{{ lodgingoffer.ad_title }}</a></td>
+            <td>{{ lodgingoffer.room_type_offered }}</td>
+            <td>{{ lodgingoffer.number_guest_room_type }}</td>
+           </tr>
+          {% endwith %}
+          {% empty %}
+          <p>There are no results for your query.</p>
+         {% endfor %}   
+        </tbody>
+       </table>
+      </div>
+     </div>    
+    </div>
+   </div>
+   {% endif %}
+ </section>
+</div>
+{% endblock %}

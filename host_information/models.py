@@ -3,6 +3,37 @@ from django.db import models
 from django.conf import settings
 
 
+
+# Relacionarlo con el studyhost y que este pueda ingresarlos
+# para despues traerlos en el campo de grupos de invest en su perfil
+class Accreditations(models.Model):
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    name = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False
+    )
+
+    description = models.TextField(
+        null=False,
+        blank=False
+    )
+
+    class Meta:
+        verbose_name = "Accreditations"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return u'/host-information/research-group/new'
+
+
 class SpeakLanguages(models.Model):
 
     name = models.CharField(max_length=255, null=False, blank=False)

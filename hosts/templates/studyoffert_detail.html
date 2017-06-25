@@ -11,20 +11,31 @@
     <p>{{ studyofferdetail.additional_description }}</p><hr>
       
     <p class="lead">Topics</p>
-    <p>{{ studyofferdetail }}</p><hr>
+    <p>{{ studyofferdetail.knowledge_topics.all|join:", " }}</p><hr>
     
     <p class="lead">Study types</p>
     {% for offer in studiestypeoffered %}
       <p>{{ offer }}</p>
-      
     {% endfor %}<hr>
+
+    <p class="lead">Duration</p>
+    <p>{{ studyofferdetail.duration }}</p><hr>
+
     <p class="lead">Academic Mobility Program</p>
     <p>{{ studyofferdetail.academic_mobility_programs }}</p><hr>
     
+    <p class="lead">Students number in {{ studyofferdetail.created_by.first_name }}</p>
+    <p>{{ studyofferdetail.students_number }}</p>
+    <h5>{{ studyofferdetail.institute_character }} Institution</h5>
+    <hr>
+
     <p class="lead">Scholarships</p>
     {% for offer in scholarships %}
       <p>{{ offer }}</p>  
     {% endfor %}<hr>
+
+    <p class="lead">Location Offer</p>
+    <p>{{ studyofferdetail.city }}, {{ studyofferdetail.country }}</p><hr>
     
     {% comment %}
     <p class="lead">Photography</p>

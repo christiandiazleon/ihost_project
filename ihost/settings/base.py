@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     # Third party apps
     # 'address',
     # 'countries_plus',
+    # 'cities',
     'debug_toolbar',
     'bootstrap3',
     'django_countries',
@@ -260,6 +261,10 @@ HAYSTACK_CONNECTIONS = {
         'URL': 'http://127.0.0.1:8983/solr/hostayni'
     },
 }
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+USE_TZ = True
 
 '''
 SMART_SELECTS_JQUERY_URL : jQuery 2.2.0 is loaded from Google's CDN if this is set to True. If you would prefer to use a different version put the full URL here. Set SMART_SELECTS_JQUERY_URL = False to disable loading jQuery altogether.

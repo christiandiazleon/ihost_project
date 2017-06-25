@@ -369,7 +369,6 @@ class StudiesOffert(models.Model):
 
     )
 
-
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE

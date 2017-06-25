@@ -1,0 +1,31 @@
+[{
+    "model": "accounts.studyhostprofile",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "slug": "universidad-ces",
+        "institution_type": "",
+        "institute_character": "",
+        "high_quality_accreditations": "",
+        "students_number": "",
+        "rankings_classification": "",
+        "strengths": "",
+        "photography": "",
+        "research_groups": []
+    }
+}, {
+    "model": "accounts.studyhostprofile",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "slug": "juan.camilo",
+        "institution_type": "",
+        "institute_character": "",
+        "high_quality_accreditations": "",
+        "students_number": "",
+        "rankings_classification": "",
+        "strengths": "",
+        "photography": "",
+        "research_groups": []
+    }
+}]

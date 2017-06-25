@@ -1,1 +1,71 @@
-[{"model": "host_information.roominformation", "pk": 1, "fields": {"name": "Air conditioning", "description": null}}, {"model": "host_information.roominformation", "pk": 2, "fields": {"name": "Balcony", "description": null}}, {"model": "host_information.roominformation", "pk": 3, "fields": {"name": "Coffee maker", "description": null}}, {"model": "host_information.roominformation", "pk": 4, "fields": {"name": "Washing machine", "description": null}}, {"model": "host_information.roominformation", "pk": 5, "fields": {"name": "Kitchen", "description": null}}, {"model": "host_information.roominformation", "pk": 6, "fields": {"name": "Flat Screen TV", "description": null}}, {"model": "host_information.roominformation", "pk": 7, "fields": {"name": "Non smoking rooms", "description": null}}, {"model": "host_information.roominformation", "pk": 8, "fields": {"name": "Double bed", "description": null}}, {"model": "host_information.roominformation", "pk": 9, "fields": {"name": "Single bed", "description": null}}, {"model": "host_information.roominformation", "pk": 10, "fields": {"name": "Stateroom", "description": null}}]
+[{
+    "model": "host_information.roominformation",
+    "pk": 1,
+    "fields": {
+        "name": "Air conditioning",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 2,
+    "fields": {
+        "name": "Balcony",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 3,
+    "fields": {
+        "name": "Coffee maker",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 4,
+    "fields": {
+        "name": "Washing machine",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 5,
+    "fields": {
+        "name": "Kitchen",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 6,
+    "fields": {
+        "name": "Flat Screen TV",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 7,
+    "fields": {
+        "name": "Non smoking rooms",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 8,
+    "fields": {
+        "name": "Double bed",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 9,
+    "fields": {
+        "name": "Single bed",
+        "description": null
+    }
+}, {
+    "model": "host_information.roominformation",
+    "pk": 10,
+    "fields": {
+        "name": "Stateroom",
+        "description": null
+    }
+}]

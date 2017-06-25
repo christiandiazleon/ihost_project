@@ -375,9 +375,10 @@ class StudiesOffert(models.Model):
         on_delete=models.CASCADE
     )
 
-    ad_title = models.TextField(
+    ad_title = models.CharField(
         null=False,
-        blank=False
+        blank=False,
+        max_length=255
     )
 
     country = CountryField(blank_label='(select country)')

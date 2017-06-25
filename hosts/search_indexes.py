@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 from haystack import indexes
 from .models import LodgingOffer
-=======
 import datetime
 from django.utils import timezone
 from haystack import indexes
@@ -61,7 +59,7 @@ class StudiesOffertIndex(indexes.SearchIndex, indexes.Indexable):
     # las ofertas de alojamiento no tomadas.
     def index_queryset(self, using=None):
         return self.get_model().objects.filter(pub_date__lte=timezone.now())
->>>>>>> testing
+
 
 
 class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
@@ -79,8 +77,6 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
     # corresponde al campo patient del modelo
     ad_title = indexes.CharField(model_attr='ad_title', null=True)
 
-<<<<<<< HEAD
-=======
     country = indexes.CharField(model_attr='country', null=True)
 
     city = indexes.CharField(model_attr='city', null=True)
@@ -122,7 +118,6 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
         return [amenities.name for amenities in object.featured_amenities.set_all()]
 
 
->>>>>>> testing
     # El método get_model()  devuelve el modelo para los documentos que serán
     # almacenados en éste índice.
     def get_model(self, using=None):
@@ -133,8 +128,7 @@ class LodgingOfferIndex(indexes.SearchIndex, indexes.Indexable):
     # Podemos personalizar este query para que se retornen solo
     # las ofertas de alojamiento no tomadas.
     def index_queryset(self, using=None):
-<<<<<<< HEAD
-        return self.LodgingOffer.objects.all()
-=======
+        # return self.LodgingOffer.objects.all()
         return self.get_model().objects.filter(pub_date__lte=timezone.now())
->>>>>>> testing
+
+

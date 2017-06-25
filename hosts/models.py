@@ -110,8 +110,6 @@ class LodgingOffer(models.Model):
         null=False,
         blank=False,
         max_length=255
-<<<<<<< HEAD
-=======
     )
 
     country = CountryField(blank_label='(select country)')
@@ -134,7 +132,6 @@ class LodgingOffer(models.Model):
         max_length=255,
         choices=STARS_NUMBER_CHOICES,
         verbose_name='Stars numbers',
->>>>>>> testing
     )
 
     available_dates = models.DateField(
@@ -233,14 +230,13 @@ class LodgingOffer(models.Model):
         blank=False
     )
 
-<<<<<<< HEAD
     def __str__(self):
         return "%s" % self.ad_title
-=======
+
     pub_date = models.DateTimeField(
         auto_now_add=True,
     )
->>>>>>> testing
+
 
     '''
     def get_absolute_url(self):

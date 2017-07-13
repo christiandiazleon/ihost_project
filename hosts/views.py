@@ -341,7 +341,6 @@ class HostingOfferDetailView(LoginRequiredMixin, DetailView):
         context = super(HostingOfferDetailView, self).get_context_data(**kwargs)
         user = self.request.user
 
-
         roominformation = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
         room_information_lodging_offer = roominformation.room_information.all()
         #inf = self.kwargs['room_information_set.all()']
@@ -357,7 +356,6 @@ class HostingOfferDetailView(LoginRequiredMixin, DetailView):
         offeredservices = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
 
         query = offeredservices.offered_services.all()
-
 
         context['offeredservices'] = query
 

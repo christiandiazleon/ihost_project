@@ -8,9 +8,29 @@
     <h1>Account Details</h1>
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
-        {% bootstrap_form form %}
-        <input type="submit" value="Save Changes" class="btn btn-default">
+        {% if user.user_type == 'I' %}
+            {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
+        {% comment %}
+            {% bootstrap_field form.enterprise_name %} 
+            {% bootstrap_field form.country_of_origin %} 
+            {% bootstrap_field form.city_of_origin %} 
+            {% bootstrap_field form.country_current_residence %} 
+            {% bootstrap_field form.city_current_residence %} 
+            {% bootstrap_field form.phone_number %} 
+            {% bootstrap_field form.address %} 
+            {% bootstrap_field form.bio %} 
+            {% bootstrap_field form.avatar %} 
+            {% bootstrap_field form.date_of_birth %} 
+            {% bootstrap_field form.is_study_host %} 
+            {% bootstrap_field form.is_hosting_host %}
+        {% endcomment %}
+        
+        {% else %}
+            {% bootstrap_form form exclude="enterprise_name,is_study_host" %}  
+        {% endif %}
+        <input type="submit" value="Save Changes" class="btn btn-primary">
+        
+
     </form>
 </div>
-
 {% endblock %}

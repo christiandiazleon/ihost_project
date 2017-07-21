@@ -61,4 +61,11 @@
         "name": "Literary",
         "description": null
     }
+}, {
+    "model": "host_information.entertainmentactivities",
+    "pk": 10,
+    "fields": {
+        "name": "Sports",
+        "description": null
+    }
 }]

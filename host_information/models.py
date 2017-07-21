@@ -2,16 +2,11 @@ from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
 
-
-
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de grupos de invest en su perfil
-class Accreditations(models.Model):
 
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
+
+class Accreditations(models.Model):
 
     name = models.CharField(
         max_length=255,
@@ -110,12 +105,8 @@ class RoomInformation(models.Model):
 
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de grupos de invest en su perfil
-class ResearchGroups(models.Model):
 
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
+class ResearchGroups(models.Model):
 
     name = models.CharField(
         max_length=255,
@@ -138,16 +129,13 @@ class ResearchGroups(models.Model):
     def get_absolute_url(self):
         return u'/host-information/research-group/new'
 
+
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de becas en la oferta academica
 
-
+'''
 class Scholarship(models.Model):
 
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
 
     name = models.CharField(
         max_length=255,
@@ -184,6 +172,7 @@ class Scholarship(models.Model):
 
     def get_absolute_url(self):
         return u'/host-information/scholarship/new'
+'''
 
 
 class LodgingOfferType(models.Model):

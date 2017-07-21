@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/*COLORES*/
+/*color principal*/
+/*Gris claro*/
+/*Gris*/
+/*Gris oscuro*/
+/*Alerta*/
+/*Fuente principal*/
+/*Rádio de las puntas*/
+/*Padding para los inputs de texto*/
+/*Fondo de textura gris*/
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto; }
+
+header .registration {
+  display: block;
+  width: 300px;
+  margin: 0 0 0 auto;
+  height: 50px; }
+  header .registration a {
+    color: #4c4c4c; }

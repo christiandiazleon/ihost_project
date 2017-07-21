@@ -3,8 +3,7 @@ from django.contrib import admin
 
 from django.contrib.auth.admin import UserAdmin
 
-from .models import (User, StudentProfile, ProfessorProfile, ExecutiveProfile,
-                    StudyHostProfile, InnovationHostProfile, HostingHostProfile, EntertainmentHostProfile, OtherServicesHostProfile,)
+from .models import (User, UserProfile, StudentProfile, ProfessorProfile, ExecutiveProfile, StudyHostProfile, InnovationHostProfile, HostingHostProfile, EntertainmentHostProfile, OtherServicesHostProfile,)
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -21,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
                     'slug',
                     #'first_name',
                     #'last_name',
-                    'display_name',
+                    # 'display_name',
                     'gender',
                     'country_of_origin',
                     'city_of_origin',
@@ -53,16 +52,36 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(User)
 class UserAdmin(CustomUserAdmin):
 
-    list_display = ('id', 'username', 'slug','first_name', 'last_name',
-        'display_name','gender','country_of_origin', 'phone_number','address',
-        'email', 'bio', 'date_of_birth', 'is_student', 'is_professor',
-        'is_executive', 'is_study_host', "is_innovation_host",
-        "is_hosting_host", "is_entertainment_host", "is_other_services_host",
+    list_display = ('id',
+                    'email',
+                    'slug',
+                    'first_name',
+                    'last_name',
+                    'gender',
+                    'country_of_origin',
+                    'phone_number',
+                    'address',
+                    'bio',
+                    'date_of_birth',
+                    'is_student',
+                    'is_professor',
+                    'is_executive',
+                    'is_study_host',
+                    "is_innovation_host",
+                    "is_hosting_host",
+                    "is_entertainment_host",
+                    "is_other_services_host",
     )
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_id',)
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user_id', 'slug')
+
 
 @admin.register(ProfessorProfile)
 class ProfessorProfileAdmin(admin.ModelAdmin):

@@ -43,6 +43,11 @@ urlpatterns = [
         name='preferences'
     ),
 
+    url(r"^preferences/enterprise-user/@(?P<slug>[\w.\-]+)/$",
+        views.AccountSettingsEnterpriseUpdateView.as_view(),
+        name='preference'
+    ),
+
 
     #url(r"^preferences/(?P<slug>[\w.\-]+)/$",
     #   views.AccountSettingsUpdateView.as_view(),

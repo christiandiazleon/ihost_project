@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-from host_information.models import (LodgingServiceOffer, FeaturesAmenities, RoomInformation, Scholarship, LodgingOfferType, Accreditations)
+from host_information.models import (LodgingServiceOffer, FeaturesAmenities, RoomInformation, LodgingOfferType, Accreditations)
 
 from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
@@ -450,14 +450,7 @@ class StudiesOffert(models.Model):
         blank=False
     )
 
-
     # TO-DO Consultar las becas del usuario studyhost solamente
-    scholarships = models.ManyToManyField(
-        Scholarship,
-        help_text='Scholarships availables',
-        verbose_name='Scholarships',
-        blank=True,
-    )
 
     photo = models.ImageField(
         upload_to='study-host-offert-photos',

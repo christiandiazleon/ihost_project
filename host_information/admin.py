@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib import admin
 from .models import (SpeakLanguages, EntertainmentActivities,
-    FeaturesAmenities, LodgingServiceOffer, RoomInformation, ResearchGroups, Scholarship, LodgingOfferType)
+    FeaturesAmenities, LodgingServiceOffer, RoomInformation, ResearchGroups, LodgingOfferType)
 
 # Register your models here.
 
@@ -37,10 +37,6 @@ class ResearchGroupsAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'name', 'description')
 
-@admin.register(Scholarship)
-class ScholarshipAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'name', 'description', 'who_can_apply', 'application_process', 'terms_and_conditions',)
 
 @admin.register(LodgingOfferType)
 class LodgingOfferTypeAdmin(admin.ModelAdmin):

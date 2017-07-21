@@ -14,7 +14,7 @@ urlpatterns = [
     ),
 
     # List Hosting Offers
-    url(r'^lodging-offers/by/u/@(?P<username>[-\w]+)/$',
+    url(r'^lodging-offers/by/u/@(?P<email>[-\w]+)/$',
         lodging_offers_by_user,
         name='list'
     ),
@@ -74,7 +74,7 @@ urlpatterns = [
     ),
 
     # List Study Host Offers
-    url(r'^studies-offers/by/u/@(?P<username>[-\w]+)/',
+    url(r'^studies-offers/by/u/@(?P<email>[-\w]+)/',
         studies_offers_by_user,
         name='studiesofferlist'
     ),

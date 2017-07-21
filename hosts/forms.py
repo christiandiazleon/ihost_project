@@ -1,7 +1,6 @@
 from django import forms
 from .models import LodgingOffer, StudiesOffert
 from django_countries.widgets import CountrySelectWidget
-from host_information.models import Scholarship
 
 
 class StudiesOffertForm(forms.ModelForm):
@@ -14,7 +13,7 @@ class StudiesOffertForm(forms.ModelForm):
         fields = ('ad_title', 'country', 'city',
             'institute_character', 'students_number', 'knowledge_topics',
             'duration', 'studies_type_offered', 'academic_mobility_programs',
-            'additional_description', 'scholarships', 'photo',)
+            'additional_description', 'photo',)
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
 

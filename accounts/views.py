@@ -20,7 +20,7 @@ from django.conf import settings
 
 #from . import forms
 from .forms import (
-    StudentProfileForm, ExecutiveProfileForm, ProfessorProfileForm, UserCreateForm, UserUpdateForm, StudyHostProfileForm, HostingHostProfileForm,)
+    StudentProfileForm, ExecutiveProfileForm, ProfessorProfileForm, UserCreateForm, UserUpdateForm, StudyHostProfileForm, HostingHostProfileForm, UserEnterpriseUpdateForm,)
 from .models import StudentProfile, ProfessorProfile, ExecutiveProfile, User
 
 # Create your views here.
@@ -90,12 +90,16 @@ def signup(request):
         return render(request, 'accounts/signup2.html', {'form': form})
 
 
-class DashboardProfileView(LoginRequiredMixin, TemplateView):
+class DashboardProfileView(TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super(DashboardProfileView, self).get_context_data(**kwargs)
         user = self.request.user
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
+
+        '''
         if user.is_student:
             profile = user.get_student_profile()
             context['userprofile'] = profile
@@ -127,14 +131,16 @@ class DashboardProfileView(LoginRequiredMixin, TemplateView):
             context['student_profile'] = student_profile
             context['professor_profile'] = professor_profile
             context['executive_profile'] = executive_profile
+        '''
         return context
+
 
 
 class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
     success_url = reverse_lazy('dashboard')
-    context_object_name = 'preferences'
+    #context_object_name = 'preferences'
 
     '''
     def post(self, request, *args,**kwargs):
@@ -162,6 +168,7 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
 
         user = self.request.user
+        context['userprofile'] = user.profile
 
         # To UserDetailView
         #speaklanguages = User.objects.get(pk=self.kwargs.get('pk'))
@@ -169,6 +176,7 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         #context['speaklanguages'] = speak_languages_user
         # print(speak_languages_user)
 
+        '''
         if user.is_student:
             profile = user.get_student_profile()
             context['userprofile'] = profile
@@ -187,8 +195,20 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
         elif user.is_active:
             #profile = user.get_user_profile()
             context['userprofile'] = self.request.user
+        '''
         return context
 
+class AccountSettingsEnterpriseUpdateView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    form_class = UserEnterpriseUpdateForm
+    success_url = reverse_lazy('dashboard')
+    context_object_name = 'preferences'
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountSettingsEnterpriseUpdateView, self).get_context_data(**kwargs)
+        user = self.request.user
+        context['userprofile'] = user.profile
+        return context
 
 @login_required
 def user_profile_update_view(request, slug):
@@ -196,6 +216,7 @@ def user_profile_update_view(request, slug):
 
     # Populate the forms and Instances (if applicable)
     form_profiles = []
+    profile = user.profile
 
     if user.is_student:
         profile = user.get_student_profile()

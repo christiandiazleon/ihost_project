@@ -37,8 +37,13 @@ from taggit.managers import TaggableManager
 
 
 class UserManager(BaseUserManager):
+    """
+    A custom user manager to deal with emails as unique identifiers for auth
+    instead of usernames. The default that's used is "UserManager"
+    """
 
-    def create_user(self, email, username, display_name=None, password=None):
+
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("Users must have an email address")
 
@@ -46,21 +51,46 @@ class UserManager(BaseUserManager):
         # I set as display_name the username they've provided.
         # If some reason signup some user without display_name, this will be
         # the username
-        if not display_name:
-            display_name = username
+        # if not display_name:
+        #    display_name = username
 
         # Make new user, user instance in memory
         user  = self.model(
             # make sure that all the email addresses throughout your app are formatted the same way
             email = self.normalize_email(email),
-            username = username,
-            display_name = display_name
+            **extra_fields
+
         )
         user.set_password(password)
         # handle the encryption and validation checks and so.
         user.save()
         return user
+    '''
+    def _create_user(self, email, password, **extra_fields):
+        """
+        Creates and saves a User with the given email and password.
+        """
+        if not email:
+            raise ValueError("Users must have an email address")
+            email = self.normalize_email(email)
+            user = self.model(email = email, **extra_fields)
+            user.set_password(password)
+            user.save()
+            return user
+    '''
 
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+        return self.create_user(email, password, **extra_fields)
+
+    '''
     def create_superuser(self, email, username, display_name, password):
         user = self.create_user(
             email,
@@ -72,7 +102,7 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save()
         return user
-
+    '''
 
 class User(AbstractBaseUser, PermissionsMixin):
 
@@ -111,6 +141,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     MUSICALS = 'MUSICALS'
     LITERARY = 'LITERARY'
 
+    PERSON = 'P'
+    INSTITUTION = 'I'
+
+    USER_TYPE_CHOICES = (
+        (PERSON, "Person"),
+        (INSTITUTION, "Institution"),
+    )
+
+
     '''
     ENTERTAINMENT_ACTIVITIES_CHOICES = (
         (ARTHISTIC_CULTURALS, 'Arthistic-Culturals'),
@@ -125,17 +164,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     '''
 
-    email = models.EmailField(unique=True,
+    email = models.EmailField(unique=True, null=True,
             help_text=_('Required. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid email address.'), 'invalid')
         ])
 
-    # username = models.CharField(max_length=40, unique=True)
 
-    username = models.CharField(_('username'), max_length=30, unique=True,
+    username = models.CharField(_('username'), max_length=30, null=True,
             help_text=_('Required. 30 characters or fewer. Letters, digits and ''@/./+/-/_ only.'),
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
         ])
+
 
     slug = models.SlugField(
         max_length=100,
@@ -146,14 +185,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
 
-    display_name = models.CharField(max_length=140)
+    enterprise_name = models.CharField(_('enterprise name'), max_length=100, blank=True)
 
     gender = models.CharField(
         max_length=10,
         choices=GENDER_CHOICES,
         verbose_name='Gender',
-        default=False,
-        blank=False,
+        # default=False,
+        blank=True,
     )
 
     country_of_origin = CountryField(blank_label='(select country)')
@@ -176,9 +215,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     speak_languages = models.ManyToManyField(
         SpeakLanguages,
-        help_text='What services do you offer?',
+        help_text='What languages do you speak?',
         verbose_name='Languages',
-        related_name="users"
+        related_name="users",
+        blank=True,
         # here m2m lookup sample
         # https://stackoverflow.com/a/16360605/2773461
     )
@@ -206,6 +246,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         verbose_name='Fecha de nacimiento',
         # help_text="Please use the following format: <em>YYYY-MM-DD</em>.",
+    )
+
+    user_type = models.CharField(
+        max_length=10,
+        choices=USER_TYPE_CHOICES,
+        verbose_name='User type',
+        default=False,
+        blank=False,
     )
 
     is_student = models.BooleanField(
@@ -256,10 +304,25 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Other services host profile',
     )
 
-    entertainment_activities = models.ManyToManyField(EntertainmentActivities)
+    entertainment_activities = models.ManyToManyField(
+        EntertainmentActivities,
+        blank=True,
+    )
 
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this site.'),
+    )
+
+    is_active = models.BooleanField(
+        _('active'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
 
     objects = UserManager()
 
@@ -270,14 +333,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # List of fields that will be sent when create the superuser in addition to
     # username and password
-    REQUIRED_FIELDS = ["display_name", "username"]
+    # REQUIRED_FIELDS = ["display_name", "username"]
+    # REQUIRED_FIELDS = ["display_name",]
 
     class Meta:
         db_table = 'auth_user'
         verbose_name_plural = 'Usuarios en la plataforma'
 
     def __str__(self):
-        return "@{}".format(self.username)
+        return "@{}".format(self.email)
 
     '''
     def setspeak_languages(self, days):
@@ -292,13 +356,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.avatar and hasattr(self.avatar, 'url'):
             return self.avatar.url
 
-
     def get_short_name(self):
         return self.first_name
         #return self.display_name
 
     def get_long_name(self):
-        return "{} (@{})".format(self.display_name, self.username)
+        return "{} (@{})".format(self.first_name, self.last_name)
+        # return "{} (@{})".format(self.display_name, self.username)
 
     # We get the profiles user according with their type
 
@@ -356,33 +420,82 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.is_student and getattr(self, 'studentprofile', None) is None:
             StudentProfile.objects.create(
                 user=self,
-                slug = self.username
+                slug = self.email
             )
         if self.is_professor and getattr(self, 'professorprofile', None) is None:
             ProfessorProfile.objects.create(
                 user=self,
-                slug=self.username
+                slug=self.email
             )
         if self.is_executive and getattr(self, 'executiveprofile', None) is None:
             ExecutiveProfile.objects.create(
                 user=self,
-                slug=self.username
+                slug=self.email
             )
         if self.is_study_host and getattr(self, 'studyhostprofile', None) is None:
             StudyHostProfile.objects.create(
                 user=self,
-                slug=self.username
+                slug=self.email
             )
         if self.is_hosting_host and getattr(self, 'hostinghostprofile', None) is None:
             HostingHostProfile.objects.create(
                 user=self,
-                slug=self.username
+                slug=self.email
             )
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def post_save_user(sender, instance, **kwargs):
-    slug = slugify(instance.username)
+    slug = slugify(instance.email)
     User.objects.filter(pk=instance.pk).update(slug=slug)
+
+
+class UserProfileManager(models.Manager):
+    use_for_related_fields = True
+
+    def all(self):
+        qs = self.get_queryset().all()
+
+        return qs
+
+# volvera ver Model Manager for following https://www.udemy.com/tweetme-django/learn/v4/t/lecture/6134698?start=0 y el de signals
+
+class UserProfile(models.Model):
+    # user.profile
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile'
+    )
+
+    # user.profile.following -- users I follow
+    # user.profile.followed_by -- users that follow me -- reverse relationship
+    following = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name='followed_by'
+    )
+
+    objects = UserProfileManager() # UserProfile.objects.all()
+    # abc = UserProfileManager() # UserProfile.abc.all()
+
+    def __str__(self):
+        # return str(self.following.all.count())
+        return str(self.user)
+
+    def get_following(self):
+        users = self.following.all() # Users.objects.all().exclude(email=self.user.email)
+        return users.exclude(email=self.user.email)
+
+#@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# get_or_create (user_obj true/false)
+def post_save_user_receiver(sender, instance, created, *args, **kwargs):
+    print(instance)
+    if created:
+        new_profile = UserProfile.objects.get_or_create(user=instance)
+        # celery + redis
+        # deferred tasks
+
+post_save.connect(post_save_user_receiver, sender=settings.AUTH_USER_MODEL)
 
 
 class StudentProfile(models.Model):

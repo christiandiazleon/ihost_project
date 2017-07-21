@@ -22,7 +22,7 @@ from haystack.query import SearchQuerySet
 # Create your views here.
 
 
-class StudiesOffertSearch(LoginRequiredMixin, FormView):
+class StudiesOffertSearch(FormView):
     template_name = 'hosts/studiesoffert_search.html'
     form_class = StudiesOffertSearchForm
 
@@ -35,6 +35,7 @@ class StudiesOffertSearch(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(StudiesOffertSearch, self).get_context_data(**kwargs)
         user = self.request.user
+
         form = StudiesOffertSearchForm(self.request.GET or None)
 
         # When the form is submitted, we instantiate it with the submitted GET
@@ -61,6 +62,10 @@ class StudiesOffertSearch(LoginRequiredMixin, FormView):
                 'results':results,
                 'total_results': total_results,
             })
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
+
+        '''
         if user.is_student:
             profile = user.get_student_profile()
             context['userprofile'] = profile
@@ -80,11 +85,12 @@ class StudiesOffertSearch(LoginRequiredMixin, FormView):
         elif user.is_hosting_host:
             profile = user.get_hosting_host_profile()
             context['userprofile'] = profile
+        '''
         return context
 
 
 
-class LodgingOfferSearch(LoginRequiredMixin, FormView):
+class LodgingOfferSearch(FormView):
     template_name = 'hosts/lodgingoffer_search.html'
 
     # first we instantiate the SearchForm that we created before.
@@ -126,6 +132,9 @@ class LodgingOfferSearch(LoginRequiredMixin, FormView):
                 'results':results,
                 'total_results': total_results,
             })
+        if user.is_authenticated():
+            context['userprofile'] = user.profile
+        '''
         if user.is_student:
             profile = user.get_student_profile()
             context['userprofile'] = profile
@@ -145,11 +154,13 @@ class LodgingOfferSearch(LoginRequiredMixin, FormView):
         elif user.is_hosting_host:
             profile = user.get_hosting_host_profile()
             context['userprofile'] = profile
+        '''
         return context
 
-def studies_offers_by_user(request, username):
+def studies_offers_by_user(request, email):
     user = request.user
-    studies_offers = StudiesOffert.objects.filter(created_by__username=username)
+    profile = user.profile
+    studies_offers = StudiesOffert.objects.filter(created_by__email=user.email)
 
     if user.is_study_host:
         profile = user.get_study_host_profile()
@@ -193,9 +204,10 @@ class LodgingOffersByUser(LoginRequiredMixin, ListView):
         return context
 
 
-def lodging_offers_by_user(request, username):
+def lodging_offers_by_user(request, email):
     user = request.user
-    lodging_offers = LodgingOffer.objects.filter(created_by__username=username)
+    profile = user.profile
+    lodging_offers = LodgingOffer.objects.filter(created_by__email=user.email)
 
     if user.is_hosting_host:
         profile = user.get_hosting_host_profile()
@@ -477,9 +489,9 @@ class StudyOffertDetailView(LoginRequiredMixin, DetailView):
         context['studiestypeoffered'] = studies_type_study_offert
 
 
-        scholarships_query = StudiesOffert.objects.get(pk=self.kwargs.get('pk'))
-        scholarships = scholarships_query.scholarships.all()
-        context['scholarships'] = scholarships
+        #scholarships_query = StudiesOffert.objects.get(pk=self.kwargs.get('pk'))
+        #scholarships = scholarships_query.scholarships.all()
+        #context['scholarships'] = scholarships
 
 
         if user.is_student:

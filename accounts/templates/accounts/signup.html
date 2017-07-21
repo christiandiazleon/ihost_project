@@ -1,26 +1,61 @@
 {% extends "layout.html" %}
-
+{% load staticfiles %}
 {% load bootstrap3 %}
 
-{% block title_tag %}Sign Up | {{ block.super }}{% endblock %}
+<!DOCTYPE html>
+<html lang="es-ES" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>{% block title_tag %}Sign Updd | {{ block.super }}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% comment %}<link rel="stylesheet" href="css/main.css" type="text/css">{% endcomment %}
+</head>
 
 {% block body_content %}
-<div class="container">
-    <h1>Join HOSTAYNI for free</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {# equivalent to form.as_p #}
-        <input type="submit" value="Sign Up" class="btn btn-default">
-      {% comment %}
-        <input type="submit" value="Sign Up with facebook" class="btn btn-default"> 
-        <br /><br />
-        Already member?
-      <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Log In &raquo;</a></p>
-      {% endcomment %}  
+<body class="grey-background">
+  <div class="form-cont">
+    <div class="main">
+      <a href="#" class="logo-cont">
+        <img src="{% static 'img/Logo-slogan.png' %}">
 
-    </form>
-    
-</div>
-    
-{% endblock %}
+      </a>
+      <form method="POST">
+        {% csrf_token %}
+        <h3>Join HOSTAYNI for free</h3>
+        {% bootstrap_field form.email %}
+        {% bootstrap_field form.password1 %}
+        {% bootstrap_field form.password2 %}
+
+        {% comment %}
+        <input type="email" name="email" placeholder="Correo" required="true">
+        <input type="password" name="password" placeholder="Contraseña" required="true">
+        <input type="password" name="password2" placeholder="Repetir contraseña" required="true">
+        {% endcomment %}
+        <div class="rad-cont">
+          {% bootstrap_field form.user_type show_label=False size='medium' layout='horizontal' %}
+          <input id="r1" type="radio" name="usertype" value="Persona" checked><label for="r1">Persona</label>
+        </div>
+        <div class="rad-cont">
+          <input id="r2" type="radio" name="usertype" value="Institution" ><label for="r2">Institución</label>
+        </div>
+        <div class="submit-button">
+          <a href="#"><img src="img/icons/ok.png"><span>Registrarse</span></a>
+        </div>
+      </form>
+      {% endblock %}
+      <div class="social-cont">
+      <img src="img/social.png">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <p class="legal">Al registrarse acepta nuestros <a href="#">Términos de uso</a> y <a href="#">Política de privacidad</a></p>
+    </div>
+    <div class="portrait">
+      <div class="img-cont">
+      </div>
+      <span>Toronto, Canadá</span>
+    </div>
+  </div>
+</body>
+</html>

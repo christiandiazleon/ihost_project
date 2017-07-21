@@ -1,24 +1,386 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,600,600i");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600");
+/*COLORES*/
+/*color principal*/
+/*Gris claro*/
+/*Gris*/
+/*Gris oscuro*/
+/*Alerta*/
+/*Fuente principal*/
+/*Rádio de las puntas*/
+/*Padding para los inputs de texto*/
+/*Fondo de textura gris*/
+* {
+  padding: 0;
+  margin: 0;
+  clear: both;
+  list-style-type: none;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Source Sans Pro", sans-serif;
+  border: none; }
 
+*:focus {
+  outline-color: #c9eeff; }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+input[type=checkbox],
+input[type=radio] {
+  /* esconder los inputs originales */
+  visibility: hidden;
+  position: absolute; }
 
+input[type=checkbox] + label:before,
+input[type=radio] + label:before {
+  /*nuevo estilo de input*/
+  height: 14px;
+  width: 14px;
+  margin-right: 5px;
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid #d6d6d6;
+  background: #fff;
+  cursor: pointer; }
 
-.jumbotron h1 {
-    color: rgba(200, 50, 255, 1);
-}
+input[type=checkbox]:checked + label:before,
+input[type=radio]:checked + label:before {
+  /*nuevo estilo de input chekeado*/
+  background: #dbd900;
+  border-color: #fff; }
 
+input[type=radio] + label:before {
+  /*Hacer redondo el input radio*/
+  border-radius: 50%; }
 
+.rad-cont label {
+  color: #706f6f;
+  font-size: 0.95em;
+  cursor: pointer; }
 
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 10px; }
 
+header {
+  margin-bottom: 25px; }
+  header .registration {
+    display: block;
+    width: 300px;
+    margin: 0 0 0 auto;
+    height: 50px;
+    border-bottom: 1px solid #4c4c4c;
+    overflow: hidden; }
+    header .registration a {
+      color: #4c4c4c;
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+      height: inherit;
+      padding-top: 17px; }
+    header .registration a:hover {
+      background-color: #d6d6d6; }
 
+.search-column {
+  width: 330px;
+  float: right;
+  padding-left: 10px; }
+  .search-column .logo {
+    float: right;
+    margin-bottom: 25px; }
+  .search-column .map-search-text {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #d6d6d6;
+    overflow: hidden;
+    margin-bottom: 15px; }
+    .search-column .map-search-text input {
+      display: inline-block;
+      border-radius: 0;
+      color: #4c4c4c;
+      border: none;
+      padding: 5px 10px;
+      width: 255px; }
+    .search-column .map-search-text input:focus {
+      outline: 0; }
+    .search-column .map-search-text i {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin: 5px 8px 5px 0;
+      float: right; }
+  .search-column .search-map {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #d6d6d6;
+    margin-bottom: 15px; }
+    .search-column .search-map svg {
+      width: 100%;
+      overflow: auto; }
+  .search-column .search-filter {
+    margin-bottom: 20px; }
+    .search-column .search-filter p {
+      color: #706f6f;
+      display: inline-block;
+      font-size: 0.9em;
+      margin-right: 2px; }
+    .search-column .search-filter .icons {
+      display: inline-block;
+      vertical-align: middle; }
+      .search-column .search-filter .icons img {
+        width: 33px;
+        margin-right: 2px;
+        cursor: pointer; }
+  .search-column .plan-travel-button {
+    display: block;
+    color: #706f6f;
+    font-weight: 600;
+    font-size: 1.05em; }
+    .search-column .plan-travel-button img {
+      vertical-align: middle;
+      margin-right: 5px; }
 
+main {
+  display: inline-block;
+  width: 930px; }
 
+/*Estilos del formulario de registro-inicio de sesión*/
+.grey-background {
+  background: url("../img/background-text.jpg");
+  background-repeat: repeat; }
 
+.form-cont {
+  display: block;
+  max-width: 1150px;
+  margin: 4% auto 0;
+  padding: 0 10px; }
+  .form-cont .main {
+    display: inline-block;
+    width: 30%;
+    padding-right: 20px; }
+    .form-cont .main .logo-cont {
+      display: block; }
+    .form-cont .main .logo-cont img {
+      display: block;
+      margin: 0 0 0 auto; }
+    .form-cont .main h3 {
+      color: #706f6f;
+      font-size: 0.97em;
+      margin: 25px 0 10px; }
+    .form-cont .main input[type="email"],
+    .form-cont .main input[type="password"] {
+      display: block;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px;
+      padding: 5px 10px;
+      color: #4c4c4c;
+      border: 1px solid #d6d6d6;
+      width: 93%;
+      margin-bottom: 8px; }
+    .form-cont .main input[type="email"],
+    .form-cont .main input[type="password"]:focus {
+      outline: none; }
+    .form-cont .main .submit-button {
+      width: 115px;
+      margin: 0 0 0 auto;
+      padding: 5px 0 15px; }
+      .form-cont .main .submit-button a {
+        display: block; }
+        .form-cont .main .submit-button a img {
+          vertical-align: middle;
+          margin-right: 7px; }
+        .form-cont .main .submit-button a span {
+          vertical-align: middle;
+          color: #706f6f;
+          font-weight: 600; }
+    .form-cont .main .rad-cont {
+      display: inline-block;
+      margin: 3px 20px 5px 0; }
+    .form-cont .main .social-cont img {
+      display: block;
+      margin: 0 0 0 auto; }
+    .form-cont .main .legal {
+      font-size: 0.95em;
+      color: #706f6f;
+      text-align: right;
+      margin-top: 5px; }
+      .form-cont .main .legal a {
+        color: inherit;
+        text-decoration: underline; }
+  .form-cont .portrait {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    width: 65%; }
+    .form-cont .portrait .img-cont {
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px;
+      width: auto;
+      height: 470px;
+      background-image: url("../img/canada-toronto.jpg"); }
+    .form-cont .portrait span {
+      display: block;
+      text-align: right;
+      color: #706f6f;
+      font-size: 0.95em; }
 
+article {
+  overflow: hidden;
+  display: inline-block;
+  width: 48%;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-top-left-radius: 10px;
+  -moz-border-top-right-radius: 10px;
+  -ms-border-top-left-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 0 5px 30px; }
+  article .img-title-cont {
+    height: 250px; }
+    article .img-title-cont .title-cont {
+      background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
+      background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66000000', endColorstr='#007db9e8',GradientType=1 );
+      height: 230px;
+      position: relative;
+      top: -250px;
+      max-width: 270px; }
+    article .img-title-cont .img {
+      height: 250px; }
+    article .img-title-cont h3 {
+      color: #fff;
+      font-size: 1.7em;
+      padding: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      /* number of lines to show */
+      -webkit-line-clamp: 4;
+      /* fallback */
+      line-height: 1.1em;
+      /* fallback */
+      max-height: 4em; }
+  article .post-info {
+    padding-top: 5px; }
+    article .post-info .post-type {
+      display: block;
+      height: 23px; }
+      article .post-info .post-type i {
+        padding: 3px 6px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-size: 0.57em;
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        margin-top: -4px; }
+    article .post-info .description {
+      display: block;
+      vertical-align: top;
+      color: #4c4c4c;
+      overflow: hidden;
+      font-size: 0.95em;
+      line-height: 1.3em;
+      text-overflow: ellipsis;
+      max-height: 2.6em; }
+    article .post-info .review {
+      display: block;
+      width: 200px;
+      float: right;
+      margin-top: 10px; }
+      article .post-info .review .cost {
+        vertical-align: top;
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        color: #4c4c4c;
+        margin-right: 10px; }
+      article .post-info .review .stars {
+        display: inline-block;
+        width: 110px; }
+      article .post-info .review .average {
+        font-size: 0.95em;
+        color: #706f6f; }
 
+.innovate .post-type i {
+  background-color: #1d71b6; }
 
+.social .post-type i {
+  background-color: #f19125; }
 
+.learn .post-type i {
+  background-color: #e74e1b; }
 
+.enjoy .post-type i {
+  background-color: #d73380; }
 
+.life .post-type i {
+  background-color: #3f4e55; }
+
+.host .post-type i {
+  background-color: #006533; }
+
+.full-width {
+  display: block;
+  width: auto;
+  margin-right: 15px; }
+  .full-width .post-info .description {
+    display: inline-block;
+    width: 65%; }
+  .full-width .post-info .review {
+    display: inline-block;
+    margin-top: 0;
+    width: 115px; }
+    .full-width .post-info .review .cost {
+      display: block; }
+
+.full-width-mobile {
+  display: block;
+  width: auto;
+  margin-right: 15px; }
+  .full-width-mobile .post-info .description {
+    display: block;
+    vertical-align: top;
+    width: auto; }
+  .full-width-mobile .post-info .review {
+    display: block;
+    width: 200px;
+    margin-top: 10px; }
+    .full-width-mobile .post-info .review .cost {
+      vertical-align: top;
+      display: inline-block;
+      margin-right: 10px; }
+    .full-width-mobile .post-info .review .average {
+      font-size: 0.95em;
+      color: #706f6f; }
+
+.search-map svg .main {
+  fill: #dbd900; }
+
+.search-map svg .main:hover {
+  fill: #dbd900; }
+
+.search-map svg path {
+  stroke: #fff;
+  stroke-width: 2;
+  fill: #ccc; }
+
+.search-map svg path:hover {
+  fill: #bbb; }

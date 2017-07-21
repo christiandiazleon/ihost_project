@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms.widgets import CheckboxSelectMultiple
 from django import forms
-from .models import (StudentProfile, User, ProfessorProfile, ExecutiveProfile,
+from .models import (StudentProfile, ProfessorProfile, ExecutiveProfile,
                     StudyHostProfile, HostingHostProfile)
 
 from django_countries.widgets import CountrySelectWidget
@@ -16,26 +16,25 @@ class CustomUserChangeForm(UserChangeForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
+        fields = ('email',)
 
 
 class UserCreateForm(UserCreationForm):
-    '''
-    speak_languages = forms.MultipleChoiceField(
-        label='Speak languages',
-        widget=forms.CheckboxSelectMultiple(),
-        choices = User.LANGUAGES_CHOICES, initial=None
-    )
-    '''
 
     class Meta:
-        fields = ("username", "email", "password1", "password2", "is_student",
-        "is_professor", "is_executive", "is_study_host", "is_hosting_host",)
+        widgets = {
+            'user_type':forms.RadioSelect(attrs={'id': 'r1'}),
+        }
+
+        fields = ("email", "password1", "password2", "user_type",)
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        #self.fields["username"].label='Display name'
+        super(UserCreateForm, self).__init__(*args, **kwargs)
         self.fields["email"].label = "Email address"
+        self.fields["user_type"].widget.attrs.update({'id': 'r1'}),
+
+
 
 
 class DateInput(forms.DateInput):
@@ -48,14 +47,15 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         widgets = {
-            'gender':forms.RadioSelect,
+            # 'gender':forms.RadioSelect,
             'country_of_origin': CountrySelectWidget(),
             'country_current_residence': CountrySelectWidget(),
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
             'date_of_birth': DateInput(), #datepicker
         }
-        fields = ("first_name", "last_name", "display_name", "gender",
+        
+        fields = ("first_name", "last_name", "gender", "enterprise_name",
         "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number",
         "address", "bio", "avatar", "date_of_birth", 'entertainment_activities'
@@ -64,6 +64,24 @@ class UserUpdateForm(forms.ModelForm):
 
         model = get_user_model()
 
+
+class UserEnterpriseUpdateForm(forms.ModelForm):
+    bio = forms.CharField(widget=forms.Textarea)
+
+    class Meta:
+        widgets = {
+            'gender':forms.RadioSelect,
+            'country_of_origin': CountrySelectWidget(),
+            'country_current_residence': CountrySelectWidget(),
+            # I can customize these https://github.com/SmileyChris/
+            # django-countries#countryselectwidget
+            'date_of_birth': DateInput(), #datepicker
+        }
+        fields = ("enterprise_name", "country_of_origin", "city_of_origin", "country_current_residence", "city_current_residence",
+            "phone_number", "address", "bio", "avatar", "date_of_birth",
+            "is_study_host", "is_hosting_host",)
+
+        model = get_user_model()
 
 class StudentProfileForm(forms.ModelForm):
     title = "Student Details"

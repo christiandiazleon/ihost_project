@@ -135,7 +135,6 @@ class DashboardProfileView(TemplateView):
         return context
 
 
-
 class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm

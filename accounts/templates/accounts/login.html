@@ -3,22 +3,29 @@
 {# Load the tag bootstrap3 library to create some bootstrap3
 automatically #}
 {% load bootstrap3 %}
-
 {% block title_tag %}Login | {{ block.super }}{% endblock %}
 
 {% block body_content %}
-<div class="container">
-    <h1>Login</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {# equivalent to form.as_p #}
-        <input type="submit" value="Login" class="btn btn-default"> 
-        <div>
-            <a href="../password_reset/">Forgot your password?</a>
-        </div>
-    </form>
+<body class="grey-background">
+    <div class="form-cont">
+        <div class="main">
+             <a href="#" class="logo-cont">
+            <img src="{% static 'img/Logo-slogan.png' %}">
+            </a>
     
-</div>
+            <h1>Login</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {# equivalent to form.as_p #}
+                <input type="submit" value="Login" class="btn btn-default"> 
+                <div>
+                    <a href="../password_reset/">Forgot your password?</a>
+                </div>
+            </form>
+    
+        </div>
+    </div>
+</body>
     
 {% endblock %}

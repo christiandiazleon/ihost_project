@@ -3,183 +3,61 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-{% comment %} Jeronimo's static files  {% endcomment %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}">
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <!DOCTYPE html>
 <html>
+  <head>        
+    <title>{% block title_tag %}HOSTAYNI Platform{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} Jeronimo's static files  {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+  </head>
 
-    
-    <head>        
-        <title>{% block title_tag %}HOSTAYNI Platform{% endblock %}</title>
-        <!-- Latest compiled and minified CSS -->
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-       {% comment %} <link rel="stylesheet" href="{% static 'ihost/css/master.css'%}">{% endcomment %}
-
-    </head>
-
-    <body>
-      <nav class="navbar  mynav" role="navigation" id="navbar">
-          <div class="container">
-            <a class="navbar-brand mynav" href="{% url 'home' %}"><img src="{% static 'hostayni.png' %}"/></a>
-
-              <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#how-it-works" class="btn btn-simple">How it Works</a></li>
-                  <li><a href="#safety" class="btn btn-simple">Safety</a></li>
-                  
-                {% if user.is_authenticated %} {% comment %} abre1 {% endcomment %}
-                  {% if userprofile %} {% comment %} abre2 {% endcomment %}
-                    <li><a href="{% url 'home' %}" class="btn btn-simple">Home</a></li> 
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Become a Host <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                      
-                            <li class="dropdown-header">You can add or remove profile hosts</li> 
-                            <p align="center"><a href="{% url 'accounts:preferences' userprofile.user.slug %}">here</a></p>
-                            <li role="separator" class="divider"></li>
-
-                          <li><a href="{% url 'host:be-a-hosting-host' %}">Hosting Host</a></li>
-
-                          <li><a href="{% url 'host:be-a-study-host' %}">Study Host</a></li>
-                      </ul>
-                    </li>
-                    
-                    <li class="dropdown user user-menu active">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        @{{ userprofile.user.email }} <span class="caret"></span></a>
-
-                      <ul class="dropdown-menu">
-                        <li class="user-header">
-                          <img src="{{ object.image_url|default_if_none:'#' }}" class="img-thumbnail" alt="User Image">
-                        </li>
-
-                        <li><p align="center" class= "pull-center hidden-xs text-muted">
-                            {{ userprofile.user.bio }}</p>
-                        </li>
-
-                        <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Visitant User</li>
-                          <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
-                          <li><a href="{% url 'host:studyoffer-search' %}">Search Studies Offers</a></li>
-
-                          <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Study Host</li>
-                            <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">My Study Offers</a></li>
-                                                  
-                            
-
-                          
-                          <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Innovation Host</li>
-                            <li><a href="#">My Innovation Offers</a></li>                      
-                            
-                          
-                          
-                          
-                          <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Hosting Host</li>
-                            <li><a href="{% url 'host:list' userprofile.user.slug %}">My Lodging Offers</a></li>
-                            
-                            {% comment %} url list espera un slug {% endcomment %}
-                         
-                          
-                          <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Contents</li>
-                          <li><a href="{% url 'dashboard' %}">Articles</a></li>
-                          
-                          
-                          <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Account</li>
-                          
-                            <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                                My profile</a>
-                            </li>
-                          
-                            <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                                My profile</a>
-                            </li>
-                          
-                            <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                                My profile</a> {% comment %} url profile espera un slug {% endcomment %}
-                            </li>
-                          
-                            <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                                My profile</a>
-                            </li>
-                          
-                            <li>
-                              <a href="{% url 'accounts:profile' userprofile.user.slug %}">
-                                My profile</a>
-                            </li>
-                            {% comment %} 
-                            {% if user.user_type == 'I' %}
-                              <li><a href="{% url 'accounts:preference' userprofile.user.slug %}">Settings</a></li>
-                            {% else %}{% endcomment %} 
-                            <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Settings</a></li>
-                            {% comment %} {% endif %}{% endcomment %} 
-                            <li><a href="{% url 'logout' %}">Log out</a></li>
-                          
-                  {% endif %} {% comment %} cierra2 {% endcomment %}
-                      </ul>
-                    
-
-
-                </li>
-
-                {% else %}
-
-                  {% comment %} Para cuando usemos la guncion LoginView predeterminada de django en auth_views.LoginView.as_view
-                  <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>{% endcomment %}
-                  <li><a href="{% url 'login' %}" class="btn btn-simple">Log in</a></li>
-                  <li><a href="{% url 'accounts:signup' %}" class="btn btn-simple">Sign up</a></li>
-                {% endif %} {% comment %} cierra1 {% endcomment %}
-              </ul>
-
-
-
-          </div>
-        </nav>
-
-        <br /><br /><br />
-
+  <body>
+    <div class="wrapper">
+    <!-- Botones de registro e inicio de sesión -->
+      <header>
+        {% if user.is_authenticated %} 
+          {% if userprofile %}
+            <div class="profile-options">
+              <div class="img">
+                <!-- Imagen de perfil -->
+                <img src="{% static 'img/profile.png' %}" alt="">
+              </div>
+              <div class="name-options-cont">
+                <div class="name">
+                  <p>Nombre del usuario</p>
+                </div>
+                <div class="options">
+                  <img src="{% static 'img/icons/gear.svg' %}" alt="">
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% else %}  
+            <div class="registration">
+              <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
+            </div>
+        {% endif %}
+      </header>
+      {% comment %} Mirar como poner esto con ese container{% endcomment %}
       
-
-
-        <div class="container mycontent">
           {% block body_content %}
-          
-
           {% endblock %}
-
+      
+      {% comment %} Mirar como poner esto con ese container{% endcomment %}
+    
+    </div>
+    <footer class="main-footer">
+      <div class="container">
+        <div class="pull-right hidden-xs text-muted">
+          <b>Version</b> 1.O
         </div>
-
-        <footer class="main-footer">
-        <div class="container">
-          <div class="pull-right hidden-xs text-muted">
-            <b>Version</b> 1.O
-          </div>
-          <p class="text-muted">{% now 'Y' %} &copy; HOSTAYNI Platform. All rights reserved.</p>
-        </div>
+        <p class="text-muted">{% now 'Y' %} &copy; HOSTAYNI Platform. All rights reserved.</p>
+      </div>
     </footer>
-    </body>
+  </body>
 </html>

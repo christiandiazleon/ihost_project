@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous">
     </script>
-    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    </script>
+
+    </script>
   </head>
 
   <body>
@@ -28,11 +32,20 @@
                 <img src="{% static 'img/profile.png' %}" alt="">
               </div>
               <div class="name-options-cont">
+                
                 <div class="name">
-                  <p>Nombre del usuario</p>
+                  <p>@{{ userprofile.user.email }}</p>
                 </div>
+
                 <div class="options">
                   <img src="{% static 'img/icons/gear.svg' %}" alt="">
+                  <div class="drop-down">
+                    <ul>
+                      <li><a href="#">Configuración</a></li>
+                      <li class="line"></li>
+                      <li><a href="#">Cerrar sesión</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -40,8 +53,9 @@
         {% else %}  
             <div class="registration">
               <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
-            </div>
         {% endif %}
+            </div>
+        
       </header>
       {% comment %} Mirar como poner esto con ese container{% endcomment %}
       

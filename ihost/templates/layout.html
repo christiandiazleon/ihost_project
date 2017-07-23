@@ -24,39 +24,37 @@
     <div class="wrapper">
     <!-- Botones de registro e inicio de sesión -->
       <header>
-        {% if user.is_authenticated %} 
-          {% if userprofile %}
-            <div class="profile-options">
-              <div class="img">
-                <!-- Imagen de perfil -->
-                <img src="{% static 'img/profile.png' %}" alt="">
-              </div>
-              <div class="name-options-cont">
-                
-                <div class="name">
-                  <p>@{{ userprofile.user.email }}</p>
-                </div>
-
-                <div class="options">
-                  <img src="{% static 'img/icons/gear.svg' %}" alt="">
-                  <div class="drop-down">
-                    <ul>
-                      <li><a href="#">Configuración</a></li>
-                      <li class="line"></li>
-                      <li><a href="#">Cerrar sesión</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-        {% else %}  
-            <div class="registration">
-              <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
-        {% endif %}
-            </div>
-        
-      </header>
+  {% if user.is_authenticated %}
+  {% if userprofile %}
+  <div class="profile-options">
+    <div class="img">
+      <!-- Imagen de perfil -->
+      <img src="{% static 'img/profile.png' %}" alt="">
+    </div>
+    <div class="name-options-cont">
+      <div class="name">
+        <p>@{{ userprofile.user.email }}</p>
+      </div>
+      <div class="options">
+        <img src="{% static 'img/icons/gear.svg' %}" alt="">
+        <div class="drop-down">
+          <ul>
+            <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Configuración</a></li>
+            <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">Mi perfil</a></li>
+            <li class="line"></li>
+            <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% else %}
+  <div class="registration">
+    <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
+  </div>
+  {% endif %}
+</header>
       {% comment %} Mirar como poner esto con ese container{% endcomment %}
       
           {% block body_content %}

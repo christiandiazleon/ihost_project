@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-{% load bootstrap3 %}
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
 
@@ -15,7 +14,6 @@
 
     });
   });
-</script>
 <div class="container">
     <h1>
       {% if not form.instance.pk %}

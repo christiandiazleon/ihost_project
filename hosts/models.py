@@ -15,6 +15,7 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django_countries.fields import CountryField
 
+
 class LodgingOffer(models.Model):
 
     ALL_PROPERTY = 'All property'

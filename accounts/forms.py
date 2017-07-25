@@ -52,9 +52,10 @@ class UserUpdateForm(forms.ModelForm):
             'country_current_residence': CountrySelectWidget(),
             # I can customize these https://github.com/SmileyChris/
             # django-countries#countryselectwidget
-            'date_of_birth': DateInput(), #datepicker
+             'date_of_birth': DateInput(), #datepicker
+            #'date_of_birth': forms.DateInput(attrs={'class':'datepicker'})
         }
-        
+
         fields = ("first_name", "last_name", "gender", "enterprise_name",
         "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number",

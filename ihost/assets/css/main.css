@@ -64,7 +64,20 @@ input[type=radio] + label:before {
   padding: 0 10px; }
 
 header {
-  margin-bottom: 35px; }
+  margin: 20px 0 10px 0;
+  height: 70px; }
+  header .top-logo {
+    display: inline-block;
+    vertical-align: top; }
+  header .breadcrumbs {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 13px 0 0 30px;
+    font-size: 0.9em; }
+    header .breadcrumbs p {
+      display: inline-block;
+      vertical-align: baseline;
+      color: #706f6f; }
   header .registration {
     width: 300px;
     margin: 0 0 0 auto;
@@ -82,10 +95,11 @@ header {
     header .registration a:hover {
       background-color: #d6d6d6; }
   header .profile-options {
+    display: inline-block;
     height: 50px;
     overflow: visible;
-    width: 400px;
-    margin: 20px 0 0 auto; }
+    width: 300px;
+    float: right; }
     header .profile-options .img {
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -103,7 +117,7 @@ header {
     header .profile-options .name-options-cont {
       display: inline-block;
       height: inherit;
-      width: 340px;
+      width: 240px;
       margin: 5px 0 0 auto; }
       header .profile-options .name-options-cont .name {
         color: #706f6f;
@@ -116,7 +130,7 @@ header {
         width: 15px;
         margin: 0 0 0 auto; }
         header .profile-options .name-options-cont .options img {
-          width: 4515px;
+          width: 15px;
           height: 15px;
           cursor: pointer; }
         header .profile-options .name-options-cont .options .drop-down {
@@ -261,8 +275,51 @@ main {
         padding: 3px 10px 0 0; }
   .search-column .my-trips .trip:hover {
     height: 125px; }
+  .search-column .utilities .button {
+    display: block; }
+    .search-column .utilities .button img {
+      width: 31px;
+      height: 31px;
+      vertical-align: middle;
+      margin-right: 5px; }
+    .search-column .utilities .button span {
+      display: inline-block;
+      vertical-align: middle;
+      color: #706f6f;
+      font-weight: 600; }
+  .search-column .utilities .map {
+    margin-bottom: 20px; }
+  .search-column .utilities .diary {
+    margin-bottom: 20px; }
+    .search-column .utilities .diary .diary-drop-down {
+      margin-left: 15px;
+      padding: 10px 0 5px 7px;
+      border-left: 1px solid #d6d6d6; }
+      .search-column .utilities .diary .diary-drop-down .appointment-alert {
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 5px; }
+        .search-column .utilities .diary .diary-drop-down .appointment-alert .header {
+          background-color: #f19125;
+          padding: 4px 7px 5px 10px;
+          color: #fff;
+          max-height: 2.5em;
+          overflow: hidden; }
+          .search-column .utilities .diary .diary-drop-down .appointment-alert .header img {
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 3px; }
+          .search-column .utilities .diary .diary-drop-down .appointment-alert .header .date-hour {
+            padding-right: 5px;
+            font-size: 0.9em; }
+          .search-column .utilities .diary .diary-drop-down .appointment-alert .header .name {
+            font-weight: 600; }
+      .search-column .utilities .diary .diary-drop-down .body .img {
+        height: 80px; }
 
-/*Estilos del formulario de registro-inicio de sesión*/
 .grey-background {
   background: url("../img/background-text.jpg");
   background-repeat: repeat; }
@@ -348,7 +405,7 @@ main {
 article {
   overflow: hidden;
   display: inline-block;
-  width: 48%;
+  width: 48.2%;
   -webkit-border-top-left-radius: 10px;
   -webkit-border-top-right-radius: 10px;
   -moz-border-top-left-radius: 10px;
@@ -357,10 +414,15 @@ article {
   -ms-border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin: 0 5px 30px; }
+  margin: 0 10px 30px 0; }
   article .img-title-cont {
     height: 250px; }
     article .img-title-cont .title-cont {
+      -webkit-transition: all 100ms ease-in-out;
+      -moz-transition: all 100ms ease-in-out;
+      -ms-transition: all 100ms ease-in-out;
+      -o-transition: all 100ms ease-in-out;
+      transition: all 100ms ease-in-out;
       background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
       background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
       background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
@@ -373,8 +435,6 @@ article {
       max-width: 250px; }
     article .img-title-cont .img {
       height: 250px; }
-    article .img-title-cont .title-cont:hover {
-      background-size: 120%; }
     article .img-title-cont h3 {
       color: #fff;
       position: absolute;
@@ -386,6 +446,11 @@ article {
       line-height: 1.1em;
       /* fallback */
       max-height: 4em; }
+  article .img-title-cont:hover .title-cont {
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.46) 0%, rgba(125, 185, 232, 0) 100%) !important;
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.46) 0%, rgba(125, 185, 232, 0) 100%) !important;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.46) 0%, rgba(125, 185, 232, 0) 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#66000000', endColorstr='#007db9e8',GradientType=1 ); }
   article .post-info {
     padding-top: 5px; }
     article .post-info .post-type {
@@ -458,10 +523,10 @@ article {
 .full-width {
   display: block;
   width: auto;
-  margin-right: 15px; }
+  margin-right: 17px; }
   .full-width .post-info .description {
     display: inline-block;
-    width: 65%; }
+    width: 64%; }
   .full-width .post-info .review {
     display: inline-block;
     margin-top: 0;
@@ -472,7 +537,7 @@ article {
 .full-width-mobile {
   display: block;
   width: auto;
-  margin-right: 15px; }
+  margin-right: 10px; }
   .full-width-mobile .post-info .description {
     display: block;
     vertical-align: top;
@@ -488,3 +553,65 @@ article {
     .full-width-mobile .post-info .review .average {
       font-size: 0.95em;
       color: #706f6f; }
+
+.user-post {
+  overflow: hidden;
+  margin-right: 20px; }
+  .user-post .user-info {
+    display: inline-block;
+    width: 250px; }
+    .user-post .user-info .img {
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      overflow: hidden;
+      width: 50px;
+      height: 50px;
+      vertical-align: middle; }
+      .user-post .user-info .img img {
+        width: inherit;
+        height: inherit; }
+    .user-post .user-info .name-time-cont {
+      display: inline-block;
+      width: 150px;
+      vertical-align: middle;
+      margin-left: 10px; }
+      .user-post .user-info .name-time-cont .name {
+        display: block;
+        color: #706f6f;
+        font-weight: 600; }
+      .user-post .user-info .name-time-cont .time {
+        display: block;
+        color: #706f6f;
+        font-size: 0.95em; }
+  .user-post .body {
+    display: inline-block;
+    vertical-align: top;
+    width: 65%; }
+    .user-post .body p {
+      color: #706f6f; }
+      .user-post .body p .object {
+        margin-left: 4px; }
+      .user-post .body p .object-name {
+        font-weight: 600;
+        color: inherit;
+        margin: 0px 6px; }
+      .user-post .body p img {
+        width: 120px;
+        margin-left: 10px;
+        vertical-align: baseline; }
+  .user-post .post-img {
+    margin-top: 12px;
+    height: 100px;
+    margin-bottom: 30px;
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-bottom-left-radius: 10px;
+    -moz-border-bottom-right-radius: 10px;
+    -ms-border-bottom-left-radius: 10px;
+    -ms-border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden; }

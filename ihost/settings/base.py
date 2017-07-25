@@ -195,6 +195,7 @@ AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY =  get_env_variable('AWS_SECRET_ACCESS_KEY')
 
 # Default settings
+"""
 BOOTSTRAP3 = {
 
     # The URL to the jQuery JavaScript file
@@ -254,6 +255,7 @@ BOOTSTRAP3 = {
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
 }
+"""
 
 HAYSTACK_CONNECTIONS = {
     'default': {

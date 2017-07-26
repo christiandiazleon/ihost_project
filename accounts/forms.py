@@ -32,6 +32,8 @@ class UserCreateForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(UserCreateForm, self).__init__(*args, **kwargs)
         self.fields["email"].label = "Email address"
+        self.fields["password1"].label = "Password"
+        self.fields["password2"].label = "Password confirmation"
         self.fields["user_type"].widget.attrs.update({'id': 'r1'}),
 
 

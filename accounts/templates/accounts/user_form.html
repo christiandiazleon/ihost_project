@@ -9,8 +9,20 @@
     <form enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         {% if user.user_type == 'I' %}
-            {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
+            {{ form.enterprise_name }}
+            {{ form.country_of_origin }}
+            {{ form.city_of_origin }}
+            {{ form.country_current_residence }}
+            {{ form.city_current_residence }}
+            {{ form.phone_number }}
+            {{ form.address }}
+            {{ form.bio }}
+        {% else %}
+            {{ form }} 
+        {% endif %}           
         {% comment %}
+            {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
+        
             {% bootstrap_field form.enterprise_name %} 
             {% bootstrap_field form.country_of_origin %} 
             {% bootstrap_field form.city_of_origin %} 
@@ -23,11 +35,12 @@
             {% bootstrap_field form.date_of_birth %} 
             {% bootstrap_field form.is_study_host %} 
             {% bootstrap_field form.is_hosting_host %}
-        {% endcomment %}
+        
         
         {% else %}
             {% bootstrap_form form exclude="enterprise_name,is_study_host" %}  
         {% endif %}
+        {% endcomment %}
         <input type="submit" value="Save Changes" class="btn btn-primary">
         
 

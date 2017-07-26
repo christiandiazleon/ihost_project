@@ -16,8 +16,11 @@ automatically #}
             <h1>Login</h1>
             <form method="POST">
                 {% csrf_token %}
-                {% bootstrap_form form %}
+                {% comment %} {% bootstrap_form form %} {% endcomment %}
                 {# equivalent to form.as_p #}
+                {{ form.email }}
+                {{ form.password }}
+
                 <input type="submit" value="Login" class="btn btn-default"> 
                 <div>
                     <a href="../password_reset/">Forgot your password?</a>

@@ -15,9 +15,11 @@ from django.contrib.auth.models import (
     # all benefits of them
 )
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django.template.defaultfilters import slugify
+# from django.template.defaultfilters import slugify
+from django.utils.text import slugify
+
 
 
 # from languages_plus.models import Language
@@ -41,7 +43,6 @@ class UserManager(BaseUserManager):
     A custom user manager to deal with emails as unique identifiers for auth
     instead of usernames. The default that's used is "UserManager"
     """
-
 
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -175,8 +176,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         validators=[RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
         ])
 
-
     slug = models.SlugField(
+        # unique=True,
         max_length=100,
         blank=True
     )
@@ -443,11 +444,46 @@ class User(AbstractBaseUser, PermissionsMixin):
                 slug=self.email
             )
 
+# https://docs.djangoproject.com/en/1.11/ref/signals/#django.db.models.signals.pre_save
+
+
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.email)
+    if new_slug is not None:
+        slug = new_slug
+    qs = User.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        # Add the id to slug (compose by email + ID)
+        new_slug = "%s-%s" %(slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+
+def pre_save_user_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance)
+    """
+    slug = slugify(instance.email)
+    # fabiola.quimica - fabiolaquimica
+    # We want to make sure that slug doesn't already exist
+    # I will check if exist with a filter
+    exists = User.objects.filter(slug=slug).exists()
+    if exists:
+        # Add the id to slug (compose by email + ID)
+        slug = "%s-%s" %(slugify(instance.email), instance.id)
+
+    instance.slug = slug
+    """
+
+pre_save.connect(pre_save_user_receiver, sender=settings.AUTH_USER_MODEL)
+
+'''
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def post_save_user(sender, instance, **kwargs):
     slug = slugify(instance.email)
     User.objects.filter(pk=instance.pk).update(slug=slug)
-
+'''
 
 class UserProfileManager(models.Manager):
     use_for_related_fields = True

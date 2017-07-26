@@ -21,18 +21,32 @@
       <form method="POST">
         {% csrf_token %}
         <h3>Join HOSTAYNI for free</h3>
+        {% comment %}
+        
         {% bootstrap_field form.email show_label=False %}
         {% bootstrap_field form.password1 show_label=False %}
         {% bootstrap_field form.password2 show_label=False %}
+        {% endcomment %}
+
+        
+        {{ form.email.errors }}
+        <label for="{{ form.email.id_for_label }}">Email address:</label>
+        {{ form.email }}
+        {{ form.password1 }}
+        {{ form.password2 }}
+        <div class="rad-cont">
+        {{ form.user_type }}
+        </div>
 
         {% comment %}
         <input type="email" name="email" placeholder="Correo" required="true">
         <input type="password" name="password" placeholder="Contraseña" required="true">
         <input type="password" name="password2" placeholder="Repetir contraseña" required="true">
-        {% endcomment %}
+        
         <div class="rad-cont">
-          {% bootstrap_field form.user_type show_label=False size='medium' layout='vertical' %}
+          {% bootstrap_field form.user_type show_label=False size='medium' %}
         </div>
+        {% endcomment %}
           {% comment %}
           <input id="r1" type="radio" name="usertype" value="Persona" checked><label for="r1">Persona</label>
         </div>
@@ -46,6 +60,7 @@
         {% endcomment %}
 
         <img src="{% static 'img/icons/ok.png' %}"><input type="submit" value="Sign up" class="submit-button">
+        
       </form>
 
       {% endblock %}

@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # which points to the folder containing the folder that contains the actual
 # file, i.e. the folder ihost
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 
 # Quick-start development settings - unsuitable for production
@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     # 'languages_plus',
     'haystack',
     'phonenumber_field',
-    'smart_selects',
+    'rest_framework',
+    # 'smart_selects',
     #'star_ratings',
     'taggit',
     'storages',
@@ -74,6 +75,7 @@ INSTALLED_APPS = [
 
     # Project apps
     'accounts.apps.AccountsConfig',
+    'blog.apps.BlogConfig',
     'host_information.apps.HostInformationConfig',
     'hosts.apps.HostsConfig',
 
@@ -159,6 +161,20 @@ USE_L10N = True
 USE_TZ = True
 
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',),
+}
+
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 # This line tells Django to look for static files in a folder named static
@@ -180,7 +196,7 @@ FIXTURE_DIRS = (
 
 
 # Por el momento es asi
-LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_REDIRECT_URL = '/'
 # La debo enviar al url por ejemplo posts:all
 
 #LOGOUT_REDIRECT_URL = '/accounts/logout/'

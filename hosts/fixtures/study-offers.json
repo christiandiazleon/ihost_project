@@ -1,1 +1,191 @@
-[{"model": "hosts.studiesoffert", "pk": 17, "fields": {"created_by": 2, "ad_title": "Ingenieria de sistemas", "country": "CO", "city": "Medellin", "institute_character": "Private", "students_number": "Less than a thousand students", "academic_mobility_programs": "Academic Semester", "duration": "1", "studies_value": "1", "additional_description": "dasdsadsadsa", "photo": "", "pub_date": "2017-06-22T19:27:03.563Z", "accreditations": [], "scholarships": [1], "studies_type_offered": [1]}}, {"model": "hosts.studiesoffert", "pk": 18, "fields": {"created_by": 2, "ad_title": "Testting", "country": "BD", "city": "Florencia", "institute_character": "Private - Public", "students_number": "Less than a thousand students", "academic_mobility_programs": "Summer School", "duration": "Six to twelve months", "studies_value": "1", "additional_description": "It's the best", "photo": "study-host-offert-photos/20160808_120510.jpg", "pub_date": "2017-06-22T19:44:58.816Z", "accreditations": [], "scholarships": [1, 2], "studies_type_offered": [1]}}, {"model": "hosts.studiesoffert", "pk": 19, "fields": {"created_by": 2, "ad_title": "Espa\u00f1ol para extranjeros", "country": "BH", "city": "Medellin", "institute_character": "Private", "students_number": "Less than a thousand students", "academic_mobility_programs": "Summer School", "duration": "1", "studies_value": "1", "additional_description": "Este es un diplomado entendidomcomo dsdsa", "photo": "study-host-offert-photos/RomeoAlegria.jpeg", "pub_date": "2017-06-22T02:28:46.580Z", "accreditations": [], "scholarships": [2], "studies_type_offered": [1, 2, 3, 4]}}, {"model": "hosts.studiesoffert", "pk": 20, "fields": {"created_by": 2, "ad_title": "Desarrollo web", "country": "CO", "city": "Envigado", "institute_character": "Public", "students_number": "Between ten thousand and twenty thousand students", "academic_mobility_programs": "Research", "duration": "More/Greater than Sixty months", "studies_value": "1", "additional_description": "fsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdf", "photo": "", "pub_date": "2017-06-22T20:00:19.161Z", "accreditations": [], "scholarships": [2], "studies_type_offered": [4, 5]}}, {"model": "hosts.studiesoffert", "pk": 21, "fields": {"created_by": 2, "ad_title": "Economy market", "country": "CO", "city": "Envigado", "institute_character": "Public", "students_number": "Between one thousand and ten thousand students", "academic_mobility_programs": "Academic Semester", "duration": "More/Greater than Sixty months", "studies_value": "1", "additional_description": "dfdsf", "photo": "", "pub_date": "2017-06-22T19:48:10.997Z", "accreditations": [], "scholarships": [1, 2], "studies_type_offered": [2]}}, {"model": "hosts.studiesoffert", "pk": 22, "fields": {"created_by": 2, "ad_title": "Comunicaci\u00f3n", "country": "AT", "city": "Viena", "institute_character": "Private", "students_number": "Between one thousand and ten thousand students", "academic_mobility_programs": "Academic Semester", "duration": "1", "studies_value": "1", "additional_description": "SAD", "photo": "", "pub_date": "2017-06-22T02:24:32.090Z", "accreditations": [], "scholarships": [2, 3], "studies_type_offered": [2, 3, 4]}}, {"model": "hosts.studiesoffert", "pk": 23, "fields": {"created_by": 2, "ad_title": "Marketing Digital", "country": "CO", "city": "Medellin", "institute_character": "Private", "students_number": "Less than a thousand students", "academic_mobility_programs": "Academic Semester", "duration": "Fourty eight to Sixty months", "studies_value": "", "additional_description": "the ciurse", "photo": "", "pub_date": "2017-06-23T16:53:01.416Z", "accreditations": [], "scholarships": [], "studies_type_offered": []}}, {"model": "hosts.studiesoffert", "pk": 25, "fields": {"created_by": 2, "ad_title": "Estrategia en TI", "country": "CO", "city": "San Andres", "institute_character": "Private", "students_number": "Between one thousand and ten thousand students", "academic_mobility_programs": "Research", "duration": "Fourty eight to Sixty months", "studies_value": "", "additional_description": "sfs", "photo": "", "pub_date": "2017-06-23T17:24:42.175Z", "accreditations": [], "scholarships": [1], "studies_type_offered": [2]}}, {"model": "hosts.studiesoffert", "pk": 26, "fields": {"created_by": 2, "ad_title": "Historia Universal de Larousse", "country": "CO", "city": "Medellin", "institute_character": "Public", "students_number": "Between one thousand and ten thousand students", "academic_mobility_programs": "Academic Semester", "duration": "One month or less", "studies_value": "", "additional_description": "Con refuerzo de Encarta 98", "photo": "", "pub_date": "2017-06-23T17:25:53.031Z", "accreditations": [], "scholarships": [1], "studies_type_offered": [1]}}, {"model": "hosts.studiesoffert", "pk": 27, "fields": {"created_by": 2, "ad_title": "Emprendimiento digital", "country": "CO", "city": "Sabaneta", "institute_character": "Private", "students_number": "Between one thousand and ten thousand students", "academic_mobility_programs": "Academic Semester", "duration": "Fourty eight to Sixty months", "studies_value": "", "additional_description": "dsdsa", "photo": "", "pub_date": "2017-06-23T23:05:27.425Z", "accreditations": [], "scholarships": [2], "studies_type_offered": [3]}}]
+[{
+    "model": "hosts.studiesoffert",
+    "pk": 17,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Ingenieria de sistemas",
+        "country": "CO",
+        "city": "Medellin",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private",
+        "students_number": "Less than a thousand students",
+        "academic_mobility_programs": "Academic Semester",
+        "duration": "1",
+        "studies_value": "1",
+        "additional_description": "dasdsadsadsa",
+        "photo": "",
+        "pub_date": "2017-06-22T19:27:03.563Z",
+        "studies_type_offered": [1]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 18,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Testting",
+        "country": "BD",
+        "city": "Florencia",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private - Public",
+        "students_number": "Less than a thousand students",
+        "academic_mobility_programs": "Summer School",
+        "duration": "Six to twelve months",
+        "studies_value": "1",
+        "additional_description": "It's the best",
+        "photo": "study-host-offert-photos/20160808_120510.jpg",
+        "pub_date": "2017-06-22T19:44:58.816Z",
+        "studies_type_offered": [1]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 19,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Espa\u00f1ol para extranjeros",
+        "country": "BH",
+        "city": "Medellin",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private",
+        "students_number": "Less than a thousand students",
+        "academic_mobility_programs": "Summer School",
+        "duration": "1",
+        "studies_value": "1",
+        "additional_description": "Este es un diplomado entendidomcomo dsdsa",
+        "photo": "study-host-offert-photos/RomeoAlegria.jpeg",
+        "pub_date": "2017-06-22T02:28:46.580Z",
+        "studies_type_offered": [1, 2, 3, 4]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 20,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Desarrollo web",
+        "country": "CO",
+        "city": "Envigado",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Public",
+        "students_number": "Between ten thousand and twenty thousand students",
+        "academic_mobility_programs": "Research",
+        "duration": "More/Greater than Sixty months",
+        "studies_value": "1",
+        "additional_description": "fsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdffsdf",
+        "photo": "",
+        "pub_date": "2017-06-22T20:00:19.161Z",
+        "studies_type_offered": [4, 5]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 21,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Economy market",
+        "country": "CO",
+        "city": "Envigado",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Public",
+        "students_number": "Between one thousand and ten thousand students",
+        "academic_mobility_programs": "Academic Semester",
+        "duration": "More/Greater than Sixty months",
+        "studies_value": "1",
+        "additional_description": "dfdsf",
+        "photo": "",
+        "pub_date": "2017-06-22T19:48:10.997Z",
+        "studies_type_offered": [2]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 22,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Comunicaci\u00f3n",
+        "country": "AT",
+        "city": "Viena",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private",
+        "students_number": "Between one thousand and ten thousand students",
+        "academic_mobility_programs": "Academic Semester",
+        "duration": "1",
+        "studies_value": "1",
+        "additional_description": "SAD",
+        "photo": "",
+        "pub_date": "2017-06-22T02:24:32.090Z",
+        "studies_type_offered": [2, 3, 4]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 23,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Marketing Digital",
+        "country": "CO",
+        "city": "Medellin",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private",
+        "students_number": "Less than a thousand students",
+        "academic_mobility_programs": "Academic Semester",
+        "duration": "Fourty eight to Sixty months",
+        "studies_value": "",
+        "additional_description": "the ciurse",
+        "photo": "",
+        "pub_date": "2017-06-23T16:53:01.416Z",
+        "studies_type_offered": []
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 25,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Estrategia en TI",
+        "country": "CO",
+        "city": "San Andres",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private",
+        "students_number": "Between one thousand and ten thousand students",
+        "academic_mobility_programs": "Research",
+        "duration": "Fourty eight to Sixty months",
+        "studies_value": "",
+        "additional_description": "sfs",
+        "photo": "",
+        "pub_date": "2017-06-23T17:24:42.175Z",
+        "studies_type_offered": [2]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 26,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Historia Universal de Larousse",
+        "country": "CO",
+        "city": "Medellin",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Public",
+        "students_number": "Between one thousand and ten thousand students",
+        "academic_mobility_programs": "Academic Semester",
+        "duration": "One month or less",
+        "studies_value": "",
+        "additional_description": "Con refuerzo de Encarta 98",
+        "photo": "",
+        "pub_date": "2017-06-23T17:25:53.031Z",
+        "studies_type_offered": [1]
+    }
+}, {
+    "model": "hosts.studiesoffert",
+    "pk": 27,
+    "fields": {
+        "created_by": 1,
+        "ad_title": "Emprendimiento digital",
+        "country": "CO",
+        "city": "Sabaneta",
+        "address": "Calle 10 A No. 22 - 04",
+        "institute_character": "Private",
+        "students_number": "Between one thousand and ten thousand students",
+        "academic_mobility_programs": "Academic Semester",
+        "duration": "Fourty eight to Sixty months",
+        "studies_value": "",
+        "additional_description": "dsdsa",
+        "photo": "",
+        "pub_date": "2017-06-23T23:05:27.425Z",
+        "studies_type_offered": [3]
+    }
+}]

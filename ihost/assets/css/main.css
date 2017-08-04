@@ -199,6 +199,12 @@ main {
       .search-column .search-map svg .main:hover {
         fill: #dbd900; }
       .search-column .search-map svg path {
+        cursor: pointer;
+        -webkit-transition: all 45ms ease-in-out;
+        -moz-transition: all 45ms ease-in-out;
+        -ms-transition: all 45ms ease-in-out;
+        -o-transition: all 45ms ease-in-out;
+        transition: all 45ms ease-in-out;
         stroke: #fff;
         stroke-width: 2;
         fill: #ccc; }
@@ -554,13 +560,14 @@ article {
       font-size: 0.95em;
       color: #706f6f; }
 
-.user-post {
+.user-activity {
   overflow: hidden;
-  margin-right: 20px; }
-  .user-post .user-info {
+  margin-right: 2.4%;
+  margin-bottom: 40px; }
+  .user-activity .user-info {
     display: inline-block;
     width: 250px; }
-    .user-post .user-info .img {
+    .user-activity .user-info .img {
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       -ms-border-radius: 10px;
@@ -570,42 +577,38 @@ article {
       width: 50px;
       height: 50px;
       vertical-align: middle; }
-      .user-post .user-info .img img {
-        width: inherit;
-        height: inherit; }
-    .user-post .user-info .name-time-cont {
+      .user-activity .user-info .img a img {
+        width: 50px;
+        height: 50px; }
+    .user-activity .user-info .name-time-cont {
       display: inline-block;
       width: 150px;
       vertical-align: middle;
       margin-left: 10px; }
-      .user-post .user-info .name-time-cont .name {
+      .user-activity .user-info .name-time-cont .name {
         display: block;
         color: #706f6f;
         font-weight: 600; }
-      .user-post .user-info .name-time-cont .time {
+      .user-activity .user-info .name-time-cont .time {
         display: block;
         color: #706f6f;
         font-size: 0.95em; }
-  .user-post .body {
+  .user-activity .body {
     display: inline-block;
     vertical-align: top;
-    width: 65%; }
-    .user-post .body p {
+    margin-top: 10px; }
+    .user-activity .body p {
       color: #706f6f; }
-      .user-post .body p .object {
-        margin-left: 4px; }
-      .user-post .body p .object-name {
+      .user-activity .body p .object-name {
         font-weight: 600;
-        color: inherit;
-        margin: 0px 6px; }
-      .user-post .body p img {
+        color: inherit; }
+      .user-activity .body p img {
         width: 120px;
-        margin-left: 10px;
-        vertical-align: baseline; }
-  .user-post .post-img {
+        height: 18.61px;
+        vertical-align: middle; }
+  .user-activity .place-img {
     margin-top: 12px;
-    height: 100px;
-    margin-bottom: 30px;
+    height: 130px;
     -webkit-border-bottom-left-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
     -moz-border-bottom-left-radius: 10px;
@@ -615,3 +618,32 @@ article {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     overflow: hidden; }
+    .user-activity .place-img .place-info {
+      height: 50px;
+      background: -moz-linear-gradient(right, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
+      background: -webkit-linear-gradient(right, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
+      background: linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(125, 185, 232, 0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#66000000', endColorstr='#007db9e8',GradientType=1 );
+      overflow: hidden;
+      position: relative;
+      top: 80px; }
+      .user-activity .place-img .place-info .info-cont {
+        padding: 5px;
+        float: right; }
+        .user-activity .place-img .place-info .info-cont .actions {
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 15px; }
+          .user-activity .place-img .place-info .info-cont .actions a img {
+            height: 22px;
+            width: 13.6px; }
+        .user-activity .place-img .place-info .info-cont .review {
+          display: inline-block;
+          vertical-align: middle; }
+          .user-activity .place-img .place-info .info-cont .review img {
+            width: 120px;
+            height: 18.6px;
+            cursor: pointer; }
+          .user-activity .place-img .place-info .info-cont .review .average {
+            color: #fff;
+            font-size: 0.95em; }

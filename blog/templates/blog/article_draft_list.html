@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body_content %}
+    {% for article in articles %}
+        <div class="post">
+            <p class="date">created: {{ article.created_date|date:'d-m-Y' }}</p>
+            <h1><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></h1>
+            <p>{{ article.text|truncatechars:200 }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

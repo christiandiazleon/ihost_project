@@ -389,11 +389,15 @@ class StudiesOffert(models.Model):
     )
     # Can I use later this package https://github.com/coderholic/django-cities
 
+    address = models.CharField(_("address"), max_length=255)
+
+    '''
     accreditations = models.ManyToManyField(
         Accreditations,
         verbose_name=u'High Quality accreditations',
         related_name="studiesofferts"
     )
+    '''
 
     institute_character = models.CharField(
         max_length=20,

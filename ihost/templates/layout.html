@@ -1,17 +1,21 @@
 {% load staticfiles %}
 
 
-{% comment %}
-
-{% load bootstrap3 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% endcomment %}
-
 <!DOCTYPE html>
 <html>
   <head>        
     <title>{% block title_tag %}HOSTAYNI Platform{% endblock %}</title>
+    
+    <!-- Medium Style Editor -->
+    <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    {# Custom CSS#}
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    {# Fonts#}
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% comment %} Jeronimo's static files  {% endcomment %}
@@ -24,13 +28,15 @@
 
     </script>
   </head>
-
-  <body>
+  
+  {# Retirar este class loader despues #}
+  <body class="loader">
     <div class="wrapper">
     <!-- Botones de registro e inicio de sesión -->
       <header>
   {% if user.is_authenticated %}
   {% if userprofile %}
+
   <div class="profile-options">
     <div class="img">
       <!-- Imagen de perfil -->
@@ -44,8 +50,11 @@
         <img src="{% static 'img/icons/gear.svg' %}" alt="">
         <div class="drop-down">
           <ul>
-            <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}">Settings</a></li>
+            <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
+            Settings</a></li>
             <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">My profile</a></li>
+            <li><a href="{% url 'article_new' %}">New Article</a></li>
+            <li><a href="{% url 'article_draft_list' %}">Drafts</a></li>
             <li class="line"></li>
             <li><a href="{% url 'logout' %}">Log Out</a></li>
           </ul>
@@ -56,7 +65,7 @@
   {% endif %}
   {% else %}
   <div class="registration">
-    <a href="{% url 'accounts:signup' %}">Registrarse</a><a href="{% url 'login' %}">Iniciar sesión</a>
+    <a href="{% url 'accounts:signup' %}">Join</a><a href="{% url 'login' %}">Login!</a>
   </div>
   {% endif %}
 </header>

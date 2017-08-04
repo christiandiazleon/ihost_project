@@ -18,10 +18,20 @@ from django.contrib import admin
 from django.conf import settings
 from .views import  home_files, HomePageView
 from accounts.views import DashboardProfileView
+from hosts.views import LodgingOfferViewSet,StudiesOffertViewSet
+
+from rest_framework import routers
+
 
 
 # Return a url pattern to serve the static files
 #from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'lodging-offers', LodgingOfferViewSet)
+router.register(r'studies-offers', StudiesOffertViewSet)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -38,7 +48,8 @@ urlpatterns = [
 
 
 
-    url(r'^$', HomePageView.as_view(), name='home'),
+    # url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'', include('blog.urls')),
 
     url(r'^dashboard/', DashboardProfileView.as_view(), name='dashboard'),
 
@@ -48,9 +59,16 @@ urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
         home_files, name='home-files'),
 
+    # Wire up our API using automatic URL routing.
+    url(r'^api/', include(router.urls,)),
+
+    url(r'^api-auth/', include('rest_framework.urls',
+        namespace='rest_framework')),
+
     url(r'^host/', include('hosts.urls', namespace='host')),
 
-    url(r'^host-information/', include('host_information.urls', namespace='host-information')),
+    url(r'^host-information/', include('host_information.urls',
+        namespace='host-information')),
 
 
 ]

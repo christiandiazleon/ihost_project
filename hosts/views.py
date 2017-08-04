@@ -6,12 +6,15 @@ from django.views.generic.detail import DetailView
 from django.utils import timezone
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from ihost.mixins import UserProfileDataMixin
+from rest_framework import viewsets
+
 from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import LodgingOffer, StudiesOffert, RoomInformation
 
 from host_information.models import LodgingServiceOffer
-
+from .serializers import LodgingOfferSerializer,StudiesOffertSerializer
 
 from .forms import (LodgingOfferForm,
     StudiesOffertForm, LodgingOfferSearchForm, StudiesOffertSearchForm)
@@ -20,6 +23,19 @@ from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
 
 # Create your views here.
+
+
+# ViewSets define the view behavior.
+class LodgingOfferViewSet(viewsets.ModelViewSet):
+    # lookup_field = 'name'
+    queryset = LodgingOffer.objects.all()
+    serializer_class = LodgingOfferSerializer
+
+class StudiesOffertViewSet(viewsets.ModelViewSet):
+    # lookup_field = 'name'
+    queryset = StudiesOffert.objects.all()
+    serializer_class = StudiesOffertSerializer
+
 
 
 class StudiesOffertSearch(FormView):
@@ -264,7 +280,7 @@ class HostingOfferSearch(LoginRequiredMixin, FormView):
             results = SearchQuerySet().models(LodgingOffer).filter(content=cd['query']).load_all()
 '''
 
-class HostingOfferCreateView(LoginRequiredMixin, CreateView):
+class HostingOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
     #success_url = reverse_lazy('dashboard')

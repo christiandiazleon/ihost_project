@@ -53,8 +53,8 @@ class LoginView(generic.FormView):
 
 
 class LogoutView(generic.RedirectView):
-    # Redirect back to home
-    url = reverse_lazy('home')
+    # Redirect back to article list
+    url = reverse_lazy('article_list')
 
     # se dispara cuando entra el request entrante
     def get(self, request, *args, **kwargs):

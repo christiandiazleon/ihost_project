@@ -2,6 +2,7 @@
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
 
+
 <script>
   $(function() {
     $( ".datepicker" ).datepicker({
@@ -24,7 +25,8 @@
     </h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {% bootstrap_form form %}
+        {#% bootstrap_form form %#}
+        {{ form.as_p }}
         {# equivalent to form.as_p #}
         <input type="submit" value="Save Offer" class="btn btn-default"> 
         <div>

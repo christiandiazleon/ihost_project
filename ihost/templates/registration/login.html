@@ -2,6 +2,7 @@
 
 {# Load the tag bootstrap3 library to create some bootstrap3
 automatically #}
+{# % load bootstrap3 % #}
 {% load bootstrap3 %}
 
 {% block title_tag %}Login | {{ block.super }}{% endblock %}
@@ -9,7 +10,11 @@ automatically #}
 {% block body_content %}
 <div class="container">
     <h1>Login</h1>
-    <form method="POST">
+
+    {% if form.errors %}
+        <p>Your username and password didn't match! PLease try again</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="POST"> mirar esto
         {% csrf_token %}
         {% bootstrap_form form %}
         {# equivalent to form.as_p #}
@@ -19,6 +24,5 @@ automatically #}
         </div>
     </form>
     
-</div>
-    
+</div>  
 {% endblock %}

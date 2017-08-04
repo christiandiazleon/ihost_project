@@ -123,6 +123,9 @@ class LodgingOffer(models.Model):
 
     address = models.CharField(_("address"), max_length=255)
 
+    latitude = models.CharField(_("latitude"), max_length=255)
+    longitude = models.CharField(_("longitude"), max_length=255)
+
     lodging_offer_type = models.CharField(
         max_length=255,
         choices=LODGING_OFFER_TYPE_CHOICES,
@@ -390,6 +393,9 @@ class StudiesOffert(models.Model):
     # Can I use later this package https://github.com/coderholic/django-cities
 
     address = models.CharField(_("address"), max_length=255)
+
+    latitude = models.CharField(_("latitude"), max_length=255)
+    longitude = models.CharField(_("longitude"), max_length=255)
 
     '''
     accreditations = models.ManyToManyField(

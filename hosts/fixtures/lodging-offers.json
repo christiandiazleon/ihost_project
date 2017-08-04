@@ -2,7 +2,7 @@
     "model": "hosts.lodgingoffer",
     "pk": 35,
     "fields": {
-        "created_by": 2,
+        "created_by": 1,
         "ad_title": "Apartamento multifamiliar",
         "country": "CO",
         "city": "Florencia",
@@ -26,7 +26,7 @@
     "model": "hosts.lodgingoffer",
     "pk": 36,
     "fields": {
-        "created_by": 2,
+        "created_by": 1,
         "ad_title": "Apartamento Universitario",
         "country": "CO",
         "city": "Envigado",
@@ -50,7 +50,7 @@
     "model": "hosts.lodgingoffer",
     "pk": 37,
     "fields": {
-        "created_by": 2,
+        "created_by": 1,
         "ad_title": "Hostal para ejecutivos",
         "country": "CN",
         "city": "Medellin",
@@ -74,7 +74,7 @@
     "model": "hosts.lodgingoffer",
     "pk": 41,
     "fields": {
-        "created_by": 2,
+        "created_by": 1,
         "ad_title": "La caba\u00f1a del Pug",
         "country": "CO",
         "city": "Envigado",

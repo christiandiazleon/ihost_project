@@ -1512,19 +1512,21 @@
     </div> {% comment %} Fin search column logo mapa filtro {% endcomment %}
 
     <!-- Contenido principal (ofertas) -->
+      {% for article in article_list %}
         <main>
             <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
             <article class="innovate full-width">
                 <div class="img-title-cont">
                     <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                    <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
                     <div class="title-cont">
-                        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
+                        <h3><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></h3>
                     </div>
                 </div>
                 <div class="post-info">
                     <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
                     <div class="post-type"><i>innovatehost</i></div>
+                    <p>Written by: <strong>{{ article.author.first_name }} {{ article.author.last_name }}</strong></p>
                     <div class="description">1Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
                     <!-- Calificaciones -->
                     <div class="review">
@@ -1541,10 +1543,11 @@
                     <!-- //Calificaciones -->
                 </div>
             </article>
+            
             <article class="social">
                 <div class="img-title-cont">
                     <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                    <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
                   
                     <div class="title-cont">
                         <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
@@ -1553,7 +1556,8 @@
                 <div class="post-info">
                     <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
                     <div class="post-type"><i>socialhost</i></div>
-                    <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
+                     <p>Written by: <strong>{{ article.author.first_name }} {{ article.author.last_name }}</strong></p>
+                    <div class="description">ssLorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
                     <!-- Calificaciones -->
                     <div class="review">
                         <p class="cost"><span>$ </span>147.000</p>
@@ -1572,7 +1576,7 @@
             <article class="host">
                 <div class="img-title-cont">
                     <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                    <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
                     <div class="title-cont">
                         <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
                     </div>
@@ -1580,6 +1584,7 @@
                 <div class="post-info">
                     <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
                     <div class="post-type"><i>hostinghost</i></div>
+                    <p>Written by: <strong>{{ article.author.first_name }} {{ article.author.last_name }}</strong></p>
                     <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
                     <!-- Calificaciones -->
                     <div class="review">
@@ -1599,7 +1604,7 @@
             <article class="learn full-width">
                 <div class="img-title-cont">
                     <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
-                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                    <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
                     <div class="title-cont">
                         <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum sed urna malesuada, </h3>
                     </div>
@@ -1607,6 +1612,7 @@
                 <div class="post-info">
                     <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
                     <div class="post-type"><i>learnhost</i></div>
+                    <p>Written by: <strong>{{ article.author.first_name }} {{ article.author.last_name }}</strong></p>
                     <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
                     <!-- Calificaciones -->
                     <div class="review">
@@ -1625,6 +1631,7 @@
                 </div>
             </article>
         </main>
+        {% endfor %}
     </div>
 {% endblock %}
 

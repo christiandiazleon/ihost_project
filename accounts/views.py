@@ -12,7 +12,7 @@ from django.views import generic
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
-
+from ihost.mixins import UserProfileDataMixin, ProfileImageUser
 
 
 from django.shortcuts import render, get_object_or_404
@@ -90,112 +90,19 @@ def signup(request):
         return render(request, 'accounts/signup2.html', {'form': form})
 
 
-class DashboardProfileView(TemplateView):
+class DashboardProfileView(UserProfileDataMixin, ProfileImageUser, TemplateView):
     template_name = 'dashboard.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(DashboardProfileView, self).get_context_data(**kwargs)
-        user = self.request.user
-        if user.is_authenticated():
-            context['userprofile'] = user.profile
-
-        '''
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
-
-        elif user.is_student and user.is_professor and user.is_executive:
-            student_profile = user.get_student_profile()
-            professor_profile = user.get_professor_profile()
-            executive_profile = user.get_executive_profile()
-            context['student_profile'] = student_profile
-            context['professor_profile'] = professor_profile
-            context['executive_profile'] = executive_profile
-        '''
-        return context
 
 
-class AccountSettingsUpdateView(LoginRequiredMixin, UpdateView):
+
+class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
     success_url = reverse_lazy('dashboard')
     #context_object_name = 'preferences'
 
-    '''
-    def post(self, request, *args,**kwargs):
-        form = self.get_form()
-        if request.method=='POST':
-            form = UserUpdateForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                return super(AccountSettingsUpdateView, self).form_valid(form)
-        else:
-            return super(AccountSettingsUpdateView, self).form_invalid(form)
 
-    def form_valid(self, form):
-        if self.request.method == 'POST':
-            form = UserUpdateForm(self.request.POST, self.request.FILES)
-            if form.is_valid():
-                form.save()
-                return super(AccountSettingsUpdateView, self).form_valid(form)
-        else:
-            return super(AccountSettingsUpdateView, self).form_invalid(form)
-        #return render(self.request, 'user_form.html', {'form':form})
-    '''
-
-    def get_context_data(self, **kwargs):
-        context = super(AccountSettingsUpdateView, self).get_context_data(**kwargs)
-
-        user = self.request.user
-        context['userprofile'] = user.profile
-
-        # To UserDetailView
-        #speaklanguages = User.objects.get(pk=self.kwargs.get('pk'))
-        #speak_languages_user = speaklanguages.speak_languages.all()
-        #context['speaklanguages'] = speak_languages_user
-        # print(speak_languages_user)
-
-        '''
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
-        '''
-        return context
 
 class AccountSettingsEnterpriseUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
@@ -251,66 +158,6 @@ def user_profile_update_view(request, slug):
     return render(request, 'accounts/profile_form.html', {'forms': forms, 'userprofile':profile,})
 
 
-'''
-class AccountProfilesView(LoginRequiredMixin, UpdateView):
-    # All users can access this view
-    model = get_user_model()
-    success_url = reverse_lazy('dashboard')
-    template_name = 'accounts/profile_form.html'
-    fields = '__all__'
-
-    def get_context_data(self, **kwargs):
-        context = super(AccountProfilesView, self).get_context_data(**kwargs)
-        user = self.request.user
-
-        if not self.request.POST:
-            if user.is_student:
-                profile = user.get_student_profile()
-                context['userprofile'] = profile
-                context['form_student'] = forms.StudentProfileForm()
-            if user.is_professor:
-                profile = user.get_professor_profile()
-                context['userprofile'] = profile
-                context['form_professor'] = forms.ProfessorProfileForm()
-                # print ("profesor form is", context['form_professor'])
-            if user.is_executive:
-                profile = user.get_executive_profile()
-                context['userprofile'] = profile
-                context['form_executive'] = forms.ExecutiveProfileForm()
-        else:
-            if user.is_student:
-                context['form_student'] = forms.StudentProfileForm(
-                self.request.POST)
-            if user.is_professor:
-                context['form_professor'] = forms.ProfessorProfileForm(
-                self.request.POST)
-            if user.is_executive:
-                context['form_executive'] = forms.ExecutiveProfileForm(
-                self.request.POST)
-        return context
-
-    def form_valid(self, form):
-        context = self.get_context_data(form=form)
-        user = self.request.user
-        user = form.save()
-        if user.is_student:
-            student = context['form_student'].save(commit=False)
-            student.user = user
-            student.save()
-        if user.is_professor:
-            professor = context['form_professor'].save(commit=False)
-            professor.user = user
-            professor.save()
-        if user.is_executive:
-            executive = context['form_executive'].save(commit=False)
-            executive.user = user
-            executive.save()
-        return super(AccountProfilesView, self).form_valid(form)
-
-
-    def get_success_url(self):
-        return reverse('dashboard')
-'''
 
 
 

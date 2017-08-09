@@ -8,7 +8,15 @@ class Article(models.Model):
     author = models.ForeignKey('accounts.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now())
+
+    image = models.ImageField(
+        upload_to='article_images',
+        blank=False,
+        null=False,
+        verbose_name='Image'
+    )
+
+    created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True,null=True)
 
     # Asi puedo grabar una imagen por defecto
@@ -30,7 +38,7 @@ class Comment(models.Model):
     article = models.ForeignKey('blog.Article',related_name='comments')
     author = models.CharField(max_length=200)
     text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
 
     def approve(self):

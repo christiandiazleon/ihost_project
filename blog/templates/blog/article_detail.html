@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% load bootstrap3 %}
+
 
 {% block body_content %}
     <h1 class="posttitle loader">{{ article.title }}</h1>
@@ -10,7 +10,8 @@
     {% else %}
         <a class="btn btn-default" href="{% url 'article_publish' pk=article.pk %}">Publish</a>
     {% endif %}
-
+     <img src="{{ article.image.url }}" alt="">
+    
     <p class="postcontent">{{ article.text|safe|linebreaksbr }}</p>
   
     
@@ -45,6 +46,7 @@
   {% empty %}
       <p>No comments posted.</p>
   {% endfor %}
+
 </div>
 
 {% endblock %}

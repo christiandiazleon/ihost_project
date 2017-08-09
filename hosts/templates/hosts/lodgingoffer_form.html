@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
+
 {% block title_tag %}Lodging Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
+
 
 
 <script>
@@ -15,6 +17,7 @@
 
     });
   });
+</script>
 <div class="container">
     <h1>
       {% if not form.instance.pk %}
@@ -25,10 +28,10 @@
     </h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {#% bootstrap_form form %#}
+        
         {{ form.as_p }}
         {# equivalent to form.as_p #}
-        <input type="submit" value="Save Offer" class="btn btn-default"> 
+        <input type="submit" value="Save Offer"> 
         <div>
         
     </div>

@@ -292,42 +292,6 @@ class HostingOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateVie
         return super(HostingOfferCreateView, self).form_valid(form)
 
 
-    def get_context_data(self, **kwargs):
-        context = super(HostingOfferCreateView, self).get_context_data(**kwargs)
-        user = self.request.user
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
-
-        elif user.is_student and user.is_professor and user.is_executive:
-            student_profile = user.get_student_profile()
-            professor_profile = user.get_professor_profile()
-            executive_profile = user.get_executive_profile()
-            context['student_profile'] = student_profile
-            context['professor_profile'] = professor_profile
-            context['executive_profile'] = executive_profile
-        return context
-
 
 class HostingOfferUpdateView(LoginRequiredMixin, UpdateView):
     model = LodgingOffer
@@ -440,7 +404,7 @@ class HostingOfferDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-class StudyOfferCreateView(LoginRequiredMixin, CreateView):
+class StudyOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
     #success_url = reverse_lazy("host:detail")
@@ -453,41 +417,6 @@ class StudyOfferCreateView(LoginRequiredMixin, CreateView):
         form.save()
         return super(StudyOfferCreateView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(StudyOfferCreateView, self).get_context_data(**kwargs)
-        user = self.request.user
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
-
-        elif user.is_student and user.is_professor and user.is_executive:
-            student_profile = user.get_student_profile()
-            professor_profile = user.get_professor_profile()
-            executive_profile = user.get_executive_profile()
-            context['student_profile'] = student_profile
-            context['professor_profile'] = professor_profile
-            context['executive_profile'] = executive_profile
-        return context
 
 
 class StudyOffertDetailView(LoginRequiredMixin, DetailView):

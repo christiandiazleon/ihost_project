@@ -41,6 +41,7 @@
     <div class="img">
       <!-- Imagen de perfil -->
       <img src="{{ object.image_url|default_if_none:'#' }}" alt="">
+      {% comment %}<img src="{{ userprofile.avatar.url }}" alt="">{% endcomment %}
     </div>
     <div class="name-options-cont">
       <div class="name">
@@ -50,9 +51,10 @@
         <img src="{% static 'img/icons/gear.svg' %}" alt="">
         <div class="drop-down">
           <ul>
+            {% comment %}
             <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
             Settings</a></li>
-            <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">My profile</a></li>
+            <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">My profile</a></li> {% endcomment %}
             <li><a href="{% url 'article_new' %}">New Article</a></li>
             <li><a href="{% url 'article_draft_list' %}">Drafts</a></li>
             <li class="line"></li>

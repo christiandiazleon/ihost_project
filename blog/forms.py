@@ -4,7 +4,7 @@ from blog.models import Article, Comment
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ('author', 'title', 'text')
+        fields = ('author', 'title', 'text', 'image')
 
         widgets = {
             'title':forms.TextInput(attrs={'class':'textinputclass'}),

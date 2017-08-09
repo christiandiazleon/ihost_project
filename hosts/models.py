@@ -123,8 +123,8 @@ class LodgingOffer(models.Model):
 
     address = models.CharField(_("address"), max_length=255)
 
-    latitude = models.CharField(_("latitude"), max_length=255)
-    longitude = models.CharField(_("longitude"), max_length=255)
+    latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
+    longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
     lodging_offer_type = models.CharField(
         max_length=255,
@@ -394,8 +394,8 @@ class StudiesOffert(models.Model):
 
     address = models.CharField(_("address"), max_length=255)
 
-    latitude = models.CharField(_("latitude"), max_length=255)
-    longitude = models.CharField(_("longitude"), max_length=255)
+    latitude = models.CharField(_("latitude"), max_length=255, null=True, blank=True)
+    longitude = models.CharField(_("longitude"), max_length=255, null=True, blank=True)
 
     '''
     accreditations = models.ManyToManyField(

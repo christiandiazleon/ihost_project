@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 class Article(models.Model):
     author = models.ForeignKey('accounts.User')
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=250)
     text = models.TextField()
 
     image = models.ImageField(
@@ -33,7 +33,7 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-
+'''
 class Comment(models.Model):
     article = models.ForeignKey('blog.Article',related_name='comments')
     author = models.CharField(max_length=200)
@@ -50,3 +50,26 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+'''
+
+
+class Comment(models.Model):
+    article = models.ForeignKey('blog.Article', related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+
+    # We use the created field to sort comments in chronological order by default.
+    created = models.DateTimeField(auto_now_add=True)
+
+    updated = models.DateTimeField(auto_now=True)
+
+    # active boolean field that we will use to manually deactivate
+    # inappropriate comments.
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return 'Comment by {} on {}'.format(self.name, self.article)

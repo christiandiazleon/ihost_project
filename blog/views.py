@@ -22,6 +22,7 @@ from django.views.generic import (ListView, DetailView,
 class ArticleListView(UserProfileDataMixin, ListView):
     template_name = 'ihost/home.html'
     model = Article
+    paginate_by = 2
 
     # Permite usar el django ORM en las CBV genericas solamente
     # para personalizar el query acorde a lo que queremos es como un
@@ -34,6 +35,9 @@ class ArticleListView(UserProfileDataMixin, ListView):
 
 class ArticleDetailView(UserProfileDataMixin, DetailView):
     model = Article
+
+def article_detail(request, pk):
+    pass
 
 
 

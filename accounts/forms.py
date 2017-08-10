@@ -44,7 +44,6 @@ class DateInput(forms.DateInput):
 
 
 class UserUpdateForm(forms.ModelForm):
-
     bio = forms.CharField(widget=forms.Textarea)
 
     class Meta:
@@ -61,9 +60,9 @@ class UserUpdateForm(forms.ModelForm):
         fields = ("first_name", "last_name", "gender", "enterprise_name",
         "country_of_origin", "city_of_origin", "country_current_residence",
         "city_current_residence", 'speak_languages', "phone_number",
-        "address", "bio", "avatar", "date_of_birth", 'entertainment_activities'
-        , "is_student", "is_professor", "is_executive", "is_study_host",
-        "is_hosting_host",)
+        "address", "bio", "avatar", "date_of_birth",
+        'entertainment_activities', "is_student", "is_professor",
+        "is_executive", "is_study_host", "is_hosting_host",)
 
         model = get_user_model()
 

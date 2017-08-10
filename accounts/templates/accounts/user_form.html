@@ -1,49 +1,124 @@
 {% extends 'layout.html' %}
-{% load bootstrap3 %}
+
 
 {% block title_tag %}Accounts | Settings | iHost {{ block.super }}{% endblock %}
 
 {% block body_content %}
-<div class="container">
-    <h1>Account Details</h1>
-    <form enctype="multipart/form-data" method="POST">
-        {% csrf_token %}
-        {% if user.user_type == 'I' %}
-            {{ form.enterprise_name }}
-            {{ form.country_of_origin }}
-            {{ form.city_of_origin }}
-            {{ form.country_current_residence }}
-            {{ form.city_current_residence }}
-            {{ form.phone_number }}
-            {{ form.address }}
-            {{ form.bio }}
-        {% else %}
-            {{ form }} 
-        {% endif %}           
-        {% comment %}
-            {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
-        
-            {% bootstrap_field form.enterprise_name %} 
-            {% bootstrap_field form.country_of_origin %} 
-            {% bootstrap_field form.city_of_origin %} 
-            {% bootstrap_field form.country_current_residence %} 
-            {% bootstrap_field form.city_current_residence %} 
-            {% bootstrap_field form.phone_number %} 
-            {% bootstrap_field form.address %} 
-            {% bootstrap_field form.bio %} 
-            {% bootstrap_field form.avatar %} 
-            {% bootstrap_field form.date_of_birth %} 
-            {% bootstrap_field form.is_study_host %} 
-            {% bootstrap_field form.is_hosting_host %}
-        
-        
-        {% else %}
-            {% bootstrap_form form exclude="enterprise_name,is_study_host" %}  
-        {% endif %}
-        {% endcomment %}
-        <input type="submit" value="Save Changes" class="btn btn-primary">
-        
+<div class="main">
+    <div class="form-cont">
+        <h1>Account Details</h1>
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {% if user.user_type == 'I' %}
+                <label for="{{ form.enterprise_name.id_for_label }}">Enterprise name</label>
+                    {{ form.enterprise_name }} <br /><br />
+                
+                <label for="{{ form.country_of_origin.id_for_label }}">Country of origin
+                </label>
+                    {{ form.country_of_origin }} <br /><br />
+                
+                <label for="{{ form.city_of_origin.id_for_label }}">Hometown</label>
+                    {{ form.city_of_origin }} <br /><br />
+                
+                <label for="{{ form.country_current_residence.id_for_label }}">Country of residence</label>
+                    {{ form.country_current_residence }} <br /><br />
+                
+                <label for="{{ form.city_current_residence.id_for_label }}">City of residence</label>
+                    {{ form.city_current_residence }} <br /><br />
+                
+                <label for="{{ form.phone_number.id_for_label }}">Telephone number</label>
+                    {{ form.phone_number }} <br /><br />
+                
+                <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{ form.address }} <br /><br />
+                
+                <label for="{{ form.bio.id_for_label }}">Biography</label>
+                    {{ form.bio }} <br /><br />
 
-    </form>
+                <label for="{{ form.avatar.id_for_label }}">Photo</label>
+                    {{ form.avatar }} <br /><br />
+                
+                <label for="{{ form.is_study_host.id_for_label }}">Study Host</label>
+                    {{ form.is_study_host }} <br /><br />
+                
+                <label for="{{ form.is_hosting_host.id_for_label }}">Hosting Host</label>
+                    {{ form.is_hosting_host }} <br />
+            {% else %}
+                <label for="{{ form.first_name.id_for_label }}">First name:</label>
+                    {{ form.first_name }} <br /><br />
+                
+                <label for="{{ form.last_name.id_for_label }}">Last name:</label>
+                    {{ form.last_name }} <br /><br />
+                
+                <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                    {{ form.gender }} <br /><br />
+                
+                <label for="{{ form.country_of_origin.id_for_label }}">Country of origin
+                </label>
+                    {{ form.country_of_origin }} <br /><br />
+                
+                <label for="{{ form.city_of_origin.id_for_label }}">Hometown</label>
+                    {{ form.city_of_origin }} <br /><br />
+                
+                <label for="{{ form.country_current_residence.id_for_label }}">Country of residence</label>
+                    {{ form.country_current_residence }} <br /><br />
+                
+                <label for="{{ form.city_current_residence.id_for_label }}">City of residence</label>
+                    {{ form.city_current_residence }} <br /><br />
+
+                <label for="{{ form.speak_languages.id_for_label }}">Speak Languages</label>
+                    {{ form.speak_languages }} <br /><br />
+
+                 <label for="{{ form.phone_number.id_for_label }}">Telephone number</label>
+                    {{ form.phone_number }} <br /><br />
+
+                <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{ form.address }} <br /><br />
+                
+                <label for="{{ form.bio.id_for_label }}">Biography</label>
+                    {{ form.bio }} <br /><br />
+
+                <label for="{{ form.avatar.id_for_label }}">Photo</label>
+                    {{ form.avatar }} <br /><br />
+                
+                <label for="{{ form.is_student.id_for_label }}">Student</label>
+                    {{ form.is_student }} <br /><br />
+                
+                <label for="{{ form.is_professor.id_for_label }}">Professor</label>
+                    {{ form.is_professor }} <br /><br />
+
+                <label for="{{ form.is_executive.id_for_label }}">Executive</label>
+                    {{ form.is_executive }} <br /><br />
+
+                <label for="{{ form.is_hosting_host.id_for_label }}">Hosting Host</label>
+                    {{ form.is_hosting_host }} <br />
+
+            {% endif %}           
+            {% comment %}
+                {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
+            
+                {% bootstrap_field form.enterprise_name %} 
+                {% bootstrap_field form.country_of_origin %} 
+                {% bootstrap_field form.city_of_origin %} 
+                {% bootstrap_field form.country_current_residence %} 
+                {% bootstrap_field form.city_current_residence %} 
+                {% bootstrap_field form.phone_number %} 
+                {% bootstrap_field form.address %} 
+                {% bootstrap_field form.bio %} 
+                {% bootstrap_field form.avatar %} 
+                {% bootstrap_field form.date_of_birth %} 
+                {% bootstrap_field form.is_study_host %} 
+                {% bootstrap_field form.is_hosting_host %}
+            
+            
+            {% else %}
+                {% bootstrap_form form exclude="enterprise_name,is_study_host" %}  
+            {% endif %}
+            {% endcomment %}
+            <input type="submit" value="Save Changes" class="btn btn-primary">
+            
+
+        </form>
+    </div>
 </div>
 {% endblock %}

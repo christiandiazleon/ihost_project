@@ -9,8 +9,9 @@
         {% csrf_token %}
 
         {% for form in forms %}
-            <h2>{{ form.title }}</h2>
-                {% bootstrap_form form %}
+            <h2>{{ form.title }}</h2> <br /><br />
+                {% bootstrap_form form %}<br /><br />
+                
                 
         {% endfor %}
     

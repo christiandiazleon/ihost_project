@@ -1633,6 +1633,8 @@
             {% endcomment %}
         </main>
         {% endfor %}
+        {% include "pagination.html" with page=page_obj %}
     </div>
+
 {% endblock %}
 

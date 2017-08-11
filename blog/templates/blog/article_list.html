@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block title_tag %}Articles created | {{ block.super }}{% endblock %}
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+{% block body_content %}
+<table>
+  <tr>
+    <th>Article</th>
+    <th>Actions</th>
+  </tr>
+  {% for article in articles %}
+  <tr>
+    <td><h5><a href="{% url 'article_detail' article.slug %}">{{ article.title }}</a></h5></td>
+    <td><p><a href = "{% url 'article_edit' article.slug %}">Update</a></td>
+    <td><p><a href = "{% url 'article_remove' article.slug %}">Delete</a></td>
+    
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

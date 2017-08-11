@@ -19,6 +19,18 @@ from django.views.generic import (ListView, DetailView,
 # Create your views here.
 
 
+
+def articles_by_user(request, email):
+    user = request.user
+    profile = user.profile
+    articles = Article.objects.filter(author__email=user.email)
+    return render(
+        request,
+        'blog/article_list.html',
+        {'articles': articles,
+        'userprofile': profile})
+
+
 class ArticleListView(UserProfileDataMixin, ListView):
     template_name = 'ihost/home.html'
     model = Article

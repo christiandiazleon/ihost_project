@@ -11,15 +11,19 @@ urlpatterns = [
     url(r'^article/(?P<slug>[\w.\-]+)/$', views.article_detail,
         name='article_detail'),
 
+    url(r'^articles/by/u/@(?P<email>[-\w]+)/$',
+        views.articles_by_user, name='list'
+    ),
+
     # url(r'^article/(?P<pk>\d+)/$', views.ArticleDetailView.as_view(),
     #    name='article_detail'),
 
 
 
-    #url(r'^article/(?P<pk>\d+)/edit/$', views.ArticleUpdateView.as_view(),
-    #    name='article_edit'),
+    url(r'^article/(?P<slug>[\w.\-]+)/edit/$',
+        views.ArticleUpdateView.as_view(), name='article_edit'),
 
-    # url(r'^article/(?P<pk>\d+)/remove/$', views.ArticleDeleteView.as_view(), name='article_remove'),
+    url(r'^article/(?P<slug>[\w.\-]+)/remove/$', views.ArticleDeleteView.as_view(), name='article_remove'),
 
 
     #url(r'^drafts/$', views.ArticleDraftListView.as_view(),

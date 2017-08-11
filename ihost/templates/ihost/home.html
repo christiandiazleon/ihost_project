@@ -1505,10 +1505,12 @@
                     <img src="{% static 'img/icons/social.svg' %}" alt="">
                 </div>
             </div>
+            {% comment %}
             <a href="#" class="plan-travel-button">
                 <img src="{% static 'img/icons/plus.png' %}" alt="+">
                 <span>Planea tu viaje en Hostayni</span>
             </a>
+            {% endcomment %}
     </div> {% comment %} Fin search column logo mapa filtro {% endcomment %}
 
     <!-- Contenido principal (ofertas) -->
@@ -1529,6 +1531,7 @@
                     <p>Published {{ article.published_date }} by {{ article.author.email }} - <strong>{{ article.author.first_name }} {{ article.author.last_name }}</strong></p>
                     <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit Donec erat sem, rutrum nec pulvinar cursus, imperdiet nec lectus. Integer sagittis ipsum.</div>
                     <!-- Calificaciones -->
+                    {% comment %}
                     <div class="review">
                         <p class="cost"><span>$ </span>147.000</p>
                         <div class="stars">
@@ -1540,6 +1543,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endcomment %}
                     <!-- //Calificaciones -->
                 </div>
             </article>

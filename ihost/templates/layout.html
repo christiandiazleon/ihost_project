@@ -58,6 +58,7 @@
                     Settings</a></li>
                     <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">My profile</a></li> 
                     <li><a href="{% url 'article_new' %}">New Article</a></li>
+                    <li><a href="{% url 'list' userprofile.user.slug %}">My Articles</a></li>
                     {% comment %}<li><a href="{% url 'article_draft_list' %}">Drafts</a></li>{% endcomment %}
                     <li class="line"></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>

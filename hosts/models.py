@@ -290,6 +290,8 @@ class StudiesTypeOffered(models.Model):
 # Relacionarlo con el studyhost y que este pueda ingresarlos
 # para despues traerlos en el campo de studies_offert_list  en el perfil
 
+# MOdelo a borrar
+
 
 class StudiesOffertList(models.Model):
 

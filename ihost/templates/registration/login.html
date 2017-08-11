@@ -24,7 +24,10 @@ automatically #}
     
        
         {% comment %} {% bootstrap_form form %} {% endcomment %}
-        {{ form.as_p }}
+        {% comment %}{{ form.as_p }}{% endcomment %}
+        
+        {{ form.username }}
+        {{ form.password }}
         <input type="submit" value="Login" class="btn btn-default"> 
         <div>
             <a href="../password_reset/">Forgot your password?</a>

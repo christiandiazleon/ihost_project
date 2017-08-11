@@ -5,7 +5,6 @@
 {% block title_tag %}Sign Up | {{ block.super }}{% endblock %}
 
 {% block body_content %}
-<body class="grey-background">
   <div class="form-cont">
     <div class="main">
       <a href="{% url 'article_list' %}" class="logo-cont">
@@ -53,10 +52,18 @@
         </div>
         {% endcomment %}
 
-        <img src="{% static 'img/icons/ok.png' %}"><input type="submit" value="Sign up" class="submit-button">
+        
+        <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48"><input type="submit" value="Sign up" class="submit-button">
         
       </form>
-
+      <p class="legal">Al registrarse acepta nuestros <a href="#">Términos de uso</a> y <a href="#">Política de privacidad</a></p>
+      </div>
+      <div class="portrait">
+      <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+          <span>Toronto, Canadá</span>
+    </div>
+  </div>
+      
       {% endblock %}
       <div class="social-cont">
       <img src="img/social.png">
@@ -64,12 +71,8 @@
         <div></div>
         <div></div>
       </div>
-      <p class="legal">Al registrarse acepta nuestros <a href="#">Términos de uso</a> y <a href="#">Política de privacidad</a></p>
+      
     </div>
-    <div class="portrait">
-      <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
-          <span>Toronto, Canadá</span>
-    </div>
-  </div>
-</body>
-</html>
+    
+  
+

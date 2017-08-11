@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 {# Load the tag bootstrap3 library to create some bootstrap3
-automatically #}
-{% load bootstrap3 %}
+automatically 
+{% load bootstrap3 %}#}
 {% block title_tag %}Login | {{ block.super }}{% endblock %}
 
 {% block body_content %}
@@ -18,7 +18,7 @@ automatically #}
                 {% csrf_token %}
                 {% comment %} {% bootstrap_form form %} {% endcomment %}
                 {# equivalent to form.as_p #}
-                {{ form.email }}
+                {{ form.email }} 
                 {{ form.password }}
 
                 <input type="submit" value="Login" class="btn btn-default"> 

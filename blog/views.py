@@ -5,7 +5,7 @@ from django.utils import timezone
 from blog.models import Article, Comment
 from blog.forms import ArticleForm, CommentForm
 from django.urls import reverse_lazy
-
+from .forms import CommentForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ihost.mixins import UserProfileDataMixin
@@ -36,10 +36,36 @@ class ArticleListView(UserProfileDataMixin, ListView):
 class ArticleDetailView(UserProfileDataMixin, DetailView):
     model = Article
 
-def article_detail(request, pk):
-    pass
 
+def article_detail(request, slug):
+    user = request.user
+    profile = user.profile
+    queryset = Article.objects.filter(published_date__lte=timezone.now())
+    article = get_object_or_404(Article, slug=slug)
 
+    # Add a QuerySet to retrieve all active comments for this post:
+    comments = article.comments.filter(active=True)
+
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current article to the comment we just created
+            # By doing this, we are specifying that the new comment belongs to
+            # the given post.
+            new_comment.article = article
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    return render(request,
+                    'blog/article_detail.html',
+                    {'article': article,
+                    'comments': comments,
+                    'comment_form': comment_form,
+                    'userprofile':profile })
 
 
 class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
@@ -49,6 +75,11 @@ class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
 
     model=Article
 
+    def form_valid(self, form):
+        form.save(commit=False)
+        form.instance.author = self.request.user
+        form.save()
+        return super(CreateArticleView, self).form_valid(form)
 
 class ArticleUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     login_url = 'accounts/login/'
@@ -78,11 +109,11 @@ class ArticleDraftListView(LoginRequiredMixin, UserProfileDataMixin, ListView):
 #######################################
 
 @login_required
-def article_publish(request, pk):
-    article = get_object_or_404(Article,pk=pk)
+def article_publish(request, slug):
+    article = get_object_or_404(Article, slug=slug)
     # View publish method in Article model
     article.publish()
-    return redirect('article_detail', pk=pk)
+    return redirect('article_detail', slug=slug)
 
 @login_required
 def add_comment_to_article(request, pk):

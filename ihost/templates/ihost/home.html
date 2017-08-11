@@ -1520,7 +1520,7 @@
                     <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
                     <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
                     <div class="title-cont">
-                        <h3><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></h3>
+                        <h3><a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}</a></h3>
                     </div>
                 </div>
                 <div class="post-info">

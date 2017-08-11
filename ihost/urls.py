@@ -47,9 +47,8 @@ urlpatterns = [
     # I don't assign namespace because this is django URL
 
 
-
     # url(r'^$', HomePageView.as_view(), name='home'),
-    url(r'', include('blog.urls')),
+
 
     url(r'^dashboard/', DashboardProfileView.as_view(), name='dashboard'),
 
@@ -64,6 +63,9 @@ urlpatterns = [
 
     url(r'^api-auth/', include('rest_framework.urls',
         namespace='rest_framework')),
+
+    url(r'^', include('blog.urls')),
+
 
     url(r'^host/', include('hosts.urls', namespace='host')),
 

@@ -2,20 +2,22 @@
 
 
 {% block body_content %}
-    <h1 class="posttitle loader">{{ article.title }}</h1>
+<div class="main">
+  <div class="form-cont">
+    <h1>{{ article.title }}</h1>
     {% if article.published_date %}
-        <div class="date postdate">
+        <div>
             {{ article.published_date }}
         </div>
     {% else %}
-        <a class="btn btn-default" href="{% url 'article_publish' pk=article.pk %}">Publish</a>
+        <a href="{% url 'article_publish' slug=article.slug %}">Publish</a>
     {% endif %}
      <img src="{{ article.image.url }}" alt="">
-    
-    <p class="postcontent">{{ article.text|safe|linebreaksbr }}</p>
+    <br /><br />
+    <p align="justify">{{ article.text|safe|linebreaksbr }}</p>
   
     
-
+    {% comment %}
     {% if user.is_authenticated %}
         <a href="{% url 'article_edit' pk=article.pk %}">
             <span>Edit</span>
@@ -24,8 +26,51 @@
             <span>Remove</span>
         </a>
     {% endif %}
+    {% endcomment %}
+    <br /><br />
     
     <hr>
+    
+    {% with comments.count as total_comments %}
+      <h2>
+        {{ total_comments }} comment{{ total_comments|pluralize }}
+      </h2>
+    {% endwith %}
+
+    {% comment %}List of comments{% endcomment %}
+    {% for comment in comments %}
+      <div class="comment">
+        <p class="info">
+          Comment {{ forloop.counter }} by {{ comment.name }}
+          <br /><br />
+          {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+      </div>
+      <br /><br />
+    {% empty %}
+      <p>There are no comments yet.</p>
+    {% endfor %}
+
+    {% if new_comment %}
+      <h2>Your comment has been added.</h2>
+    {% else %}
+      <h2>Add a new comment</h2>
+      <form action="." method="post"> <br /> 
+        {% csrf_token %}
+        <label for="{{ form.name.id_for_label }}">Name</label>
+        {{ comment_form.name }}<br /><br />
+
+        <label for="{{ form.email.id_for_label }}">Email</label>
+        {{ comment_form.email }}<br /><br />
+
+        <label for="{{ form.body.id_for_label }}">Message</label>
+        {{ comment_form.body }}<br /><br />
+        <p><input type="submit" value="Add comment"></p>
+      </form>
+    {% endif %}
+
+    {% comment %}
     <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_article' pk=article.pk %}">Add comment</a>
     <div class="container">
 
@@ -48,5 +93,7 @@
   {% endfor %}
 
 </div>
-
+{% endcomment %}
+  </div>
+</div>
 {% endblock %}

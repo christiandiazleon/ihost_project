@@ -91,7 +91,7 @@
                     {{ form.is_executive }} <br /><br />
 
                 <label for="{{ form.is_hosting_host.id_for_label }}">Hosting Host</label>
-                    {{ form.is_hosting_host }} <br />
+                    {{ form.is_hosting_host }} <br /><br />
 
             {% endif %}           
             {% comment %}
@@ -115,7 +115,7 @@
                 {% bootstrap_form form exclude="enterprise_name,is_study_host" %}  
             {% endif %}
             {% endcomment %}
-            <input type="submit" value="Save Changes" class="btn btn-primary">
+            <input type="submit" value="Save Changes">
             
 
         </form>

@@ -2,12 +2,17 @@
 {% load bootstrap3 %}
 
 {% block body_content %}
-    <h1>New post</h1>
+    <h1>New Article</h1>
 
     <form method="POST" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="save btn btn-default">Save</button>
+    <label for="{{ form.title.id_for_label }}">Title</label>
+    {{form.title}}<br><br>
+    <label for="{{ form.text.id_for_label }}">Text</label>
+    {{form.text}}<br><br>
+    <label for="{{ form.image.id_for_label }}">Photo</label>
+    {{ form.image }} <br /><br />
+    <button type="submit">Save</button>
     </form>
 
     <script>var editor = new MediumEditor('.editable');</script>

@@ -2,15 +2,7 @@
 {% load staticfiles %}
 
 
-<!DOCTYPE html>
-<html lang="es-ES" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>{% block title_tag %}Sign Up | {{ block.super }}{% endblock %}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% comment %}<link rel="stylesheet" href="css/main.css" type="text/css">{% endcomment %}
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-</head>
+{% block title_tag %}Sign Up | {{ block.super }}{% endblock %}
 
 {% block body_content %}
 <body class="grey-background">
@@ -30,7 +22,6 @@
         {% endcomment %}
 
         
-        {{ form.email.errors }}
         <label for="{{ form.email.id_for_label }}">Email address:</label>
         {{ form.email }}
         <label for="{{ form.password1.id_for_label }}">Password:</label>
@@ -38,7 +29,7 @@
         <label for="{{ form.password2.id_for_label }}">Password confirmation:</label>
         {{ form.password2 }}
         <div class="rad-cont">
-        {{ form.user_type }}
+          {{ form.user_type }}
         </div>
 
         {% comment %}

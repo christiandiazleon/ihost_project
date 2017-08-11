@@ -11,7 +11,7 @@ DATABASES = {
         'NAME': get_env_variable('DATABASE_NAME'),
         'USER': get_env_variable('DATABASE_USER'),
         'PASSWORD': get_env_variable('DATABASE_PASSWORD'),
-        'HOST': 'ec2-54-204-32-145.compute-1.amazonaws.com',
+        'HOST': 'ec2-54-225-236-102.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }

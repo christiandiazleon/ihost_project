@@ -7,7 +7,7 @@ class DateInput(forms.DateInput):
 
 class StudiesOffertForm(forms.ModelForm):
     #user = self.request.user
-    title = "Studies Offert"
+    ad = "Studies Offert"
     #scholarships = forms.ModelForm(queryset=Scholarship.objects.filter(created_by__username=user))
 
     class Meta:

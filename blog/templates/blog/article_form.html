@@ -1,19 +1,45 @@
 {% extends "layout.html" %}
-{% load bootstrap3 %}
+{% load staticfiles %}
+{% block title_tag %}Create Article | {{ block.super }}{% endblock %}
+
 
 {% block body_content %}
-    <h1>New Article</h1>
+<div class="offert-form">
+    <h1>
+    {% if not form.instance.slug %}
+        {{ form.ad }}
+      {% else %}
+      Update Article
+      {% endif %}
+    </h1>
 
-    <form method="POST" class="post-form" enctype="multipart/form-data">
+    <form class="stayhost" method="POST" enctype="multipart/form-data">
+    <div class="head">
+        <div class="ofert-icon">
+          <img src="{% static 'img/icons/lang.svg' %}" alt="">
+          <div class="title">
+            <h2>contents</h2>
+            <span>Create Article</span>
+          </div>
+        </div>
+        <div class="accept">
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48"><input type="submit" value="Save Article"> 
+        </div>
+    </div>
     {% csrf_token %}
-    <label for="{{ form.title.id_for_label }}">Title</label>
-    {{form.title}}<br><br>
-    <label for="{{ form.text.id_for_label }}">Text</label>
-    {{form.text}}<br><br>
-    <label for="{{ form.image.id_for_label }}">Photo</label>
-    {{ form.image }} <br /><br />
-    <button type="submit">Save</button>
+        <div class="formgroup">
+            <span>Title</span>
+            {{ form.title }}
+        </div>
+        <div class="formgroup">
+            <span>Text</span>
+            {{form.text}}
+        </div>
+        <div class="formgroup">
+            <span>Photo</span>
+            {{ form.image }}
+        </div>
+        
     </form>
-
-    <script>var editor = new MediumEditor('.editable');</script>
+</div>
 {% endblock %}

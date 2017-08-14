@@ -57,11 +57,20 @@
                     <li><a href="{% url 'accounts:preferences' userprofile.user.slug %}" >
                     Settings</a></li>
                     <li><a href="{% url 'accounts:profile' userprofile.user.slug %}">My profile</a></li> 
+                    <li class="line"></li>
                     <li><a href="{% url 'article_new' %}">New Article</a></li>
                     <li><a href="{% url 'list' userprofile.user.slug %}">My Articles</a></li>
+                    <li class="line"></li>
                     <li><a href="{% url 'host:list' userprofile.user.slug %}">My Lodging Offers</a></li>
                     <li><a href="{% url 'host:studiesofferlist' userprofile.user.slug %}">My Study Offers</a></li>
-                    {% comment %}<li><a href="{% url 'article_draft_list' %}">Drafts</a></li>{% endcomment %}
+                    {% if userprofile.user.is_hosting_host %}
+                      <li><a href="{% url 'host:hosting-host' %}">Create Lodging Offer</a></li>
+                    {% endif %}
+                    {% if userprofile.user.is_study_host %}
+                      <li><a href="{% url 'host:study-host' %}">Create Study Offer</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'host:hostingoffer-search' %}">Search Lodging Offers</a></li>
+                          <li><a href="{% url 'host:studyoffer-search' %}">Search Studies Offers</a></li>
                     <li class="line"></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                   </ul>

@@ -1,101 +1,150 @@
 {% extends 'layout.html' %}
+{% load staticfiles %}
 
 
-{% block title_tag %}Accounts | Settings | iHost {{ block.super }}{% endblock %}
+{% block title_tag %}Accounts | Settings | {{ block.super }}{% endblock %}
 
 {% block body_content %}
-<div class="main">
-    <div class="form-cont">
-        <h1>Account Details</h1>
+    <div class="offert-form">
+        {% comment %}
+        <a href="{% url 'article_list' %}" class="logo-cont">
+        <img src="{% static 'img/Logo-slogan.png' %}">
+        </a> 
+        {% endcomment %}
+      
         <form enctype="multipart/form-data" method="POST">
+            <div class="head">
+                <div class="ofert-icon">
+                    <img src="{% static 'img/icons/host-lines.svg' %}" alt="">
+                    <div class="title">
+                        <h2>Account Details</h2>
+                        <span>Configure Settings</span>
+                    </div>
+                </div>
+                <div class="accept">
+                  <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48"><input type="submit" value="Save Changes"> 
+                </div>
+            </div>
             {% csrf_token %}
             {% if user.user_type == 'I' %}
-                <label for="{{ form.enterprise_name.id_for_label }}">Enterprise name</label>
-                    {{ form.enterprise_name }} <br /><br />
                 
-                <label for="{{ form.country_of_origin.id_for_label }}">Country of origin
-                </label>
-                    {{ form.country_of_origin }} <br /><br />
+                <div class="formgroup">
+                    <span>Enterprise name</span>
+                    {{ form.enterprise_name }}
+                </div>
+                <div class="formgroup">
+                    <span>Country of origin</span>
+                    {{ form.country_of_origin }}
+                </div>
+                <div class="formgroup">
+                    <span>Hometown</span>
+                    {{ form.city_of_origin }}
+                </div>
+                <div class="formgroup">
+                    <span>Country of residence</span>
+                    {{ form.country_current_residence }}
+                </div>
+                <div class="formgroup">
+                    <span>City of residence</span>
+                    {{ form.city_current_residence }}
+                </div>
+                <div class="formgroup">
+                    <span>Phone number</span>
+                    <label for="{{ form.phone_number.id_for_label }}">Please use the following format: <em>+Country Code-Number</em>.</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="formgroup">
+                    <span>Address</span>
+                    {{ form.address }}
+                </div>
+                <div class="formgroup">
+                    <span>Biography</span>
+                    {{ form.bio }}
+                </div>
+                <div class="formgroup">
+                    <span>Photo</span>
+                    {{ form.avatar }}
+                </div>
+                <div class="formgroup">
+                    <span>Study Host</span>
+                    {{ form.is_study_host }}
+                </div>
+                <div class="formgroup">
+                    <span>Hosting Host</span>
+                    {{ form.is_hosting_host }}
+                </div>
                 
-                <label for="{{ form.city_of_origin.id_for_label }}">Hometown</label>
-                    {{ form.city_of_origin }} <br /><br />
-                
-                <label for="{{ form.country_current_residence.id_for_label }}">Country of residence</label>
-                    {{ form.country_current_residence }} <br /><br />
-                
-                <label for="{{ form.city_current_residence.id_for_label }}">City of residence</label>
-                    {{ form.city_current_residence }} <br /><br />
-                
-                <label for="{{ form.phone_number.id_for_label }}">Telephone number</label>
-                    {{ form.phone_number }} <br /><br />
-                
-                <label for="{{ form.address.id_for_label }}">Address</label>
-                    {{ form.address }} <br /><br />
-                
-                <label for="{{ form.bio.id_for_label }}">Biography</label>
-                    {{ form.bio }} <br /><br />
-
-                <label for="{{ form.avatar.id_for_label }}">Photo</label>
-                    {{ form.avatar }} <br /><br />
-                
-                <label for="{{ form.is_study_host.id_for_label }}">Study Host</label>
-                    {{ form.is_study_host }} <br /><br />
-                
-                <label for="{{ form.is_hosting_host.id_for_label }}">Hosting Host</label>
-                    {{ form.is_hosting_host }} <br />
             {% else %}
-                <label for="{{ form.first_name.id_for_label }}">First name:</label>
-                    {{ form.first_name }} <br /><br />
-                
-                <label for="{{ form.last_name.id_for_label }}">Last name:</label>
-                    {{ form.last_name }} <br /><br />
-                
-                <label for="{{ form.gender.id_for_label }}">Gender:</label>
-                    {{ form.gender }} <br /><br />
 
-                 <label for="{{ form.date_of_birthr.id_for_label }}">Date of birth:</label>
-                    {{ form.date_of_birth }} <br /><br />
-                
-                <label for="{{ form.country_of_origin.id_for_label }}">Country of origin
-                </label>
-                    {{ form.country_of_origin }} <br /><br />
-                
-                <label for="{{ form.city_of_origin.id_for_label }}">Hometown</label>
-                    {{ form.city_of_origin }} <br /><br />
-                
-                <label for="{{ form.country_current_residence.id_for_label }}">Country of residence</label>
-                    {{ form.country_current_residence }} <br /><br />
-                
-                <label for="{{ form.city_current_residence.id_for_label }}">City of residence</label>
-                    {{ form.city_current_residence }} <br /><br />
-
-                <label for="{{ form.speak_languages.id_for_label }}">Speak Languages</label>
-                    {{ form.speak_languages }} <br /><br />
-
-                 <label for="{{ form.phone_number.id_for_label }}">Telephone number</label>
-                    {{ form.phone_number }} <br /><br />
-
-                <label for="{{ form.address.id_for_label }}">Address</label>
-                    {{ form.address }} <br /><br />
-                
-                <label for="{{ form.bio.id_for_label }}">Biography</label>
-                    {{ form.bio }} <br /><br />
-
-                <label for="{{ form.avatar.id_for_label }}">Photo</label>
-                    {{ form.avatar }} <br /><br />
-                
-                <label for="{{ form.is_student.id_for_label }}">Student</label>
-                    {{ form.is_student }} <br /><br />
-                
-                <label for="{{ form.is_professor.id_for_label }}">Professor</label>
-                    {{ form.is_professor }} <br /><br />
-
-                <label for="{{ form.is_executive.id_for_label }}">Executive</label>
-                    {{ form.is_executive }} <br /><br />
-
-                <label for="{{ form.is_hosting_host.id_for_label }}">Hosting Host</label>
-                    {{ form.is_hosting_host }} <br /><br />
-
+                <div class="formgroup">
+                    <span>First name</span>
+                    {{ form.first_name }}
+                </div>
+                <div class="formgroup">
+                    <span>Last name</span>
+                    {{ form.last_name }}
+                </div>
+                <div class="formgroup">
+                    <span>Gender</span>
+                    {{ form.gender }}
+                </div>
+                <div class="formgroup">
+                    <span>Date of birth</span>
+                    {{ form.date_of_birth }}
+                </div>
+                <div class="formgroup">
+                    <span>Country of origin</span>
+                    {{ form.country_of_origin }}
+                </div>
+                <div class="formgroup">
+                    <span>Hometown</span>
+                    {{ form.city_of_origin }}
+                </div>
+                <div class="formgroup">
+                    <span>Country of residence</span>
+                    {{ form.country_current_residence }}
+                </div>
+                <div class="formgroup">
+                    <span>City of residence</span>
+                    {{ form.city_current_residence }}
+                </div>
+                <div class="formgroup">
+                    <span>Speak Languages</span>
+                    {{ form.speak_languages }}
+                </div>
+                <div class="formgroup">
+                    <span>Phone number</span>
+                    <label for="{{ form.phone_number.id_for_label }}">Please use the following format: <em>+Country Code-Number</em>.</label>
+                    {{ form.phone_number }}
+                </div>
+                <div class="formgroup">
+                    <span>Address</span>
+                    {{ form.address }}
+                </div>
+                <div class="formgroup">
+                    <span>Biography</span>
+                    {{ form.bio }}
+                </div>
+                <div class="formgroup">
+                    <span>Photo</span>
+                    {{ form.avatar }}
+                </div>
+                <div class="formgroup">
+                    <span>Student</span>
+                    {{ form.is_student }}
+                </div>
+                <div class="formgroup">
+                    <span>Professor</span>
+                    {{ form.is_professor }}
+                </div>
+                <div class="formgroup">
+                    <span>Executive</span>
+                    {{ form.is_executive }}
+                </div>
+                <div class="formgroup">
+                    <span>Hosting Host</span>
+                    {{ form.is_hosting_host }}
+                </div>
             {% endif %}           
             {% comment %}
                 {% bootstrap_form form exclude="first_name,last_name,gender,speak_languages,entertainment_activities,is_student,is_professor,is_executive" %}
@@ -123,5 +172,5 @@
 
         </form>
     </div>
-</div>
+
 {% endblock %}

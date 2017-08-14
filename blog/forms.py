@@ -13,6 +13,7 @@ class EmailPostForm(forms.Form):
 
 class ArticleForm(forms.ModelForm):
     text = forms.CharField(widget=forms.Textarea)
+    ad = "New Article"
     class Meta:
         model = Article
         fields = ('title', 'text', 'image')

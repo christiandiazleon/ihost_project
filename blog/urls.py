@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^article/(?P<slug>[\w.\-]+)/$', views.article_detail,
         name='article_detail'),
 
+    url(r'^article/(?P<slug>[\w.\-]+)/share/$', views.article_share,
+        name='article_share'),
+
     url(r'^articles/by/u/@(?P<email>[-\w]+)/$',
         views.articles_by_user, name='list'
     ),

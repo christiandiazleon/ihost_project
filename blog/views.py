@@ -1,11 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-
+from django.core.mail import send_mail
 
 from blog.models import Article, Comment
-from blog.forms import ArticleForm, CommentForm
+from blog.forms import ArticleForm, CommentForm, EmailPostForm
 from django.urls import reverse_lazy
-from .forms import CommentForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ihost.mixins import UserProfileDataMixin
@@ -15,8 +14,36 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import (ListView, DetailView,
                                     CreateView, UpdateView,
                                     DeleteView)
-
+from django.http import HttpResponseRedirect, HttpResponse
 # Create your views here.
+
+
+def article_share(request, slug):
+    # Retrieve article by id
+    article = get_object_or_404(Article, slug=slug,
+        published_date__lte=timezone.now())
+
+    sent = False
+
+    if request.method == 'POST':
+        # Form was submitted
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            # Form fields passed validation
+            cd = form.cleaned_data
+            article_url = request.build_absolute_uri(
+                                          article.get_absolute_url())
+            subject = '{} ({}) recommends you reading "{}"'.format(cd['name'], cd['email'], article.title)
+            message = 'Read "{}" at {}\n\n{}\'s comments: {}'.format(article.title, article_url, cd['name'], cd['comments'])
+            send_mail(subject, message, 'hostayni@gmail.com', [cd['to']])
+            sent = True
+            print(sent)
+    else:
+        form = EmailPostForm()
+    return render(request, 'blog/share.html',
+                 {'article': article,
+                 'form': form,
+                 'sent': sent})
 
 
 
@@ -51,33 +78,31 @@ class ArticleDetailView(UserProfileDataMixin, DetailView):
 
 def article_detail(request, slug):
     user = request.user
-    profile = user.profile
-    queryset = Article.objects.filter(published_date__lte=timezone.now())
     article = get_object_or_404(Article, slug=slug)
-
     # Add a QuerySet to retrieve all active comments for this post:
     comments = article.comments.filter(active=True)
+    context = {'article': article, 'comments': comments}
+    # context = {'article': article}
+    if user.is_authenticated():
+        context['userprofile'] = user.profile
 
-    if request.method == 'POST':
-        # A comment was posted
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current article to the comment we just created
-            # By doing this, we are specifying that the new comment belongs to
-            # the given post.
-            new_comment.article = article
-            # Save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-    return render(request,
-                    'blog/article_detail.html',
-                    {'article': article,
-                    'comments': comments,
-                    'comment_form': comment_form,
-                    'userprofile':profile })
+        if request.method == 'POST':
+            # A comment was posted
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                # cd = comment_form.cleaned_data
+                # Create Comment object but don't save to database yet
+                new_comment = comment_form.save(commit=False)
+                # Assign the current article to the comment we just created
+                # By doing this, we are specifying that the new comment belongs to the given post.
+                new_comment.article = article
+                # Save the comment to the database
+                new_comment.save()
+        else:
+            comment_form = CommentForm()
+        context['comment_form'] = comment_form
+    return render(request, 'blog/article_detail.html',
+                  context)
 
 
 class CreateArticleView(LoginRequiredMixin, UserProfileDataMixin, CreateView):

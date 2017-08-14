@@ -321,3 +321,11 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
         'Cache-Control': 'max-age=94608000',
     }
 
+# HOSTAYNI_GMAIL_PASSWORD=get_env_variable('HOSTAYNI_GMAIL_PASSWORD')
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'botibagl@gmail.com'
+EMAIL_HOST_PASSWORD = 'Negrito2010*'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+

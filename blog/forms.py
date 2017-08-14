@@ -1,6 +1,16 @@
 from django import forms
 from blog.models import Article, Comment
 
+
+class EmailPostForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False,
+                               widget=forms.Textarea)
+
+
+
 class ArticleForm(forms.ModelForm):
     text = forms.CharField(widget=forms.Textarea)
     class Meta:

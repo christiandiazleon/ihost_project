@@ -1,18 +1,97 @@
 {% extends 'layout.html' %}
-{% load bootstrap3 %}
+{% load staticfiles %}
+
 {% block title_tag %}Study Offert | {{ block.super }}{% endblock %}
 {% block body_content %}
 
-<div class="container">
-    <h1>{{ form.title }}</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        {# equivalent to form.as_p #}
-        <input type="submit" value="Save Offer" class="btn btn-default"> 
-        <div>
+<div class="offert-form">
+    <h1>
+      {% if not form.instance.pk %}
+        {{ form.title }}
+      {% else %}
+      Update Lodging Offer
+      {% endif %}
+    </h1>
+    <form class="stayhost" method="POST" enctype="multipart/form-data">
+      <div class="head">
+        <div class="ofert-icon">
+          <img src="{% static 'img/icons/learn.svg' %}" alt="">
+          <div class="title">
+            <h2>LearnHost</h2>
+            <span>Create offer</span>
+          </div>
+        </div>
+        <div class="accept">
+          <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48"><input type="submit" value="Save Offer"> 
+        </div>
+        <!-- botón opcional, creo que por el momento sería mejor no aplicar esta funcionalidad ya que había que hacer una pantalla de ofertas guardadas -->
+        {% comment %}
+        <div class="save">
+          <a href="#">
+              <img src="img/icons/save.png" alt="">
+              <span>Guardar</span>
+              </a>
+        </div>
+        {% endcomment %}        
+      </div>
+      {% csrf_token %}
+      <div class="col margin-right">
+        <div class="formgroup">
+          <span>Ad Title</span>
+          {{ form.ad_title }}
+        </div>
+        <div class="formgroup">
+          <span>Country</span>
+          {{ form.country }}
+        </div>
+        <div class="formgroup">
+          <span>City</span>
+          {{ form.city }}
+        </div>
+        <div class="formgroup">
+          <span>Character of the institution</span>
+          {{ form.institute_character }}
+        </div>
+        <div class="formgroup">
+          <span>Number of students</span>
+          {{ form.students_number }}
+        </div>
+        <div class="formgroup">
+          <span>Knowledge topics</span>
+          {{ form.knowledge_topics }}
+        </div>
+        <div class="formgroup">
+          <span>Studies Type offered</span>
+          {{ form.studies_type_offered }}
+        </div>
+        <div class="formgroup">
+          <span>Academic mobility programs</span>
+          {{ form.academic_mobility_programs }}
+        </div>
+        <div class="formgroup">
+          <span>Duration</span>
+          {{ form.duration }}
+        </div>
+        <div class="formgroup">
+          <span>Additional description</span>
+          {{ form.additional_description }}
+        </div>
+      </div>
+      <div class="col">
+        <div class="formgroup">
+          <span>Address location</span>
+          {{ form.address }}
+          <div class="map-cont">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="formgroup">
+          <span>Price</span>
+          {{ form.studies_value }}
+        </div>
         
-    </div>
+      </div>
+        
     </form>
     
 </div>

@@ -46,15 +46,17 @@
           {{ comment.created }}
         </p>
         {{ comment.body|linebreaks }}
+        
       </div>
       <br /><br />
+    
     {% empty %}
       <p>There are no comments yet.</p>
     {% endfor %}
-
     {% if new_comment %}
       <h2>Your comment has been added.</h2>
-    {% else %}
+    {% comment %} {% elif %} {% endcomment %}
+    {% elif user.is_authenticated %}
       <h2>Add a new comment</h2>
       <form action="." method="post"> <br /> 
         {% csrf_token %}
@@ -68,6 +70,14 @@
         {{ comment_form.body }}<br /><br />
         <p><input type="submit" value="Add comment"></p>
       </form>
+      <p>
+          <a href="{% url "article_share" article.slug %}">
+            Share this article
+          </a>
+        </p>
+    {% else %}
+    
+    To add a comment in this article you should <a href="{% url 'login' %}">sign in </a>
     {% endif %}
 
     {% comment %}

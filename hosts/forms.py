@@ -2,6 +2,8 @@ from django import forms
 from .models import LodgingOffer, StudiesOffert
 from django_countries.widgets import CountrySelectWidget
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class StudiesOffertForm(forms.ModelForm):
     #user = self.request.user
@@ -17,8 +19,7 @@ class StudiesOffertForm(forms.ModelForm):
         # exclude = ('hosting_host_user',)
         # to put after: 'accreditations'
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
+
 
 class LodgingOfferForm(forms.ModelForm):
     title = "Create Lodging Offert"
@@ -26,8 +27,8 @@ class LodgingOfferForm(forms.ModelForm):
 
     class Meta:
         widgets = {
+            'available_dates': DateInput(),
             # 'available_dates': forms.DateInput(attrs={'class':'datepicker'}),
-            'available_dates': forms.DateInput(attrs={'class':'datepicker'}),
             'country': CountrySelectWidget(),
         }
         model = LodgingOffer

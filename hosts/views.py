@@ -279,8 +279,8 @@ class HostingOfferSearch(LoginRequiredMixin, FormView):
             cd = form.cleaned_data
             results = SearchQuerySet().models(LodgingOffer).filter(content=cd['query']).load_all()
 '''
-
-class HostingOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
+# Add LoginRequiredMixin,
+class HostingOfferCreateView(UserProfileDataMixin, CreateView):
     model = LodgingOffer
     form_class = LodgingOfferForm
     #success_url = reverse_lazy('dashboard')
@@ -403,8 +403,8 @@ class HostingOfferDeleteView(LoginRequiredMixin, DeleteView):
             context['userprofile'] = self.request.user
         return context
 
-
-class StudyOfferCreateView(LoginRequiredMixin, UserProfileDataMixin, CreateView):
+# Add LoginRequiredMixin,
+class StudyOfferCreateView(UserProfileDataMixin, CreateView):
     model = StudiesOffert
     form_class = StudiesOffertForm
     #success_url = reverse_lazy("host:detail")

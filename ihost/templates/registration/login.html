@@ -11,7 +11,7 @@
         </a>
         <form action="{% url 'login' %}" method="POST"> 
             {% csrf_token %}
-            <h1>Login</h1>
+            <h3>Login</h3>
             {% comment %}
             {% if form.errors %}
                 <p>Your username and password didn't match! Please try again</p>

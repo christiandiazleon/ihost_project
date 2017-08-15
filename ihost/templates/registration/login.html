@@ -1,39 +1,39 @@
 {% extends "layout.html" %}
 {% load staticfiles %}
 
-{# Load the tag bootstrap3 library to create some bootstrap3
-automatically #}
-{# % load bootstrap3 % 
-{% load bootstrap3 %}#}
 
 {% block title_tag %}Login | {{ block.super }}{% endblock %}
-
 {% block body_content %}
 <div class="form-cont">
- <div class="main">
-    <a href="{% url 'article_list' %}" class="logo-cont">
-        <img src="{% static 'img/Logo-slogan.png' %}"></a>
-    <form action="{% url 'login' %}" method="POST"> 
-     {% csrf_token %}
-    
-   <h1>Login</h1>
-    {% comment %}
-    {% if form.errors %}
-        <p>Your username and password didn't match! Please try again</p>
-    {% endif %} {#% endcomment %}
-    
-       
-        {% comment %} {% bootstrap_form form %} {% endcomment %}
-        {% comment %}{{ form.as_p }}{% endcomment %}
+    <div class="main">
+        <a href="{% url 'article_list' %}" class="logo-cont">
+            <img src="{% static 'img/Logo-slogan.png' %}">
+        </a>
+        <form action="{% url 'login' %}" method="POST"> 
+            {% csrf_token %}
+            <h1>Login</h1>
+            {% comment %}
+            {% if form.errors %}
+                <p>Your username and password didn't match! Please try again</p>
+            {% endif %} 
+            {% endcomment %}
         
-        {{ form.username }}
-        {{ form.password }}
-        <input type="submit" value="Login" class="btn btn-default"> 
-        <div>
+            {{ form.username }}
+            {{ form.password }}
             <a href="../password_reset/">Forgot your password?</a>
-        </div>
-    </form>
-{% endblock %}
+            <div class="submit-button-cont">
+              <div>
+                <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+                <input type="submit" value="Sign In" class="submit-button">
+              </div>
+            </div>
+        </form>
     </div>
-</div>  
+    <div class="portrait">
+      <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+      </div>
+          <span>Toronto, Canadá</span>
+    </div>
 
+</div>  
+{% endblock %}

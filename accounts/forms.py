@@ -116,11 +116,11 @@ class ProfessorProfileForm(forms.ModelForm):
 
 class ExecutiveProfileForm(forms.ModelForm):
     title = "Executive Details"
-    companies_to_visit = forms.CharField(widget=forms.Textarea)
+    # companies_to_visit = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = ExecutiveProfile
-        fields = ('occupation', 'enterprise_name', 'companies_to_visit',
+        fields = ('occupation', 'enterprise_name',
         'educational_titles', 'complete_studies_school',
         'innovation_topics_choice', )
 

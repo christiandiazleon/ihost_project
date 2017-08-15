@@ -99,7 +99,7 @@ class DashboardProfileView(UserProfileDataMixin, ProfileImageUser, TemplateView)
 class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('article_list')
     #context_object_name = 'preferences'
 
 

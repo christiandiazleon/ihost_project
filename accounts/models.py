@@ -664,9 +664,15 @@ class ExecutiveProfile(models.Model):
         verbose_name='Company to which you are linked',
     )
 
+    innovation_topics_choice = models.CharField(
+        _("Areas of innovation of your choice"), max_length=255
+    )
+
+    '''
     companies_to_visit = models.CharField(
         _("Companies to Visit"), max_length=255
     )
+    '''
 
     educational_titles = models.CharField(
         max_length=255,
@@ -676,9 +682,7 @@ class ExecutiveProfile(models.Model):
         _("Institution where completed his previous studies"), max_length=255
     )
 
-    innovation_topics_choice = models.CharField(
-        _("Areas of innovation of your choice"), max_length=255
-    )
+
 
     class Meta:
         verbose_name_plural='Usuarios con perfil de ejecutivos'

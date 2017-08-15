@@ -1518,13 +1518,15 @@
         <main>
             <!-- la clase full-width es para las ofertas que ocupan las dos columnas -->
             <article class="innovate full-width">
+            <a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}>
                 <div class="img-title-cont">
                     <!-- la imagen de las publicaciones debe ser una imagen de background para poder modificar el contenedor independientemente del tamaño de la imagen -->
                     <div class="img" style="background: url('{{ article.image.url }}') no-repeat center; background-size:cover;"></div>
                     <div class="title-cont">
-                        <h3><a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}</a></h3>
+                        <h3></h3>
                     </div>
                 </div>
+                </a>
                 <div class="post-info">
                     <!-- Este es el ícono que muestra el tipo de oferta, el color de la etiqueda depende de la clase que tenga el artículo, en este caso es innovate-->
                     <div class="post-type"><i>innovatehost</i></div>

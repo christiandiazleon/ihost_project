@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     # 'countries_plus',
     # 'cities',
     'debug_toolbar',
-    'bootstrap3',
+    # 'bootstrap3',
     'django_countries',
     'django_extensions',
     # 'languages_plus',
@@ -201,7 +201,7 @@ LOGIN_REDIRECT_URL = '/'
 
 #LOGOUT_REDIRECT_URL = '/accounts/logout/'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 AUTH_USER_MODEL = "accounts.User"
 

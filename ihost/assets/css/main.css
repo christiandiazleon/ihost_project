@@ -363,19 +363,25 @@ main {
     .form-cont .main input[type="email"],
     .form-cont .main input[type="password"]:focus {
       outline: none; }
+    .form-cont .main .submit-button-cont {
+      margin: 5px 0;
+      height: 31px; }
+      .form-cont .main .submit-button-cont div {
+        display: inline-block;
+        float: right; }
+    .form-cont .main input[type="image"] {
+      vertical-align: middle;
+      width: 31px;
+      height: 31px; }
     .form-cont .main .submit-button {
-      width: 115px;
+      background-color: transparent;
+      cursor: pointer;
       margin: 0 0 0 auto;
-      padding: 5px 0 15px; }
-      .form-cont .main .submit-button a {
-        display: block; }
-        .form-cont .main .submit-button a img {
-          vertical-align: middle;
-          margin-right: 7px; }
-        .form-cont .main .submit-button a span {
-          vertical-align: middle;
-          color: #706f6f;
-          font-weight: 600; }
+      font-weight: 600;
+      font-size: 1.05em;
+      color: #706f6f;
+      vertical-align: middle;
+      padding-left: 5px; }
     .form-cont .main .rad-cont {
       display: inline-block;
       margin: 3px 20px 5px 0; }

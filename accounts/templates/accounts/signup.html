@@ -13,66 +13,37 @@
       <form method="POST">
         {% csrf_token %}
         <h3>Join HOSTAYNI for free</h3>
-        {% comment %}
-        
-        {% bootstrap_field form.email show_label=False %}
-        {% bootstrap_field form.password1 show_label=False %}
-        {% bootstrap_field form.password2 show_label=False %}
-        {% endcomment %}
-
-        
-        <label for="{{ form.email.id_for_label }}">Email address:</label>
         {{ form.email }}
-        <label for="{{ form.password1.id_for_label }}">Password:</label>
         {{ form.password1 }}
-        <label for="{{ form.password2.id_for_label }}">Password confirmation:</label>
         {{ form.password2 }}
         <div class="rad-cont">
-          {{ form.user_type }}
-        </div>
+          <ul id="r1">
+            <li>{{ form.user_type }}</li><br /><br />
 
-        {% comment %}
-        <input type="email" name="email" placeholder="Correo" required="true">
-        <input type="password" name="password" placeholder="Contraseña" required="true">
-        <input type="password" name="password2" placeholder="Repetir contraseña" required="true">
-        
-        <div class="rad-cont">
-          {% bootstrap_field form.user_type show_label=False size='medium' %}
+            Campos renderizados input separados
+            <li><input id="r1_0" name="user_type" type="radio" value="P" required="">
+            <label for="r1_0">Persona</label></li>
+            <li><input id="r1_1" name="user_type" type="radio" value="I" required="">
+            <label for="r1_1">Institución</label></li>
+          </ul>
+          
         </div>
-        {% endcomment %}
-          {% comment %}
-          <input id="r1" type="radio" name="usertype" value="Persona" checked><label for="r1">Persona</label>
+        <div class="submit-button-cont">
+          <div>
+            <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48">
+            <input type="submit" value="Sign up" class="submit-button">
+          </div>
         </div>
-        <div class="rad-cont">
-          <input id="r2" type="radio" name="usertype" value="Institution" ><label for="r2">Institución</label>
-        </div>
-        
-        <div class="submit-button">
-          <a href="#"><img src="{% static 'img/icons/ok.png' %}"><span>Registrarse</span></a>
-        </div>
-        {% endcomment %}
-
-        
-        <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48"><input type="submit" value="Sign up" class="submit-button">
-        
       </form>
       <p class="legal">Al registrarse acepta nuestros <a href="#">Términos de uso</a> y <a href="#">Política de privacidad</a></p>
-      </div>
-      <div class="portrait">
+    </div>
+    <div class="portrait">
       <div class="img-cont" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
           <span>Toronto, Canadá</span>
     </div>
   </div>
-      
-      {% endblock %}
-      <div class="social-cont">
-      <img src="img/social.png">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      
-    </div>
+{% endblock %}
+    
     
   
 

@@ -1,42 +1,56 @@
 {% extends 'layout.html' %}
-{% load bootstrap3 %}
-{% block title_tag %}Accounts | Profile | iHost {{ block.super }}{% endblock %}
+{% load staticfiles %}
+{% block title_tag %}Accounts | Profile | {{ block.super }}{% endblock %}
 {% block body_content %}
 
-<div class="container">
-    
+<div class="offert-form">
     <form enctype="multipart/form-data" method="POST">
+        <div class="head">
+            <div class="ofert-icon">
+                <img src="{% static 'img/icons/host-lines.svg' %}" alt="">
+                <div class="title">
+                    <h2>Account Details</h2>
+                    <span>Configure Settings</span>
+                </div>
+            </div>
+            <div class="accept">
+                <input type="image" src="{% static 'img/icons/ok.png' %}" alt="Submit" width="48" height="48"><input type="submit" value="Save Changes"> 
+            </div>
+        </div>
         {% csrf_token %}
-
+        
         {% for form in forms %}
             <h2>{{ form.title }}</h2> <br /><br />
-                {% bootstrap_form form %}<br /><br />
+            <div class="formgroup">
+                {{ form.as_p }}<br />
                 
+            </div>
                 
         {% endfor %}
-    
-{% comment %}
+       {% comment %}
+        {% for form in forms %}
         {% if userprofile.user.is_student %}
     
         <div align="center"><i>My Student Profile data</i></div>
-            {% bootstrap_form studentprofileform %}
+            {{ studentprofileform }}
             {{ studentprofileform.non_field_errors }}
         {% endif %}
          
         
         {% if userprofile.user.is_professor %}
             <div align="center"><i>My Professor Profile data</i></div>
-            {% bootstrap_form professorprofileform %}
+            {{ professorprofileform }}
             {{ professorprofileform.non_field_errors }}
         {% endif %}
         
         
         {% if userprofile.user.is_executive %} 
             <div align="center"><i>My Executive Profile data</i></div>  
-            {% bootstrap_form executiveprofileform %}
+            {{ executiveprofileform }}
             {{ executiveprofileform.non_field_errors }}
         {% endif %}
-{% endcomment %}
+        {% endfor %}
+        {% endcomment %}
 
         <input type="submit" value="Save Changes" class="btn btn-default">
     </form>

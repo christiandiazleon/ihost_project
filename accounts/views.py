@@ -94,8 +94,6 @@ class DashboardProfileView(UserProfileDataMixin, ProfileImageUser, TemplateView)
     template_name = 'dashboard.html'
 
 
-
-
 class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, UpdateView):
     model = get_user_model()
     form_class = UserUpdateForm
@@ -107,7 +105,7 @@ class AccountSettingsUpdateView(LoginRequiredMixin, UserProfileDataMixin, Update
 class AccountSettingsEnterpriseUpdateView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = UserEnterpriseUpdateForm
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('article_list')
     context_object_name = 'preferences'
 
     def get_context_data(self, **kwargs):
@@ -151,7 +149,7 @@ def user_profile_update_view(request, slug):
         if all([form.is_valid() for form in forms]):
             for form in forms:
                 form.save()
-            return redirect('dashboard')
+            return redirect('article_list')
     else:
         forms = [x['form'](instance=x['instance']) for x in form_profiles]
 

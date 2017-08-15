@@ -652,11 +652,14 @@ class ExecutiveProfile(models.Model):
         blank=True
     )
 
+    '''
     occupation = models.CharField(
         max_length=255,
         blank = True,
         verbose_name='Occupation',
+        # help_text='Hola'
     )
+    '''
 
     enterprise_name = models.CharField(
         max_length=255,

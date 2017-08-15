@@ -122,7 +122,7 @@ class ExecutiveProfileForm(forms.ModelForm):
 
     class Meta:
         model = ExecutiveProfile
-        fields = ('occupation', 'enterprise_name',
+        fields = ('enterprise_name',
         'educational_titles', 'complete_studies_school',
         'innovation_topics_choice', )
 

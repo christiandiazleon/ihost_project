@@ -26,12 +26,6 @@
 
 input[type=checkbox],
 input[type=radio] {
-  /* esconder los inputs originales */
-  visibility: hidden;
-  position: absolute; }
-
-input[type=checkbox] + label:before,
-input[type=radio] + label:before {
   /*nuevo estilo de input*/
   height: 14px;
   width: 14px;
@@ -42,16 +36,6 @@ input[type=radio] + label:before {
   border: 1px solid #d6d6d6;
   background: #fff;
   cursor: pointer; }
-
-input[type=checkbox]:checked + label:before,
-input[type=radio]:checked + label:before {
-  /*nuevo estilo de input chekeado*/
-  background: #dbd900;
-  border-color: #fff; }
-
-input[type=radio] + label:before {
-  /*Hacer redondo el input radio*/
-  border-radius: 50%; }
 
 .rad-cont label {
   color: #706f6f;

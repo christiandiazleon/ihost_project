@@ -23,7 +23,9 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         widgets = {
-            'user_type':forms.RadioSelect(attrs={'id': 'r1'}),
+            # 'user_type':forms.RadioSelect(attrs={'id': 'r1_0', 'id':'r1_1'}),
+            'user_type':forms.RadioSelect(),
+            #'user_type':forms.ChoiceField(widget=forms.RadioSelect(attrs={'id':'r1_0'}))
         }
 
         fields = ("email", "password1", "password2", "user_type",)
@@ -34,7 +36,7 @@ class UserCreateForm(UserCreationForm):
         self.fields["email"].label = "Email address"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Password confirmation"
-        self.fields["user_type"].widget.attrs.update({'id': 'r1'}),
+
 
 
 

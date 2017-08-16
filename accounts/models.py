@@ -575,7 +575,7 @@ class StudentProfile(models.Model):
         verbose_name_plural='Usuarios con perfil de estudiantes'
 
     def __str__(self):
-        return "{}".format(self.user.display_name,)
+        return "{}".format(self.user.email)
 
 
 class ProfessorProfile(models.Model):
@@ -637,7 +637,7 @@ class ProfessorProfile(models.Model):
         verbose_name_plural='Usuarios con perfil de profesores'
 
     def __str__(self):
-        return "{}".format(self.user.display_name,)
+        return "{}".format(self.user.email,)
 
 
 class ExecutiveProfile(models.Model):
@@ -691,7 +691,7 @@ class ExecutiveProfile(models.Model):
         verbose_name_plural='Usuarios con perfil de ejecutivos'
 
     def __str__(self):
-        return "{}".format(self.user.display_name,)
+        return "{}".format(self.user.email,)
 
 
 
@@ -792,11 +792,13 @@ class StudyHostProfile(models.Model):
 
     # TO-DO Consultar las grupos del usuario studyhost solamente
 
+    '''
     research_groups = models.ManyToManyField(
         ResearchGroups,
         help_text='What are your research groups?',
         verbose_name='Research Groups'
     )
+    '''
 
     photography = models.ImageField(
         upload_to='studyhosts',
@@ -809,7 +811,7 @@ class StudyHostProfile(models.Model):
         verbose_name_plural='Usuarios con perfil de anfitriones de estudio'
 
     def __str__(self):
-        return "{}".format(self.user.display_name,)
+        return "{}".format(self.user.email,)
 
     '''
     def tag_helptext():
@@ -886,7 +888,7 @@ class HostingHostProfile(models.Model):
         verbose_name_plural='Usuarios con perfil de anfitriones de hospedaje'
 
     def __str__(self):
-        return "{}".format(self.user.display_name,)
+        return "{}".format(self.user.email,)
 
 
 class EntertainmentHostProfile(models.Model):

@@ -149,7 +149,7 @@ class StudyHostProfileForm(forms.ModelForm):
         fields = ('institution_type', 'institute_character',
             'high_quality_accreditations', 'students_number',
             'rankings_classification', 'knowledge_topics',
-            'strengths', 'research_groups', 'photography')
+            'strengths', 'photography')
         #exclude = ('studies_offert_list', )
 
 

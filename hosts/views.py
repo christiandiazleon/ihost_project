@@ -13,7 +13,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy, reverse
 from .models import LodgingOffer, StudiesOffert, RoomInformation
 
-from host_information.models import LodgingServiceOffer
+from host_information.models import LodgingServiceOffer, FeaturesAmenities
 from .serializers import LodgingOfferSerializer,StudiesOffertSerializer
 
 from .forms import (LodgingOfferForm,
@@ -350,6 +350,11 @@ class HostingOfferDetailView(LoginRequiredMixin, DetailView):
         query = offeredservices.offered_services.all()
 
         context['offeredservices'] = query
+
+        featuredamenities = LodgingOffer.objects.get(pk=self.kwargs.get('pk'))
+
+        fe_amen_query = featuredamenities.featured_amenities.all()
+        context['featuredamenities'] = fe_amen_query
 
 
         if user.is_student:

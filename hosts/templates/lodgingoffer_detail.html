@@ -1,37 +1,171 @@
 {% extends 'layout.html' %}
+{% load staticfiles %}
 {% block title_tag %}{{ lodgingofferdetail.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
-
-<div class="container">
-  <div class="page-header">
-    <h1>{{ lodgingofferdetail.ad_title }}</h1>
-  </div>
-    <p class="lead">About of this Lodging Offer</p>
-    <p>{{ lodgingofferdetail.additional_description }}</p><hr>
-      
-    <p class="lead">Price (monthly, nightly)</p>
-    <p>{{ lodgingofferdetail.room_value }}</p><hr>
-    
-    <p class="lead">Room information</p>
-    {% for offer in lodgingoffer %}
-      <p>{{ offer }}</p>
-      
-    {% endfor %}<hr>
-    <p class="lead">Guests</p>
-    <p>{{ lodgingofferdetail.number_guest_room_type }}</p><hr>
-    <p class="lead">Room type offered</p>
-    <p>{{ lodgingofferdetail.room_type_offered }}</p><hr>
-    <p class="lead">Available Dates</p>
-    <p>{{ lodgingofferdetail.available_dates }}</p><hr>
-
-    <p class="lead">Offered Services</p>
-    {% for services in offeredservices %}
-      <p>{{ services }}</p>
-      
-    {% endfor %}
+<!-- Columna a la derecha -->
+<div class="search-column">
+    <div class="post-column">
+        <div class="info">
+            <div class="icon">
+                <img src="{% static 'img/icons/info.svg' %}" alt="">
+                <span>Information</span>
+            </div>
+            <div class="autor">
+                <p class="title">Author</p>
+                <div class="profile">
+                    <div class="img-cont">
+                        <a href="#">
+                        <img src="{{ lodgingofferdetail.created_by.avatar.url }}" alt="">
+                        </a>
+                    </div>
+                    <div class="name-review-cont">
+                        <a href="#">
+                        <span>{{ lodgingofferdetail.created_by.first_name }}</span>
+                        </a>
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <div class="average">
+                            <span>546</span>
+                            <span>valoraciones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="date">
+                <p class="title">Creation Date</p>
+                <span>{{ lodgingofferdetail.pub_date }}</span>
+            </div>
+            <div class="review">
+                <p class="title">Calificación de la oferta</p>
+                <img src="{% static 'img/stars.svg' %}" alt="">
+                <div class="average">
+                    <span>546</span>
+                    <span>valoraciones</span>
+                </div>
+            </div>
+        </div>
+        <div class="photos">
+            <div class="icon">
+                <img src="{% static 'img/icons/photo.svg' %}" alt="">
+                <span>Photos</span>
+            </div>
+            <div class="cont">
+                <div id="photo1" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo2" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo3" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo4" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo5" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo6" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+            </div>
+        </div>
+        <div class="recomendation">
+            <div class="icon">
+                <img src="{% static 'img/icons/recomend.svg' %}" alt="">
+                <span>Te puede interesar</span>
+            </div>
+            <div class="cont innovate">
+                <a href="#">
+                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                        <div class="title">
+                            <span>Otra oferta de innovación</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="info">
+                    <div class="post-type"><i>innovatehost</i></div>
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                </div>
+            </div>
+            <div class="cont innovate">
+                <a href="#">
+                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                        <div class="title">
+                            <span>Otra oferta de innovación</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="info">
+                    <div class="post-type"><i>innovatehost</i></div>
+                    <img src="{% static 'img/stars.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container">
-    <p><a class='btn btn-warning' href = "{% url 'host:edit-lodging-offer' pk=lodgingofferdetail.pk %}">Update</a></p>
-    
-</div>
+
+<!-- Contenido principal (ofertas) -->
+<main>
+    <div class="post-body">
+        <div class="banner" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+            <div class="title-cont">
+                <h1>{{ lodgingofferdetail.ad_title }}</h1>
+            </div>
+        </div>
+        <div class="post-type innovate">
+            <i class="host">hostinghost</i>
+        </div>
+        <div class="main-content hosting">
+            <div class="cont type">
+                <h2>{{ lodgingofferdetail.lodging_offer_type }}</h2>
+                <p>{{ lodgingofferdetail.additional_description }}</p>
+            </div>
+            <div class="cont amenities">
+                <h2>Offered Services</h2>
+                {% for services in offeredservices %}   
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ services }}</span>     
+                </div>
+                {% endfor %}
+                
+                <h2>Featured Amenities</h2>
+                {% for fa in featuredamenities %}
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ fa }}</span>
+                </div>
+                {% endfor %}
+
+                <h2>Room information</h2>
+                {% for offer in lodgingoffer %}
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ offer }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="cont location">
+                <h2>Ubicación</h2>
+                <span>Cll 45a #54-31  Medellín, Colombia</span>
+                <div class="map-cont">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="cont services">
+                <h2>Servicios</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Valor</th>
+                            <th>Descripción</th>
+                        </tr>
+                        {% for services in offeredservices %}
+                            
+
+                        <tr>
+                            <td>456352</td>
+                            <td>{{ services }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="contact">
+                <a class="contact-button" href="#">
+                    <img src="{% static 'img/icons/contact.svg' %}" alt="">
+                    <span>Contact {{ lodgingofferdetail.created_by.first_name }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}

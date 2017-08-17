@@ -33,12 +33,12 @@ urlpatterns = [
     #        name='profile'
     #),
 
-    url(r"^profile/u/@(?P<slug>[\w\-]+)/$",
+    url(r"^profile/u/(?P<slug>[\w\-]+)/$",
         views.user_profile_update_view,
             name='profile'
     ),
 
-    url(r"^preferences/u/@(?P<slug>[\w.\-]+)/$",
+    url(r"^preferences/u/(?P<slug>[\w.\-]+)/$",
         views.AccountSettingsUpdateView.as_view(),
         name='preferences'
     ),

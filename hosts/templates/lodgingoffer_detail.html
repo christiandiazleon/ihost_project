@@ -20,8 +20,12 @@
                     </div>
                     <div class="name-review-cont">
                         <a href="#">
-                        <span>{{ lodgingofferdetail.created_by.first_name }}</span>
+                        {% if userprofile.user.user_type == "P" %}
+                            <span>{{ lodgingofferdetail.created_by.first_name }}</span>
+                        {% else %}
+                            <span>{{lodgingofferdetail.created_by.enterprise_name }}</span>
                         </a>
+                        {% endif %}
                         <img src="{% static 'img/stars.svg' %}" alt="">
                         <div class="average">
                             <span>546</span>
@@ -162,7 +166,13 @@
             <div class="contact">
                 <a class="contact-button" href="#">
                     <img src="{% static 'img/icons/contact.svg' %}" alt="">
-                    <span>Contact {{ lodgingofferdetail.created_by.first_name }}</span>
+                    {% if userprofile.user.user_type == "P" %}
+                            <span>{{ lodgingofferdetail.created_by.first_name }}</span>
+                        {% else %}
+                            <span>{{lodgingofferdetail.created_by.enterprise_name }}</span>
+                        </a>
+                        {% endif %}
+                    
                 </a>
             </div>
         </div>

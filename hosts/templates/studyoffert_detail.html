@@ -1,46 +1,174 @@
 {% extends 'layout.html' %}
 
+{% load staticfiles %}
 {% block title_tag %}{{ studyofferdetail.ad_title }} | {{ block.super }}{% endblock %}
 {% block body_content %}
-
-<div class="container">
-  <div class="page-header">
-    <h1>{{ studyofferdetail.ad_title }}</h1>
-  </div>
-    <p class="lead">About of this Study Offer</p>
-    <p>{{ studyofferdetail.additional_description }}</p><hr>
-      
-    <p class="lead">Topics</p>
-    <p>{{ studyofferdetail.knowledge_topics.all|join:", " }}</p><hr>
-    
-    <p class="lead">Study types</p>
-    {% for offer in studiestypeoffered %}
-      <p>{{ offer }}</p>
-    {% endfor %}<hr>
-
-    <p class="lead">Duration</p>
-    <p>{{ studyofferdetail.duration }}</p><hr>
-
-    <p class="lead">Academic Mobility Program</p>
-    <p>{{ studyofferdetail.academic_mobility_programs }}</p><hr>
-    
-    <p class="lead">Students number in {{ studyofferdetail.created_by.first_name }}</p>
-    <p>{{ studyofferdetail.students_number }}</p>
-    <h5>{{ studyofferdetail.institute_character }} Institution</h5>
-    <hr>
-
-    <p class="lead">Location Offer</p>
-    <p>{{ studyofferdetail.city }}, {{ studyofferdetail.country }}</p><hr>
-    
-    {% comment %}
-    <p class="lead">Photography</p>
-    <img src="{{ {{ object.image_url|default_if_none:'#' }} }}" height="150", width="200">
-    <hr>
-    {% endcomment %}
-
+<!-- Columna a la derecha -->
+<div class="search-column">
+    <div class="post-column">
+        <div class="info">
+            <div class="icon">
+                <img src="{% static 'img/icons/info.svg' %}" alt="">
+                <span>Information</span>
+            </div>
+            <div class="autor">
+                <p class="title">Author</p>
+                <div class="profile">
+                    <div class="img-cont">
+                        <a href="#">
+                        <img src="{{ studyofferdetail.created_by.avatar.url }}" alt="">
+                        </a>
+                    </div>
+                    <div class="name-review-cont">
+                        <a href="#">
+                        <span>{{studyofferdetail.created_by.enterprise_name }}</span>
+                        
+                        </a>
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                        <div class="average">
+                            <span>546</span>
+                            <span>valoraciones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="date">
+                <p class="title">Creation Date</p>
+                <span>{{ studyofferdetail.pub_date }}</span>
+            </div>
+            <div class="review">
+                <p class="title">Calificación de la oferta</p>
+                <img src="{% static 'img/stars.svg' %}" alt="">
+                <div class="average">
+                    <span>546</span>
+                    <span>valoraciones</span>
+                </div>
+            </div>
+        </div>
+        <div class="photos">
+            <div class="icon">
+                <img src="{% static 'img/icons/photo.svg' %}" alt="">
+                <span>Photos</span>
+            </div>
+            <div class="cont">
+                <div id="photo1" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo2" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo3" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo4" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo5" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+                <div id="photo6" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;"></div>
+            </div>
+        </div>
+        <div class="recomendation">
+            <div class="icon">
+                <img src="{% static 'img/icons/recomend.svg' %}" alt="">
+                <span>Te puede interesar</span>
+            </div>
+            <div class="cont innovate">
+                <a href="#">
+                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                        <div class="title">
+                            <span>Otra oferta de innovación</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="info">
+                    <div class="post-type"><i>innovatehost</i></div>
+                        <img src="{% static 'img/stars.svg' %}" alt="">
+                </div>
+            </div>
+            <div class="cont innovate">
+                <a href="#">
+                    <div class="img" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+                        <div class="title">
+                            <span>Otra oferta de innovación</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="info">
+                    <div class="post-type"><i>innovatehost</i></div>
+                    <img src="{% static 'img/stars.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container">
-    <p><a class='btn btn-warning' href = "{% url 'host:edit-study-offer' studyofferdetail.pk %}">Update</a></p>
-    
-</div>
+
+<!-- Contenido principal (ofertas) -->
+<main>
+    <div class="post-body">
+        <div class="banner" style="background: url('{% static "img/canada-toronto.jpg"%}') no-repeat center; background-size:cover;">
+            <div class="title-cont">
+                <h1>{{ studyofferdetail.ad_title }}</h1>
+            </div>
+        </div>
+        <div class="post-type innovate">
+            <i class="host">hostinghost</i>
+        </div>
+        <div class="main-content hosting">
+            <div class="cont type">
+                {% for offer in studiestypeoffered %}
+                    <h2>{{ offer }}</h2>
+                {% endfor %}
+                <p>{{ studyofferdetail.additional_description }}</p>
+            </div>
+            <div class="cont amenities">
+                <h2>Topics</h2>
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ studyofferdetail.knowledge_topics.all|join:", " }}</span>     
+                </div>
+                <h2>Duration</h2>
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ studyofferdetail.duration }}</span>
+                </div>
+
+                <h2>Academic Mobility program</h2>
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ studyofferdetail.academic_mobility_programs }}</span>
+                </div>
+                <h2>Students number in {{ studyofferdetail.created_by.first_name }}</h2>
+                <div>
+                    <img src="{% static 'img/icons/diary-button.svg' %}" alt="">
+                    <span>{{ studyofferdetail.students_number }}</span> <br />
+                    <span>{{ studyofferdetail.institute_character }}</span>
+                </div>
+            </div>
+            <div class="cont location">
+                <h2>Location Offer</h2>
+                <span>{{ studyofferdetail.city }}, {{ studyofferdetail.country }}</span><br />{{ address }}
+                <div class="map-cont">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1983.0517024099001!2d-75.56337732682343!3d6.25010353077667!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1501007278560" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="cont services">
+                <h2>Servicios</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Valor</th>
+                            <th>Descripción</th>
+                        </tr>
+                        
+                            
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="contact">
+                <a class="contact-button" href="#">
+                    <img src="{% static 'img/icons/contact.svg' %}" alt="">
+                    <span>Contact {{ studyofferdetail.created_by.enterprise_name }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}

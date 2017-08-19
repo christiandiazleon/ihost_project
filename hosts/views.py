@@ -324,7 +324,7 @@ class HostingOfferUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class HostingOfferDetailView(LoginRequiredMixin, DetailView):
+class HostingOfferDetailView(UserProfileDataMixin, LoginRequiredMixin, DetailView):
     model=LodgingOffer
     template_name = 'lodgingoffer_detail.html'
     context_object_name = 'lodgingofferdetail'
@@ -356,25 +356,6 @@ class HostingOfferDetailView(LoginRequiredMixin, DetailView):
         fe_amen_query = featuredamenities.featured_amenities.all()
         context['featuredamenities'] = fe_amen_query
 
-
-        if user.is_student:
-            profile = user.get_student_profile()
-            context['userprofile'] = profile
-        elif user.is_professor:
-            profile = user.get_professor_profile()
-            context['userprofile'] = profile
-        elif user.is_executive:
-            profile = user.get_executive_profile()
-            context['userprofile'] = profile
-        elif user.is_study_host:
-            profile = user.get_study_host_profile()
-            context['userprofile'] = profile
-        elif user.is_hosting_host:
-            profile = user.get_hosting_host_profile()
-            context['userprofile'] = profile
-        elif user.is_active:
-            #profile = user.get_user_profile()
-            context['userprofile'] = self.request.user
         return context
 
 

@@ -175,6 +175,9 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',),
 }
 
+CSRF_COOKIE_NAME = 'XSRF-TOKEN'
+CSRF_HEADER_NAME = 'HTTP_X_XSRF_TOKEN'
+CSRF_COOKIE_HTTPONLY = False
 
 
 

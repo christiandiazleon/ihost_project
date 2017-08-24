@@ -175,9 +175,6 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',),
 }
 
-CSRF_COOKIE_NAME = 'XSRF-TOKEN'
-CSRF_HEADER_NAME = 'HTTP_X_XSRF_TOKEN'
-CSRF_COOKIE_HTTPONLY = False
 
 
 
@@ -207,7 +204,7 @@ LOGIN_REDIRECT_URL = '/'
 
 #LOGOUT_REDIRECT_URL = '/accounts/logout/'
 
-# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 AUTH_USER_MODEL = "accounts.User"
 
@@ -317,7 +314,7 @@ STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-#REHABILITATION_SESSIONS_LOCATIONS = 'custom_storages.RehabilitationSessionStorage'
+
 
 # That will tell boto that when it uploads files to S3, it should set properties on them so that when S3 serves them, it'll include those HTTP headers in the response.
 # Those HTTP headers in turn will tell browsers that they can cache these files for a very long time.

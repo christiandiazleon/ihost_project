@@ -21,16 +21,25 @@ from .forms import (LodgingOfferForm,
 
 from django.views.generic.edit import FormView
 from haystack.query import SearchQuerySet
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 
 
 # ViewSets define the view behavior.
+
 class LodgingOfferViewSet(viewsets.ModelViewSet):
     # lookup_field = 'name'
     queryset = LodgingOffer.objects.all()
     serializer_class = LodgingOfferSerializer
 
+    """
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LodgingOfferViewSet, self).dispatch(request, *args, **kwargs)
+    """
 class StudiesOffertViewSet(viewsets.ModelViewSet):
     # lookup_field = 'name'
     queryset = StudiesOffert.objects.all()
